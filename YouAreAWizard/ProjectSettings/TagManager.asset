@@ -13,6 +13,7 @@ TagManager:
   - RayDetectL
   - RayDetectR
   - ground
+  - Shield
   layers:
   - Default
   - TransparentFX

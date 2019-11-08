@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d77ca21284472402882833c621eeb4f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objRotationSpeed: 60
+  objRotationSpeed: 40
 --- !u!136 &7539098640804154272
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -649,6 +649,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4182099351113421205, guid: d9809c5e8418bb047bf2c8ba1d1a2cec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6550868427423830430, guid: d9809c5e8418bb047bf2c8ba1d1a2cec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 11479374, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
       propertyPath: m_controller
       value: 16777216
@@ -658,11 +668,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8799587481758755762, guid: 0960d7ce35da44264a20e7407251930b,
         type: 3}
-    - target: {fileID: 6550868427423830430, guid: d9809c5e8418bb047bf2c8ba1d1a2cec,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 932765303586552710, guid: d9809c5e8418bb047bf2c8ba1d1a2cec,
         type: 3}
       propertyPath: theCamera
@@ -693,11 +698,6 @@ PrefabInstance:
       propertyPath: trackingSpace
       value: 
       objectReference: {fileID: 8126822050683772198}
-    - target: {fileID: 4182099351113421205, guid: d9809c5e8418bb047bf2c8ba1d1a2cec,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4211868727252638922, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class projectileMove : MonoBehaviour
 {
-    public float speed;
+    private int speed=3;
     private int theDamage = 1;
     private float timeBullet = 0;
     public GameObject thePlayer;
@@ -17,13 +17,13 @@ public class projectileMove : MonoBehaviour
         {
             thePlayer = GameObject.Find("/Player");
         }
-        Debug.Log(thePlayer.transform.position);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(speed !=0)
+        if(speed != 0)
         {
             if (transform.tag == "Player")
             {
@@ -46,21 +46,30 @@ public class projectileMove : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "Player")
+        if(transform.name == "EnnemySpell")
         {
-            AudioSource.PlayClipAtPoint(hurt, collision.transform.position);
-        }
-        else if(collision.transform.name == "wizard_Sword" || collision.transform.name == "wizard_Wand")
-        {
-            Impact health = collision.collider.GetComponent<Impact>();
-
-            if (health != null)
+            if (collision.transform.tag == "Player")
             {
-                health.Damage(theDamage);
+                AudioSource.PlayClipAtPoint(hurt, collision.transform.position);
+                Destroy(gameObject);
+                speed = 0;
             }
-          
         }
-        speed = 0;
-        Destroy(gameObject);
+        else if(transform.name=="PlayerSpell")
+        {
+            if (collision.transform.name == "wizard_Sword" || collision.transform.name == "wizard_Wand")
+            {
+                Impact health = collision.collider.GetComponent<Impact>();
+
+                if (health != null)
+                {
+                    health.Damage(theDamage);
+                }
+                Destroy(gameObject);
+                speed = 0;
+            }
+        }
+        
+        
     }
 }
