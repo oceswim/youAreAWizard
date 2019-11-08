@@ -5184,7 +5184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77bba33f99dad4387b3c9d062ba50a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thePlayer: {fileID: 0}
+  thePlayer: {fileID: 8126822050684196932, guid: d1dd58ec7aa774a8d87b83e9b03139de,
+    type: 3}
   goal: {fileID: 0}
   firePoint: {fileID: 989333811733893550}
   vfx: {fileID: 3997630668601885635, guid: 9ef0dd9c17f714ed8966af4524300ca4, type: 3}

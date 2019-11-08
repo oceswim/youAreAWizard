@@ -9690,6 +9690,7 @@ MonoBehaviour:
   speed: 20
   thePlayer: {fileID: 8126822050683700324, guid: d1dd58ec7aa774a8d87b83e9b03139de,
     type: 3}
+  hurt: {fileID: 8300000, guid: 00d31af1aa95a45d4ae71f77a37bf34d, type: 3}
 --- !u!65 &4768808357634866080
 BoxCollider:
   m_ObjectHideFlags: 0
