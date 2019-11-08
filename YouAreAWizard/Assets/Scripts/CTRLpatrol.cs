@@ -1,0 +1,176 @@
+﻿using UnityEngine;
+using System.Collections;
+using UnityEngine.AI;
+
+public class CTRLpatrol : MonoBehaviour
+{
+
+    private float move = 5;
+    private float rotationSpeed = 6;
+    public GameObject thePlayer;
+    public Transform[] goals;
+    private int destPoint = 0;
+    private NavMeshAgent agent;
+    public Transform target;
+
+
+    private Vector3 theTarget;
+    public GameObject firePoint;
+    public GameObject vfx;
+    private GameObject effectToSpawn;
+
+    private bool hasArrived;
+    public static bool isDead;
+    public static bool isDefending;
+    private int single;
+
+    private bool isAttacking;
+    private float shot, dead;
+    private Animator _animator;
+    private float _timeTillAttack = 3f;
+    // Use this for initialization
+    void Start()
+    {
+		effectToSpawn = vfx;
+        isDefending = false;
+        _animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.autoBraking = false;
+        GotoNextPoint();
+        shot = dead = single = 0;
+        isDead = false;
+        isAttacking = false;
+        hasArrived = false;
+        _animator.SetBool("isMoving", true);
+        theTarget = target.position;
+
+    }
+    void GotoNextPoint()
+    {
+        // Returns if no points have been set up
+        if (goals.Length == 0)
+            return;
+
+        // Set the agent to go to the currently selected destination.
+        agent.destination = goals[destPoint].position;
+
+        // Choose the next point in the array as the destination,
+        // cycling to the start if necessary.
+        destPoint = (destPoint + 1) % goals.Length;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Choose the next destination point when the agent gets
+        // close to the current one.
+        if (!isDefending)
+        {
+            if (!agent.pathPending && agent.remainingDistance < .5f)
+            {
+                GotoNextPoint();
+            }
+        }
+        else
+        {
+            _animator.SetBool("isMoving", false);
+            transform.LookAt(thePlayer.transform);
+            if (!hasArrived)
+            {
+
+                if (isDead)
+                {
+                    Die();
+                }
+                else
+                {
+                    _animator.SetBool("isMoving", true);
+
+                    transform.rotation = Quaternion.Slerp(transform.rotation,
+                        Quaternion.LookRotation(theTarget - transform.position),
+                        rotationSpeed * Time.deltaTime);
+                    transform.position += transform.forward * move * Time.deltaTime;
+
+                }
+
+            }
+            else if (hasArrived)
+            {
+
+
+                if (isDead)
+                {
+                    Die();
+                }
+                else
+                {
+                    Attack();
+                }
+            }
+
+            hasArrived |= Mathf.Abs(transform.position.magnitude - theTarget.magnitude) < .5;
+        }
+    }
+
+    private void Attack()
+    {
+        _animator.SetBool("isMoving", false);
+        transform.LookAt(thePlayer.transform);
+        if (!isAttacking)
+        {
+
+            isAttacking = true;
+        }
+        else
+        {
+            _timeTillAttack -= Time.deltaTime;
+        }
+        if (_timeTillAttack <= 0)
+        {
+            _animator.SetBool("isAttacking", true);
+            //play attack sounds
+            //attack script
+            if (shot < 1.5f)
+            {
+                shot += Time.deltaTime;
+                if (shot > .7 && single == 0)
+                {
+                    single++;
+                    SpawnVFX();
+                }
+            }
+            else
+            {
+                _animator.SetBool("isAttacking", false);
+                _timeTillAttack = 3.0f;
+                shot = 0;
+                isAttacking = false;
+            }
+
+
+
+        }
+    }
+    private void Die()
+    {
+        if (dead < 5f)
+        {
+            dead += Time.deltaTime;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    void SpawnVFX()
+    {
+
+        if (firePoint != null)
+        {
+            vfx = Instantiate(effectToSpawn, firePoint.transform.position, Quaternion.identity);
+            vfx.transform.localRotation = transform.rotation;
+        }
+
+    }
+
+}

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 335f4056c30a84377af05f981dcc36a6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - touch: {instanceID: 0}
+  - miss: {instanceID: 0}
+  - spawner: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
