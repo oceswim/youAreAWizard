@@ -6452,7 +6452,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1645206495}
+      - m_Target: {fileID: 806603696}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -7546,7 +7546,7 @@ PrefabInstance:
     - target: {fileID: 8126822050683700324, guid: d1dd58ec7aa774a8d87b83e9b03139de,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 129.15254
+      value: 129.03336
       objectReference: {fileID: 0}
     - target: {fileID: 8126822050683700324, guid: d1dd58ec7aa774a8d87b83e9b03139de,
         type: 3}
@@ -7556,7 +7556,7 @@ PrefabInstance:
     - target: {fileID: 8126822050683700324, guid: d1dd58ec7aa774a8d87b83e9b03139de,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 50.49725
+      value: 50.351986
       objectReference: {fileID: 0}
     - target: {fileID: 8126822050683700324, guid: d1dd58ec7aa774a8d87b83e9b03139de,
         type: 3}
@@ -7566,7 +7566,7 @@ PrefabInstance:
     - target: {fileID: 8126822050683700324, guid: d1dd58ec7aa774a8d87b83e9b03139de,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9169192
+      value: 0.8955591
       objectReference: {fileID: 0}
     - target: {fileID: 8126822050683700324, guid: d1dd58ec7aa774a8d87b83e9b03139de,
         type: 3}
@@ -7576,7 +7576,7 @@ PrefabInstance:
     - target: {fileID: 8126822050683700324, guid: d1dd58ec7aa774a8d87b83e9b03139de,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.39907315
+      value: 0.44494265
       objectReference: {fileID: 0}
     - target: {fileID: 8126822050683700324, guid: d1dd58ec7aa774a8d87b83e9b03139de,
         type: 3}
@@ -7591,7 +7591,7 @@ PrefabInstance:
     - target: {fileID: 8126822050683700324, guid: d1dd58ec7aa774a8d87b83e9b03139de,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 132.96
+      value: 127.161
       objectReference: {fileID: 0}
     - target: {fileID: 8126822050683700324, guid: d1dd58ec7aa774a8d87b83e9b03139de,
         type: 3}
@@ -7621,7 +7621,7 @@ PrefabInstance:
     - target: {fileID: 5386736898903666346, guid: d1dd58ec7aa774a8d87b83e9b03139de,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2540066308398973164, guid: d1dd58ec7aa774a8d87b83e9b03139de,
         type: 3}
@@ -9313,7 +9313,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856253732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 132.74, y: 12.03, z: 50.87}
+  m_LocalPosition: {x: 130.21, y: 12.03, z: 51.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1865950228}
@@ -30315,6 +30315,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1749394948}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2133592913
@@ -30525,7 +30536,7 @@ GameObject:
   - component: {fileID: 64205697067174813}
   - component: {fileID: 4387056618175219725}
   m_Layer: 0
-  m_Name: DungeonGateDEP_ST
+  m_Name: DungeonGate
   m_TagString: Lv3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101219,6 +101230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67417e0595f6941288271480519f770c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shock: {fileID: 8300000, guid: bdc1ba5d509be4daa8fc3bf6ff9095d7, type: 3}
 --- !u!1001 &5495238384535931663
 PrefabInstance:
   m_ObjectHideFlags: 0

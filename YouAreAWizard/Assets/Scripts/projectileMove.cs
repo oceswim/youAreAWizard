@@ -25,7 +25,7 @@ public class projectileMove : MonoBehaviour
     {
         if(speed != 0)
         {
-            if (transform.tag == "Player")
+            if (transform.tag == "PlayerAttack")
             {
                 transform.position += transform.forward * (speed * Time.deltaTime);
             }

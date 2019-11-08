@@ -15,6 +15,7 @@ TagManager:
   - ground
   - Shield
   - PlayerAttack
+  - ennemySpell
   layers:
   - Default
   - TransparentFX
