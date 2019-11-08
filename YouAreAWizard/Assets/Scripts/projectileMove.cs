@@ -51,9 +51,10 @@ public class projectileMove : MonoBehaviour
             if (collision.transform.tag == "Player")
             {
                 AudioSource.PlayClipAtPoint(hurt, collision.transform.position);
-                Destroy(gameObject);
                 speed = 0;
+                Destroy(gameObject);
             }
+        
         }
         else if(transform.name=="PlayerSpell")
         {
@@ -68,7 +69,23 @@ public class projectileMove : MonoBehaviour
                 Destroy(gameObject);
                 speed = 0;
             }
+            else if(collision.transform.name == "DungeonGate")
+            {
+                PlayerDestroy gateLife = collision.collider.GetComponent<PlayerDestroy>();
+                if(gateLife != null)
+                {
+                    gateLife.DoorDamage(theDamage);
+                }
+                Destroy(gameObject);
+                speed = 0;
+            }
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+     
+        
         
         
     }
