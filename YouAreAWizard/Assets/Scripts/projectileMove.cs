@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class projectileMove : MonoBehaviour
 {
-    private int speed=3;
+    private int speed=20;
     private int theDamage = 1;
     private float timeBullet = 0;
     public GameObject thePlayer;
@@ -71,5 +71,10 @@ public class projectileMove : MonoBehaviour
         }
         
         
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(other.gameObject);
+        Destroy(gameObject);
     }
 }

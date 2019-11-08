@@ -55,30 +55,33 @@ public class OVRTrackedRemote : MonoBehaviour
 
 
     private readonly float doubleClickTimeLimit = 0.3f;
-    
-    
+
+
     private float lastClickTime;
     private int single;
 
+    private int firstShield = 0;
+    public static bool ShieldActive;
 
     //private Vector3 position;
-    private bool doubleTrigger,singleTrigger;
+    private bool doubleTrigger, singleTrigger;
     private int triggerCount;
-    private float timerBetweentrigger,firstCickTime;
+    private float timerBetweentrigger, firstCickTime;
 
-    private bool active,protection;
+    private bool active, protection;
 
 
-   
+
 
 
 
     void Start()
     {
+        ShieldActive = false;
         //teleportation = false;
         //position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
         m_isWand = true;
-        firstCickTime=0f;
+        firstCickTime = 0f;
         timerBetweentrigger = .3f;
         triggerCount = 0;
         doubleTrigger = true;
@@ -121,18 +124,18 @@ public class OVRTrackedRemote : MonoBehaviour
                     if (m_isWand)
                     {
                         //play orb noise
-                        
+
                         Shield.SetActive(false);
                         m_isWand = false;
                         m_Wand.SetActive(false);
                         m_Orb.SetActive(true);
-                       // Time.timeScale = 0.5f;
+                        // Time.timeScale = 0.5f;
 
                     }
                     else if (!m_isWand)
                     {
                         //play wand noise
-                       // Time.timeScale = 1.0f;
+                        // Time.timeScale = 1.0f;
                         m_isWand = true;
                         m_Wand.SetActive(true);
                         m_Orb.SetActive(false);
@@ -147,7 +150,7 @@ public class OVRTrackedRemote : MonoBehaviour
             {
                 triggerCount += 1;
             }
-          
+
             if (triggerCount == 1 && doubleTrigger)
             {
                 firstCickTime = Time.time;
@@ -158,7 +161,7 @@ public class OVRTrackedRemote : MonoBehaviour
     private IEnumerator DoubleTriggerDetect()
     {
         doubleTrigger = false;
-        while(Time.time <firstCickTime + timerBetweentrigger)
+        while (Time.time < firstCickTime + timerBetweentrigger)
         {
             if (triggerCount == 2)
             {
@@ -171,36 +174,45 @@ public class OVRTrackedRemote : MonoBehaviour
         }
         if (singleTrigger)
         {
-            
-                if (!active&& single==0)
-                {
+
+            if (!active && single == 0)
+            {
                 single++;
-                    mSpawnRay.CastSpell();
-                }
-            
+                mSpawnRay.CastSpell();
+            }
+
         }
         else
         {
 
-                if (!active)
+            if (!active)
+            {
+                if (firstShield == 0)
                 {
-                    Shield.SetActive(true);
-                    active = true;
+                    ShieldActive = true;
+                    firstShield++;
                 }
-                else
+                if (firstShield == 1)
                 {
-                    Shield.SetActive(false);
-                    active = false;
+                    ShieldActive = false;
                 }
+                Shield.SetActive(true);
+                active = true;
+            }
+            else
+            {
+                Shield.SetActive(false);
+                active = false;
+            }
 
-            
+
         }
         single = 0;
         triggerCount = 0;
         firstCickTime = 0f;
         doubleTrigger = true;
         singleTrigger = false;
-       
+
     }
 
     /*Vector3 SwipeDir

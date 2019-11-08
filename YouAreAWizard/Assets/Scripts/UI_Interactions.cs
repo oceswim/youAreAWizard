@@ -7,6 +7,16 @@ public class UI_Interactions : MonoBehaviour
     // Start is called before the first frame update
     public GameObject toActivate;
     public GameObject toDeActivate;
+    private void Update()
+    {
+        if(OVRTrackedRemote.ShieldActive)
+        {
+            Debug.Log("Shield");
+            toActivate.SetActive(true);
+            toDeActivate.SetActive(false);
+
+        }
+    }
     void OnTriggerEnter(Collider other)
     {
             Debug.Log("Ouch");
@@ -19,18 +29,6 @@ public class UI_Interactions : MonoBehaviour
         
         
     }
-    private void OnTriggerStay(Collider other)
-    {
-        Debug.Log("Ouch" + other.transform.tag);
-        toActivate.SetActive(true);
-        toDeActivate.SetActive(false);
-        if (other.transform.CompareTag("Shield"))
-        {
-
-            Destroy(gameObject);
-        }
-    }
-
     // Update is called once per frame
 
 }
