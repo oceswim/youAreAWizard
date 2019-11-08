@@ -60,15 +60,15 @@ public class OVRTrackedRemote : MonoBehaviour
     private float lastClickTime;
     private int single;
 
-    private int firstShield = 0;
-    public static bool ShieldActive;
-
+    //private int firstShield = 0;
+    //public static bool ShieldActive;
+    public static bool active;
     //private Vector3 position;
     private bool doubleTrigger, singleTrigger;
     private int triggerCount;
     private float timerBetweentrigger, firstCickTime;
 
-    private bool active, protection;
+    private bool  protection;
 
 
 
@@ -77,7 +77,7 @@ public class OVRTrackedRemote : MonoBehaviour
 
     void Start()
     {
-        ShieldActive = false;
+        //ShieldActive = false;
         //teleportation = false;
         //position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
         m_isWand = true;
@@ -187,7 +187,7 @@ public class OVRTrackedRemote : MonoBehaviour
 
             if (!active)
             {
-                if (firstShield == 0)
+               /* if (firstShield == 0)
                 {
                     ShieldActive = true;
                     firstShield++;
@@ -195,7 +195,7 @@ public class OVRTrackedRemote : MonoBehaviour
                 if (firstShield == 1)
                 {
                     ShieldActive = false;
-                }
+                }*/
                 Shield.SetActive(true);
                 active = true;
             }

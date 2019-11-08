@@ -18,7 +18,7 @@ public class spawnRay : MonoBehaviour
     public float range = 100f;
     public float hitForce = 100f;
     public int theDamage = 1;
-    private LineRenderer laserLine;
+    //private LineRenderer laserLine;
 
     public Transform theWand;
     public GameObject vfx;
@@ -28,7 +28,7 @@ public class spawnRay : MonoBehaviour
     void Start()
     {
 		effectToSpawn = vfx;
-        laserLine = GetComponent<LineRenderer>();
+        //laserLine = GetComponent<LineRenderer>();
     }
 
     public void CastSpell()
@@ -88,7 +88,7 @@ public class spawnRay : MonoBehaviour
         yield return new WaitForSeconds(.5f);
 
         // Deactivate our line renderer after waiting
-        laserLine.enabled = false;
+        //laserLine.enabled = false;
     }
     
 

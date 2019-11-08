@@ -14,7 +14,8 @@ public class shieldDestroy : MonoBehaviour
     {
         if(collsion.transform.tag == "ennemySpell")
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            OVRTrackedRemote.active = false;
         }
     }
 }

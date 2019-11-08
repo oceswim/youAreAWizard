@@ -4766,7 +4766,7 @@ GameObject:
   - component: {fileID: 2005931110896479410}
   m_Layer: 0
   m_Name: EnnemySpell
-  m_TagString: Untagged
+  m_TagString: ennemySpell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4800,9 +4800,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe8bfa91e5224e139ce781b888140f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thePlayer: {fileID: 8126822050683700324, guid: d1dd58ec7aa774a8d87b83e9b03139de,
-    type: 3}
+  target: {fileID: 4976035995461569801, guid: a15f71bdbc94d48b9bc14b128ce6437f, type: 3}
   hurt: {fileID: 8300000, guid: 00d31af1aa95a45d4ae71f77a37bf34d, type: 3}
+  shock: {fileID: 8300000, guid: 8f3dc90b20c074ccda256e21402436e4, type: 3}
 --- !u!136 &5501093908889217192
 CapsuleCollider:
   m_ObjectHideFlags: 0
