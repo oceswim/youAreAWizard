@@ -7,13 +7,17 @@ public class projectileMove : MonoBehaviour
     public float speed;
     private int theDamage = 1;
     private float timeBullet = 0;
-    public Transform thePlayer;
+    public GameObject thePlayer;
     public AudioClip hurt;
 
     // Start is called before the first frame update
     void Start()
     {
-      
+        if (transform.tag != "player")
+        {
+            thePlayer = GameObject.Find("/Player");
+        }
+        Debug.Log(thePlayer.transform.position);
     }
 
     // Update is called once per frame
@@ -27,7 +31,7 @@ public class projectileMove : MonoBehaviour
             }
             else
             {
-                transform.position = Vector3.MoveTowards(transform.position, thePlayer.position, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, thePlayer.transform.position, speed * Time.deltaTime);
             }
         }
         if (timeBullet>3)
