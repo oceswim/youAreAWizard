@@ -7,27 +7,38 @@ public class UI_Interactions : MonoBehaviour
     // Start is called before the first frame update
     public GameObject toActivate;
     public GameObject toDeActivate;
+
     private void Update()
     {
-        if(OVRTrackedRemote.ShieldActive)
-        {
-            Debug.Log("Shield");
-            toActivate.SetActive(true);
-            toDeActivate.SetActive(false);
-
-        }
+       
     }
     void OnTriggerEnter(Collider other)
     {
-            Debug.Log("Ouch");
+        if (toActivate != null)
+        {
             toActivate.SetActive(true);
+        }
+        if (toDeActivate != null)
+        {
             toDeActivate.SetActive(false);
-        if (other.transform.CompareTag("Player"))
+        }
+        if (other.transform.CompareTag("PlayerAttack"))
         {
             Destroy(other.transform);
+            Destroy(gameObject);//destroy the orb
         }
-        
-        
+        else if(other.transform.CompareTag("Shield"))
+        {
+            Destroy(gameObject);
+            other.gameObject.SetActive(false);
+        }
+        else if (other.transform.CompareTag("Player"))
+        {
+            Destroy(gameObject);//destroy the teleport area
+            
+        }
+
+
     }
     // Update is called once per frame
 

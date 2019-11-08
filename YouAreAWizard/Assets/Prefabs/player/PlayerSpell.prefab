@@ -9653,7 +9653,7 @@ GameObject:
   - component: {fileID: 7678293452770726146}
   m_Layer: 0
   m_Name: PlayerSpell
-  m_TagString: Player
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9687,7 +9687,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe8bfa91e5224e139ce781b888140f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
   thePlayer: {fileID: 8126822050683700324, guid: d1dd58ec7aa774a8d87b83e9b03139de,
     type: 3}
   hurt: {fileID: 8300000, guid: 00d31af1aa95a45d4ae71f77a37bf34d, type: 3}

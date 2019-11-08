@@ -86,7 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arcRaycaster: {fileID: 114349850602347358}
   objectToMove: {fileID: 0}
-  height: 1.5
+  height: 2
   teleportedUpAxis: 0
 --- !u!120 &120530011997855020
 LineRenderer:

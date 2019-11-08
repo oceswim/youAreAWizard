@@ -14,6 +14,7 @@ TagManager:
   - RayDetectR
   - ground
   - Shield
+  - PlayerAttack
   layers:
   - Default
   - TransparentFX

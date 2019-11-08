@@ -8,8 +8,9 @@ public class essai : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("ouch");
-        CTRLpatrol.isDefending = true;
+       // CTRLpatrol.isDefending = true;
         Destroy(gameObject);
+        other.gameObject.SetActive(false);
     }
 
 }
