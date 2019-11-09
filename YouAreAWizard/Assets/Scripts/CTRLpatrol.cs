@@ -39,7 +39,7 @@ public class CTRLpatrol : MonoBehaviour
         _animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
-        GotoNextPoint(destPoint);
+        GotoNextPoint();
         shot = dead = single = 0;
         isDead = false;
         isAttacking = false;
@@ -48,7 +48,7 @@ public class CTRLpatrol : MonoBehaviour
         theTarget = target.position;
 
     }
-    void GotoNextPoint(int destination)
+    void GotoNextPoint()
     {
 
         // Returns if no points have been set up
@@ -56,11 +56,11 @@ public class CTRLpatrol : MonoBehaviour
             return;
 
         // Set the agent to go to the currently selected destination.
-        agent.destination = goals[destination].position;
+        agent.destination = goals[destPoint].position;
 
         // Choose the next point in the array as the destination,
         // cycling to the start if necessary.
-        destPoint = (destination + 1) % goals.Length;
+        destPoint = (destPoint + 1) % goals.Length;
     }
 
     // Update is called once per frame
@@ -71,13 +71,9 @@ public class CTRLpatrol : MonoBehaviour
         // close to the current one.
         if (!isDefending)
         {
-            if (currentGoal < goals.Length)
+            if (!agent.pathPending && agent.remainingDistance < .5f)
             {
-                GotoNextPoint(currentGoal);
-            }
-            else
-            {
-                currentGoal = 0;
+                GotoNextPoint();
             }
         }
         else

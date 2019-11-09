@@ -49,6 +49,10 @@ public class projectileMove : MonoBehaviour
             {
                 AudioSource.PlayClipAtPoint(shock, collision.transform.position);
             }
+       else if(collision.transform.tag == "Shield")
+        {
+            Destroy(gameObject);
+        }
 
 
         
