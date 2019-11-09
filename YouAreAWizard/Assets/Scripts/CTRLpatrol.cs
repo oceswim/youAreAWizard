@@ -22,7 +22,7 @@ public class CTRLpatrol : MonoBehaviour
     private bool hasArrived;
     public static bool isDead;
     public static bool isDefending;
-    public bool defense;
+ 
     private int single;
 
     private bool isAttacking;
@@ -32,7 +32,7 @@ public class CTRLpatrol : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        defense = false;
+
 		effectToSpawn = vfx;
         isDefending = false;
         _animator = GetComponent<Animator>();
@@ -75,7 +75,6 @@ public class CTRLpatrol : MonoBehaviour
         }
         else
         {
-            _animator.SetBool("isMoving", false);
             transform.LookAt(thePlayer.transform);
             if (!hasArrived)
             {

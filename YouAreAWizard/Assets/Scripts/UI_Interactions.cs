@@ -14,17 +14,15 @@ public class UI_Interactions : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (gameObject.name != "wizard_Sword")
-        {
-            toActivate.SetActive(true);
-        }
+       
+        toActivate.SetActive(true);
         toDeActivate.SetActive(false);
         
         if (other.transform.CompareTag("PlayerAttack"))
         {
             Destroy(other.transform);
             Destroy(gameObject);//destroy the object hit
-            if(gameObject.name=="wizard_Sword")
+            if(gameObject.name=="wizard_Sword")//when player 
             {
                 toActivate.SetActive(true);
             }
@@ -43,16 +41,16 @@ public class UI_Interactions : MonoBehaviour
         toActivate.SetActive(true);
         toDeActivate.SetActive(false);
 
-        if (other.transform.CompareTag("PlayerAttack"))
+        if (other.transform.CompareTag("PlayerAttack"))//for the orb
         {
             Destroy(other.transform);
             Destroy(gameObject);//destroy the orb
         }
-        else if (other.transform.tag == "Player")
+       /* else if (other.transform.tag == "Player")//when player teleport
         {
             Destroy(gameObject);//destroy the teleport area
 
-        }
+        }*/
 
 
     }
