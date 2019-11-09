@@ -21,7 +21,7 @@ public class PlayerDestroy : MonoBehaviour
 		{
             //ouch noise
         
-            AudioSource.PlayClipAtPoint(shock, transform.position,100f);
+            AudioSource.PlayClipAtPoint(shock, transform.position,200f);
 
 
         }

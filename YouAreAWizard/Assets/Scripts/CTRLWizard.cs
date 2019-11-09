@@ -28,6 +28,7 @@ public class CTRLWizard : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        
         effectToSpawn = vfx;
         _animator = GetComponent<Animator>();
 

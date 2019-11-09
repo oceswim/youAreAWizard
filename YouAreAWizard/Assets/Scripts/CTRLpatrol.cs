@@ -22,7 +22,7 @@ public class CTRLpatrol : MonoBehaviour
     private bool hasArrived;
     public static bool isDead;
     public static bool isDefending;
- 
+    public AudioClip attack;
     private int single;
 
     private bool isAttacking;
@@ -43,12 +43,13 @@ public class CTRLpatrol : MonoBehaviour
         isDead = false;
         isAttacking = false;
         hasArrived = false;
-        _animator.SetBool("isMoving", true);
+
         theTarget = target.position;
 
     }
     void GotoNextPoint()
     {
+      
         // Returns if no points have been set up
         if (goals.Length == 0)
             return;
@@ -68,24 +69,27 @@ public class CTRLpatrol : MonoBehaviour
         // close to the current one.
         if (!isDefending)
         {
+       
             if (!agent.pathPending && agent.remainingDistance < .5f)
             {
+                Debug.Log("going to next point");
                 GotoNextPoint();
             }
         }
         else
         {
-            transform.LookAt(thePlayer.transform);
+
             if (!hasArrived)
             {
 
                 if (isDead)
                 {
-                    _animator.SetBool("isMoving", false);
+                    //_animator.SetBool("isMoving", false);
                     Die();
                 }
                 else
                 {
+                    Debug.Log("moving");
                     _animator.SetBool("isMoving", true);
 
                     transform.rotation = Quaternion.Slerp(transform.rotation,
@@ -98,8 +102,7 @@ public class CTRLpatrol : MonoBehaviour
             }
             else if (hasArrived)
             {
-
-
+               
                 if (isDead)
                 {
              
@@ -107,17 +110,19 @@ public class CTRLpatrol : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("attacking");
                     Attack();
                 }
             }
-
-            hasArrived |= Mathf.Abs(transform.position.magnitude - theTarget.magnitude) < .5;
+                hasArrived |= Mathf.Abs(transform.position.magnitude - theTarget.magnitude) < .5;
+            
         }
     }
 
     private void Attack()
-    {
+    { 
         _animator.SetBool("isMoving", false);
+    
         transform.LookAt(thePlayer.transform);
         if (!isAttacking)
         {
@@ -170,6 +175,7 @@ public class CTRLpatrol : MonoBehaviour
 
         if (firePoint != null)
         {
+            AudioSource.PlayClipAtPoint(attack, transform.position);
             vfx = Instantiate(effectToSpawn, firePoint.transform.position, Quaternion.identity);
             vfx.transform.localRotation = transform.rotation;
         }

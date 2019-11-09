@@ -9649,8 +9649,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8441816255086177836}
   - component: {fileID: 4768808357634866080}
-  - component: {fileID: 7678293452770726146}
   - component: {fileID: 9050224231457223906}
+  - component: {fileID: 1457568541951405543}
   m_Layer: 0
   m_Name: PlayerSpell
   m_TagString: PlayerAttack
@@ -9688,7 +9688,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &7678293452770726146
+--- !u!114 &9050224231457223906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7669035980366246940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932345fb970134fbe9112db38635adbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hurt: {fileID: 8300000, guid: ecb58bd51ba0a4d5c806d01569da29e9, type: 3}
+  shock: {fileID: 8300000, guid: 8f3dc90b20c074ccda256e21402436e4, type: 3}
+--- !u!54 &1457568541951405543
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9704,17 +9718,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &9050224231457223906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7669035980366246940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 932345fb970134fbe9112db38635adbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hurt: {fileID: 8300000, guid: ecb58bd51ba0a4d5c806d01569da29e9, type: 3}
-  shock: {fileID: 8300000, guid: 8f3dc90b20c074ccda256e21402436e4, type: 3}

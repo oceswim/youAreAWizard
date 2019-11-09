@@ -10,8 +10,13 @@ public class contact : MonoBehaviour
     public AudioClip hurt;
     public AudioClip shock;
     private int single = 0;
+    public static bool activate;
     // Start is called before the first frame update
     // Update is called once per frame
+    private void Start()
+    {
+        activate = false;
+    }
     void Update()
     {
         if (speed != 0)
@@ -45,8 +50,10 @@ public class contact : MonoBehaviour
         }
         else if (collision.gameObject.name == "DungeonGate")
         {
+           
             if (single == 0)
             {
+                activate = true;
                 CTRLpatrol.isDefending = true;
                 single++;
             }

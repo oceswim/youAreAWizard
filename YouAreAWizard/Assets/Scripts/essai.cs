@@ -7,8 +7,8 @@ public class essai : MonoBehaviour
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("ouch");
-       // CTRLpatrol.isDefending = true;
+
+        CTRLpatrol.isDefending = true;
         Destroy(gameObject);
         other.gameObject.SetActive(false);
     }
