@@ -20,16 +20,10 @@ public class PlayerDestroy : MonoBehaviour
 		else if (health > 0)
 		{
             //ouch noise
-            AudioSource.PlayClipAtPoint(shock, transform.position);
+        
+            AudioSource.PlayClipAtPoint(shock, transform.position,100f);
 
 
-        }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.tag == "PlayerAttack")
-        {
-            CTRLpatrol.isDefending = true;
         }
     }
 

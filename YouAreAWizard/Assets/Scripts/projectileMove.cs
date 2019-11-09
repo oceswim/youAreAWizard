@@ -12,13 +12,17 @@ public class projectileMove : MonoBehaviour
     public AudioClip shock;
 
     // Start is called before the first frame update
-
+    private void Start()
+    {
+        target = GameObject.Find("/New");
+    }
     // Update is called once per frame
     void Update()
     {
         if(speed != 0)
         {
-     
+            Debug.Log(target.transform.position);
+            Debug.Log(target.transform.name);
          transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
             
         }
@@ -34,9 +38,7 @@ public class projectileMove : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(transform.tag == "ennemySpell")
-        {
-            if (collision.transform.tag == "Player")
+       if (collision.transform.tag == "Player")
             {
                 
                 AudioSource.PlayClipAtPoint(hurt, collision.transform.position);
@@ -48,7 +50,8 @@ public class projectileMove : MonoBehaviour
                 AudioSource.PlayClipAtPoint(shock, collision.transform.position);
             }
 
-        }
+
+        
         
     }
     private void OnTriggerEnter(Collider other)
