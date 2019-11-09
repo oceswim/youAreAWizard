@@ -80,6 +80,7 @@ public class CTRLpatrol : MonoBehaviour
 
                 if (isDead)
                 {
+                    _animator.SetBool("isMoving", false);
                     Die();
                 }
                 else
@@ -100,6 +101,7 @@ public class CTRLpatrol : MonoBehaviour
 
                 if (isDead)
                 {
+             
                     Die();
                 }
                 else

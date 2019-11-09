@@ -25,6 +25,13 @@ public class PlayerDestroy : MonoBehaviour
 
         }
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "PlayerAttack")
+        {
+            CTRLpatrol.isDefending = true;
+        }
+    }
 
 }
 

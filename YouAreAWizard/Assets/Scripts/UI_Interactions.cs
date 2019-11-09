@@ -14,13 +14,20 @@ public class UI_Interactions : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
+        if (gameObject.name != "wizard_Sword")
+        {
             toActivate.SetActive(true);
-            toDeActivate.SetActive(false);
+        }
+        toDeActivate.SetActive(false);
         
         if (other.transform.CompareTag("PlayerAttack"))
         {
             Destroy(other.transform);
-            Destroy(gameObject);//destroy the orb
+            Destroy(gameObject);//destroy the object hit
+            if(gameObject.name=="wizard_Sword")
+            {
+                toActivate.SetActive(true);
+            }
         }
         else if (other.transform.tag=="Player")
         {
