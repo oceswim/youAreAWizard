@@ -9,7 +9,8 @@ public class CTRLpatrol : MonoBehaviour
     private float rotationSpeed = 6;
     public GameObject thePlayer;
     public Transform[] goals;
-    private int destPoint = 0;
+    private int currentGoal;
+    private int destPoint;
     private NavMeshAgent agent;
     public Transform target;
 
@@ -33,12 +34,12 @@ public class CTRLpatrol : MonoBehaviour
     void Start()
     {
 
-		effectToSpawn = vfx;
+        effectToSpawn = vfx;
         isDefending = false;
         _animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
-        GotoNextPoint();
+        GotoNextPoint(destPoint);
         shot = dead = single = 0;
         isDead = false;
         isAttacking = false;
@@ -47,33 +48,36 @@ public class CTRLpatrol : MonoBehaviour
         theTarget = target.position;
 
     }
-    void GotoNextPoint()
+    void GotoNextPoint(int destination)
     {
-      
+
         // Returns if no points have been set up
         if (goals.Length == 0)
             return;
 
         // Set the agent to go to the currently selected destination.
-        agent.destination = goals[destPoint].position;
+        agent.destination = goals[destination].position;
 
         // Choose the next point in the array as the destination,
         // cycling to the start if necessary.
-        destPoint = (destPoint + 1) % goals.Length;
+        destPoint = (destination + 1) % goals.Length;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         // Choose the next destination point when the agent gets
         // close to the current one.
         if (!isDefending)
         {
-       
-            if (!agent.pathPending && agent.remainingDistance < .5f)
+            if (currentGoal < goals.Length)
             {
-                Debug.Log("going to next point");
-                GotoNextPoint();
+                GotoNextPoint(currentGoal);
+            }
+            else
+            {
+                currentGoal = 0;
             }
         }
         else
@@ -91,21 +95,17 @@ public class CTRLpatrol : MonoBehaviour
                 {
                     Debug.Log("moving");
                     _animator.SetBool("isMoving", true);
-
-                    transform.rotation = Quaternion.Slerp(transform.rotation,
-                        Quaternion.LookRotation(theTarget - transform.position),
-                        rotationSpeed * Time.deltaTime);
-                    transform.position += transform.forward * move * Time.deltaTime;
+                    agent.destination = theTarget;
 
                 }
 
             }
             else if (hasArrived)
             {
-               
+                agent.isStopped = true;
                 if (isDead)
                 {
-             
+
                     Die();
                 }
                 else
@@ -114,15 +114,15 @@ public class CTRLpatrol : MonoBehaviour
                     Attack();
                 }
             }
-                hasArrived |= Mathf.Abs(transform.position.magnitude - theTarget.magnitude) < .5;
-            
+            hasArrived |= Mathf.Abs(transform.position.magnitude - theTarget.magnitude) < .5;
+
         }
     }
 
     private void Attack()
-    { 
+    {
         _animator.SetBool("isMoving", false);
-    
+
         transform.LookAt(thePlayer.transform);
         if (!isAttacking)
         {
