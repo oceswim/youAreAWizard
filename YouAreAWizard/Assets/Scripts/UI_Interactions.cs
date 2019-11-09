@@ -25,6 +25,7 @@ public class UI_Interactions : MonoBehaviour
         else if (other.transform.tag=="Player")
         {
             Destroy(gameObject);//destroy the teleport area
+            Debug.Log("ouch");
             
         }
 
