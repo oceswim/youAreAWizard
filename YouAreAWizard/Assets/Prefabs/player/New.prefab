@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 4976035995461569806}
   - component: {fileID: 4976035995461569906}
   m_Layer: 0
-  m_Name: Player 1
+  m_Name: New
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -586,6 +586,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7209099787309897458, guid: d9809c5e8418bb047bf2c8ba1d1a2cec,
+        type: 3}
+      propertyPath: objectToMove
+      value: 
+      objectReference: {fileID: 4976035995461669161}
+    - target: {fileID: 7209021630338373992, guid: d9809c5e8418bb047bf2c8ba1d1a2cec,
+        type: 3}
+      propertyPath: trackingSpace
+      value: 
+      objectReference: {fileID: 4976035995461732459}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
 --- !u!4 &4976035995343280274 stripped
