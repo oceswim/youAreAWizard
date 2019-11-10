@@ -7,78 +7,103 @@ public class CTRLWizard : MonoBehaviour
 
 
     private float rotationSpeed = 6;
+    private float moveSpeed;
     public GameObject thePlayer;
     public Transform[] goals;
+    private int destPoint;
+
 
     public GameObject firePoint;
     public GameObject vfx;
     private GameObject effectToSpawn;
     public AudioClip attack;
     private int single;
-    private NavMeshAgent agent;
+    public static bool spawnAgain;
     private bool hasArrived;
     public static bool isDead;
-
+    
 
     public static bool isAttacking;
     private float shot, dead;
     private Animator _animator;
-    private float _timeTillAttack = 3f;
+    private float _timeTillAttack;
+
+    private NavMeshAgent agent;
     // Use this for initialization
     void Start()
     {
-        
+        spawnAgain = false;
+        moveSpeed = Random.Range(4, 7);
+        _timeTillAttack = Random.Range(0, 3);
+        thePlayer = GameObject.Find("/Player");
         effectToSpawn = vfx;
         _animator = GetComponent<Animator>();
-
         shot = dead = single= 0;
-
+        destPoint = Random.Range(0, goals.Length);
         isDead = false;
-   
         isAttacking = false;
         hasArrived = false;
-        agent = GetComponent<NavMeshAgent>();
-        agent.autoBraking = false;
-        agent.destination = goals[wichGoal()].position;
+
         _animator.SetBool("isMoving", true);
 
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.destination = goals[destPoint].position;
     }
-    private int wichGoal()
-    {
-        int index = Random.Range(0, goals.Length);
-        return index;
-    }
+
     // Update is called once per frame
     void Update()
     {
-
+        
         if (!hasArrived)
         {
-
             if(isDead)
             {
+                spawnAgain = true;
                 Die();
+            }
+            else
+            {
+
+                if (!agent.pathPending && agent.remainingDistance < 0.5f)
+                {
+                    hasArrived = true;
+                    agent.isStopped = true;
+                }
+
+               /* transform.rotation = Quaternion.Slerp(transform.rotation,
+                    Quaternion.LookRotation(goals[destPoint].position - transform.position),
+                    rotationSpeed * Time.deltaTime);
+                    float speed;
+                Debug.Log(goals[destPoint].position);
+                Vector3 moveDir = goals[destPoint].position - transform.position;
+                if(moveDir.magnitude<1)
+                {
+                    hasArrived = true;
+                    speed = 0;
+                }
+                else
+                {
+                    speed = moveSpeed;
+                }
+                transform.position += transform.forward * speed * Time.deltaTime;
+                */
             }
 
         }
         else if (hasArrived)
         {
-         
-               
+
+           
             if(isDead)
             {
+                spawnAgain = true;
                 Die();
             }
             else
             {
                 Attack();
             }
-        }
-
-       if(!agent.pathPending && agent.remainingDistance < .5f)
-        {
-            agent.isStopped = true;
-            hasArrived = true;
         }
     }
 

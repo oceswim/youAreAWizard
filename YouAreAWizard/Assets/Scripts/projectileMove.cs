@@ -21,8 +21,7 @@ public class projectileMove : MonoBehaviour
     {
         if(speed != 0)
         {
-            Debug.Log(target.transform.position);
-            Debug.Log(target.transform.name);
+  
          transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
             
         }
