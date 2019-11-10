@@ -70,7 +70,9 @@ public class OVRTrackedRemote : MonoBehaviour
 
     private bool  protection;
 
-
+    Vector3 ObjRotation = new Vector3(0f, 0f, 0f);
+    public float objRotationSpeed = 60f;
+    private Vector2 touchpad;
 
 
 
@@ -143,6 +145,7 @@ public class OVRTrackedRemote : MonoBehaviour
                     //else if wand active play orb noise and switch to wand
                     //double clicker
                 }
+        
 
                 lastClickTime = Time.time;
             }
@@ -150,12 +153,29 @@ public class OVRTrackedRemote : MonoBehaviour
             {
                 triggerCount += 1;
             }
+            if(!m_isWand)
+            {
+                if (TouchPadTouched)
+                {
+                    touchpad = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+                    var xAxis = touchpad.x;
+                    ObjRotation.y += xAxis * Time.deltaTime * objRotationSpeed;
+                    transform.rotation = Quaternion.Euler(ObjRotation);
+                }
+            }
 
             if (triggerCount == 1 && doubleTrigger)
             {
                 firstCickTime = Time.time;
                 StartCoroutine(DoubleTriggerDetect());
             }
+        }
+    }
+    bool TouchPadTouched
+    {
+        get
+        {
+            return OVRInput.Get(OVRInput.Touch.PrimaryTouchpad);
         }
     }
     private IEnumerator DoubleTriggerDetect()

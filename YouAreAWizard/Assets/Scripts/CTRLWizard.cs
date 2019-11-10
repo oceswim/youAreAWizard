@@ -67,8 +67,10 @@ public class CTRLWizard : MonoBehaviour
 
                 if (!agent.pathPending && agent.remainingDistance < 0.5f)
                 {
+          
                     hasArrived = true;
-                    agent.isStopped = true;
+                    agent.enabled = false;
+
                 }
             }
 
@@ -79,7 +81,7 @@ public class CTRLWizard : MonoBehaviour
            
             if(isDead)
             {
-                spawnAgain = true;
+               // spawnAgain = true;
                 Die();
             }
             else
@@ -91,6 +93,7 @@ public class CTRLWizard : MonoBehaviour
 
     private void Attack()
     {
+     
         _animator.SetBool("isMoving", false);
         
         transform.LookAt(thePlayer.transform);

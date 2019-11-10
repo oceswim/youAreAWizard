@@ -37,7 +37,7 @@ public class contact : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "wizard_Sword" || collision.gameObject.name == "wizard_Wand")
+        if (collision.gameObject.name == "wizard_Sword(Clone)" || collision.gameObject.name == "wizard_Wand(Clone)" || collision.gameObject.name == "wizard_Sword" || collision.gameObject.name == "wizard_Wand")
         {
             Impact health = collision.collider.GetComponent<Impact>();
 
