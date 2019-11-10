@@ -5,18 +5,17 @@ using UnityEngine.AI;
 public class CTRLWizard : MonoBehaviour
 {
 
-    private float move = 5;
+
     private float rotationSpeed = 6;
     public GameObject thePlayer;
-    public Transform goal;
+    public Transform[] goals;
 
     public GameObject firePoint;
     public GameObject vfx;
     private GameObject effectToSpawn;
     public AudioClip attack;
-    public Vector3 theTarget;
     private int single;
-
+    private NavMeshAgent agent;
     private bool hasArrived;
     public static bool isDead;
 
@@ -38,10 +37,17 @@ public class CTRLWizard : MonoBehaviour
    
         isAttacking = false;
         hasArrived = false;
-        theTarget = goal.position;
+        agent = GetComponent<NavMeshAgent>();
+        agent.autoBraking = false;
+        agent.destination = goals[wichGoal()].position;
+        _animator.SetBool("isMoving", true);
 
     }
-
+    private int wichGoal()
+    {
+        int index = Random.Range(0, goals.Length);
+        return index;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -52,16 +58,6 @@ public class CTRLWizard : MonoBehaviour
             if(isDead)
             {
                 Die();
-            }
-            else
-            {
-                _animator.SetBool("isMoving", true);
-
-                transform.rotation = Quaternion.Slerp(transform.rotation,
-                    Quaternion.LookRotation(theTarget - transform.position),
-                    rotationSpeed * Time.deltaTime);
-                transform.position += transform.forward * move * Time.deltaTime;
-
             }
 
         }
@@ -79,8 +75,11 @@ public class CTRLWizard : MonoBehaviour
             }
         }
 
-        hasArrived |= Mathf.Abs(transform.position.magnitude - theTarget.magnitude) < .5;
-
+       if(!agent.pathPending && agent.remainingDistance < .5f)
+        {
+            agent.isStopped = true;
+            hasArrived = true;
+        }
     }
 
     private void Attack()

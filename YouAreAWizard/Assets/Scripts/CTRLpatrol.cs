@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class CTRLpatrol : MonoBehaviour
 {
 
-    private float move = 5;
+
     private float rotationSpeed = 6;
     public GameObject thePlayer;
     public Transform[] goals;
