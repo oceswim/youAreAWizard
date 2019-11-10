@@ -6414,7 +6414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &285685480
 Transform:
   m_ObjectHideFlags: 0
@@ -7410,7 +7410,7 @@ PrefabInstance:
     - target: {fileID: 4976035995461569801, guid: a15f71bdbc94d48b9bc14b128ce6437f,
         type: 3}
       propertyPath: m_Name
-      value: New
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4976035995461669161, guid: a15f71bdbc94d48b9bc14b128ce6437f,
         type: 3}
@@ -92761,6 +92761,7 @@ GameObject:
   - component: {fileID: 3263872734076720487}
   - component: {fileID: 3263872734076720504}
   - component: {fileID: 3263872734076720488}
+  - component: {fileID: 3263872734076720489}
   m_Layer: 0
   m_Name: wizard_Sword
   m_TagString: Lv1
@@ -92780,12 +92781,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77bba33f99dad4387b3c9d062ba50a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thePlayer: {fileID: 435480017}
-  goal: {fileID: 1367354273}
+  thePlayer: {fileID: 0}
+  goals:
+  - {fileID: 1367354273}
   firePoint: {fileID: 989333812096597506}
   vfx: {fileID: 3997630668601885635, guid: 9ef0dd9c17f714ed8966af4524300ca4, type: 3}
   attack: {fileID: 8300000, guid: 074ccb664b11e1341a5ac9b972ea3ab8, type: 3}
-  theTarget: {x: 0, y: 0, z: 0}
 --- !u!114 &3263872734076720486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92825,6 +92826,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toActivate: {fileID: 980274406}
+--- !u!195 &3263872734076720489
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3263872734076720484}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!54 &3263872734076720504
 Rigidbody:
   m_ObjectHideFlags: 0

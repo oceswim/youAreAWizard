@@ -6,8 +6,8 @@ public class CTRLWizard : MonoBehaviour
 {
 
 
-    private float rotationSpeed = 6;
-    private float moveSpeed;
+
+
     public GameObject thePlayer;
     public Transform[] goals;
     private int destPoint;
@@ -33,7 +33,7 @@ public class CTRLWizard : MonoBehaviour
     void Start()
     {
         spawnAgain = false;
-        moveSpeed = Random.Range(4, 7);
+
         _timeTillAttack = Random.Range(0, 3);
         thePlayer = GameObject.Find("/Player");
         effectToSpawn = vfx;
@@ -70,24 +70,6 @@ public class CTRLWizard : MonoBehaviour
                     hasArrived = true;
                     agent.isStopped = true;
                 }
-
-               /* transform.rotation = Quaternion.Slerp(transform.rotation,
-                    Quaternion.LookRotation(goals[destPoint].position - transform.position),
-                    rotationSpeed * Time.deltaTime);
-                    float speed;
-                Debug.Log(goals[destPoint].position);
-                Vector3 moveDir = goals[destPoint].position - transform.position;
-                if(moveDir.magnitude<1)
-                {
-                    hasArrived = true;
-                    speed = 0;
-                }
-                else
-                {
-                    speed = moveSpeed;
-                }
-                transform.position += transform.forward * speed * Time.deltaTime;
-                */
             }
 
         }
