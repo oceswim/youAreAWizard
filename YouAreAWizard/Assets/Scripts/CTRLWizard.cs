@@ -35,7 +35,7 @@ public class CTRLWizard : MonoBehaviour
         spawnAgain = false;
 
         _timeTillAttack = Random.Range(0, 3);
-        thePlayer = GameObject.Find("/Player");
+        thePlayer = GameObject.Find("Player(Clone)");
         effectToSpawn = vfx;
         _animator = GetComponent<Animator>();
         shot = dead = single= 0;
@@ -49,6 +49,7 @@ public class CTRLWizard : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         agent.destination = goals[destPoint].position;
+        Debug.Log("destination" + agent.destination);
     }
 
     // Update is called once per frame
@@ -69,8 +70,8 @@ public class CTRLWizard : MonoBehaviour
                 {
           
                     hasArrived = true;
-                    agent.enabled = false;
-
+                    agent.isStopped = true;
+            
                 }
             }
 

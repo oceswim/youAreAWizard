@@ -6,10 +6,14 @@ public class rotateCamera : MonoBehaviour
 {
     // Start is called before the first frame update
     public static OVRInput.Controller Controller;
-    Vector3 ObjRotation = new Vector3(0f, 0f, 0f);
+    Vector3 ObjRotation;
     public float objRotationSpeed = 60f;
     private Vector2 touchpad;
     // Update is called once per frame
+    private void Start()
+    {
+        ObjRotation = transform.position;
+    }
     private void Update()
     {
         if (TouchPadTouched && OVRInput.IsControllerConnected(Controller) && !OVRTrackedRemote.m_isWand)

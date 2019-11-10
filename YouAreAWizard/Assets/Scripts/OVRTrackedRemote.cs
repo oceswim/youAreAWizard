@@ -59,6 +59,7 @@ public class OVRTrackedRemote : MonoBehaviour
 
     private float lastClickTime;
     private int single;
+    private float wait;
 
     //private int firstShield = 0;
     //public static bool ShieldActive;
@@ -70,9 +71,7 @@ public class OVRTrackedRemote : MonoBehaviour
 
     private bool  protection;
 
-    Vector3 ObjRotation = new Vector3(0f, 0f, 0f);
-    public float objRotationSpeed = 60f;
-    private Vector2 touchpad;
+
 
 
 
@@ -90,6 +89,7 @@ public class OVRTrackedRemote : MonoBehaviour
         singleTrigger = false;
         active = false;
         single = 0;
+   
     }
 
     private void Awake()
@@ -153,16 +153,7 @@ public class OVRTrackedRemote : MonoBehaviour
             {
                 triggerCount += 1;
             }
-            if(!m_isWand)
-            {
-                if (TouchPadTouched)
-                {
-                    touchpad = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
-                    var xAxis = touchpad.x;
-                    ObjRotation.y += xAxis * Time.deltaTime * objRotationSpeed;
-                    transform.rotation = Quaternion.Euler(ObjRotation);
-                }
-            }
+            
 
             if (triggerCount == 1 && doubleTrigger)
             {

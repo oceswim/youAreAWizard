@@ -12,7 +12,9 @@ public class RoomManager : MonoBehaviour
 
     private void Awake()//allows to check if there is only a single instance of the game object. 
     {
+     
         spawnAmount = Random.Range(2, 5);
+        Debug.Log(spawnAmount);
         if (instance == null)//game object is a singleton, there can be only one.
         {
             instance = this;
@@ -37,9 +39,9 @@ public class RoomManager : MonoBehaviour
 
     public void Update()
     {
-        if (spawnPlayer.next)
+        if (spawnMob.next)
         {
-            Debug.Log(spawnPlayer.next);
+            Debug.Log(spawnMob.next);
             nextStep++;
         }
         if(nextStep==2)

@@ -26142,7 +26142,7 @@ GameObject:
   - component: {fileID: 6748304305138482716}
   - component: {fileID: 6748304305138482715}
   m_Layer: 0
-  m_Name: wizard_SwordR
+  m_Name: wizard_Sword
   m_TagString: Lv1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26199,7 +26199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77bba33f99dad4387b3c9d062ba50a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thePlayer: {fileID: 0}
+  thePlayer: {fileID: 4976035995461569801, guid: a15f71bdbc94d48b9bc14b128ce6437f,
+    type: 3}
   goals:
   - {fileID: 426243233895998052, guid: b7e042c9449a342eb99d2d58587bb27e, type: 3}
   - {fileID: 1154196779090722282, guid: 0ba903f763b8b48aaa035a01820a192f, type: 3}
