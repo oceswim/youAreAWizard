@@ -33,7 +33,7 @@ public class CTRLpatrol : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        thePlayer = GameObject.Find("Player(Clone)");
         effectToSpawn = vfx;
         isDefending = false;
         _animator = GetComponent<Animator>();
