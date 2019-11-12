@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class activate : MonoBehaviour
 {
-    public GameObject teleport;
+    public GameObject toActivate;
     // Start is called before the first frame update
     // Update is called once per frame
-    void Update()
+    void OnTriggerEnter(Collider other)
     {
-        if(teleport.activeInHierarchy)
-        {
-            gameObject.SetActive(true);
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+
+        toActivate.SetActive(true);
+        Destroy(gameObject);
+
     }
 }
