@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class CTRLWizard : MonoBehaviour
 {
 
-
+    public ParticleSystem death;
 
 
     public GameObject thePlayer;
@@ -145,6 +145,7 @@ public class CTRLWizard : MonoBehaviour
         }
         else
         {
+            death.Play();
             Destroy(gameObject);
         }
     }

@@ -26,6 +26,8 @@ public class CTRLpatrol : MonoBehaviour
     public AudioClip attack;
     private int single;
 
+    public ParticleSystem death;
+
     private bool isAttacking;
     private float shot, dead;
     private Animator _animator;
@@ -163,6 +165,7 @@ public class CTRLpatrol : MonoBehaviour
         }
         else
         {
+            death.Play();
             Destroy(gameObject);
         }
     }
