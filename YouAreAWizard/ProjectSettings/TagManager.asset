@@ -16,6 +16,8 @@ TagManager:
   - Shield
   - PlayerAttack
   - ennemySpell
+  - Room1
+  - Room2
   layers:
   - Default
   - TransparentFX

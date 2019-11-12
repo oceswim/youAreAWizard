@@ -6,11 +6,6 @@ public class activate : MonoBehaviour
 {
     public GameObject teleport;
     // Start is called before the first frame update
-    void Start()
-    {
-        teleport = GameObject.Find("/Canvas/controls/Controls/teleport");
-    }
-
     // Update is called once per frame
     void Update()
     {

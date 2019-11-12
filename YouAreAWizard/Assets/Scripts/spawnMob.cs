@@ -21,9 +21,15 @@ public class spawnMob : MonoBehaviour
         //qd spawn amount atteint, increment count of game manager
         //qd spawn amount des 2 atteint alors gamemanger set next action
         index = Random.Range(0, (spawns.Length-1));
-        if(index>1)
+        Debug.Log("spawnlist" + spawns.Length);
+        if (index>1)
         {
+            Debug.Log("INDEX" + index);
             mob.tag = "Lv3";
+        }
+        else if(index<2)
+        {
+            mob.tag = "Lv2";
         }
         spawn(spawns[index]);
     }
@@ -32,9 +38,14 @@ public class spawnMob : MonoBehaviour
         if(CTRLWizard.isDead && theSpawnAmount>0)
         {
             index = Random.Range(0, (spawns.Length - 1));
+            Debug.Log("INDEX" + index);
             if (index > 1)
             {
                 mob.tag = "Lv3";
+            }
+            else if (index < 2)
+            {
+                mob.tag = "Lv2";
             }
             spawn(spawns[index]);
         }
