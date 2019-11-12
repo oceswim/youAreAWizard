@@ -18,7 +18,7 @@ public class CTRLWizard : MonoBehaviour
     private GameObject effectToSpawn;
     public AudioClip attack;
     private int single;
-    public static bool spawnAgain;
+
     private bool hasArrived;
     public static bool isDead;
     
@@ -32,7 +32,7 @@ public class CTRLWizard : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        spawnAgain = false;
+    
 
         _timeTillAttack = Random.Range(0, 3);
         thePlayer = GameObject.Find("Player(Clone)");
@@ -60,7 +60,7 @@ public class CTRLWizard : MonoBehaviour
         {
             if(isDead)
             {
-                spawnAgain = true;
+            
                 Die();
             }
             else
