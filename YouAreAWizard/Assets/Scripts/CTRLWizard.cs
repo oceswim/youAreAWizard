@@ -35,7 +35,7 @@ public class CTRLWizard : MonoBehaviour
     
 
         _timeTillAttack = Random.Range(0, 3);
-        thePlayer = GameObject.Find("Player(Clone)");
+        thePlayer = GameObject.Find("Player");
         effectToSpawn = vfx;
         _animator = GetComponent<Animator>();
         shot = dead = single= 0;

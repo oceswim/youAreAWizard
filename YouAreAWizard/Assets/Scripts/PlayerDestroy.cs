@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerDestroy : MonoBehaviour
 {
 	private int health;
-
+    public GameObject[] toActivate;
     public AudioClip shock;
     private void Start()
     {
@@ -27,7 +27,12 @@ public class PlayerDestroy : MonoBehaviour
 		{
             if(gameObject.tag=="magicStone")
             {
-                activate.activation = true;//desactive barrier
+                foreach (GameObject s in toActivate)
+                {
+                    s.SetActive(false);//desactive magic barrier
+                }
+                      
+                    
             }
 			Destroy(gameObject);
 		}
