@@ -6,7 +6,6 @@ public class CTRLpatrol : MonoBehaviour
 {
 
 
-    private float rotationSpeed = 6;
     public GameObject thePlayer;
     public Transform[] goals;
     private int currentGoal;

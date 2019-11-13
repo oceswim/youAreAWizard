@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class changeScene : MonoBehaviour
 {
-    private int firstRun = 0;
+
     // Start is called before the first frame update 
     public void AttackLevel()
     {
