@@ -17,7 +17,7 @@ public class activate : MonoBehaviour
         {
             if (activation)
             {
-                toActivate.SetActive(false);
+                toActivate.SetActive(false);//desactive magic barrier
                 activation = false;
             }
         }

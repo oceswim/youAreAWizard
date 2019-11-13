@@ -27,7 +27,7 @@ public class PlayerDestroy : MonoBehaviour
 		{
             if(gameObject.tag=="magicStone")
             {
-                activate.activation = true;
+                activate.activation = true;//desactive barrier
             }
 			Destroy(gameObject);
 		}
