@@ -14,6 +14,10 @@ public class changeScene : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(2);
     }
+    public void BossLevel()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(4);
+    }
     public void PlayGame()
     {
         //if never played
@@ -36,18 +40,6 @@ public class changeScene : MonoBehaviour
     {
         //if click on settings
         Application.Quit();
-    }
-    public void Switch()
-    {
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 2)
-        {
-            WaveLevel();
-        }
-        else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 3)
-        {
-      
-            AttackLevel();
-        }
     }
     public void StartAgain()
     {

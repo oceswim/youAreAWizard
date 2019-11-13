@@ -61,7 +61,7 @@ public class contact : MonoBehaviour
             PlayerDestroy gateLife = collision.collider.GetComponent<PlayerDestroy>();
             if (gateLife != null)
             {
-                gateLife.DoorDamage(theDamage);
+                gateLife.theDamage(theDamage);
             }
             Destroy(gameObject);
             speed = 0;
@@ -70,6 +70,24 @@ public class contact : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(shock, collision.transform.position);
 
+        }
+        else if(collision.gameObject.tag == "magicStone")
+        {
+
+            if (single == 0)
+            {
+                activate = true;
+                CTRLpatrol.isDefending = true;
+                single++;
+            }
+
+            PlayerDestroy stoneLife = collision.collider.GetComponent<PlayerDestroy>();
+            if (stoneLife != null)
+            {
+                stoneLife.theDamage(theDamage);
+            }
+            Destroy(gameObject);
+            speed = 0;
         }
     }
 

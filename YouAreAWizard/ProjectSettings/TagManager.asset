@@ -18,6 +18,7 @@ TagManager:
   - ennemySpell
   - Room1
   - Room2
+  - magicStone
   layers:
   - Default
   - TransparentFX

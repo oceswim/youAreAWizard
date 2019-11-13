@@ -4,26 +4,38 @@ using UnityEngine;
 
 public class PlayerDestroy : MonoBehaviour
 {
-	private int health=3;
+	private int health;
 
     public AudioClip shock;
-
-	public void DoorDamage(int damageAmount)
+    private void Start()
+    {
+        if (gameObject.name == "DungeonGate")
+        {
+            health = 3;
+        }
+        else if (gameObject.tag == "magicStone")
+        {
+            health = 2;
+        }
+    }
+    public void theDamage(int damageAmount)
 	{
 
 		health -= damageAmount;
 
 		if (health <= 0)
 		{
+            if(gameObject.tag=="magicStone")
+            {
+                activate.activation = true;
+            }
 			Destroy(gameObject);
 		}
 		else if (health > 0)
 		{
-            //ouch noise
-        
-            AudioSource.PlayClipAtPoint(shock, transform.position,200f);
-
-
+         
+          AudioSource.PlayClipAtPoint(shock, transform.position, 200f);
+            
         }
     }
 
