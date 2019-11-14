@@ -69,8 +69,12 @@ public class OVRTrackedRemote : MonoBehaviour
     private int triggerCount;
     private float timerBetweentrigger, firstCickTime;
 
-    private bool  protection;
+    private bool doubleClick, singleClick;
+    private int clickCount;
+    private float timerBetweenClick, firstClick;
 
+
+    private bool  protection;
 
 
 
@@ -89,6 +93,12 @@ public class OVRTrackedRemote : MonoBehaviour
         singleTrigger = false;
         active = false;
         single = 0;
+
+        firstClick = 0f;
+        timerBetweenClick = .3f;
+        clickCount = 0;
+        doubleClick = true;
+        singleClick = false;
    
     }
 
@@ -116,57 +126,30 @@ public class OVRTrackedRemote : MonoBehaviour
         }
         else
         {
-            rotateCamera.Controller = m_controller;
             if (OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad))
             {
-                float timeSinceClicked = Time.time - lastClickTime;
-                if (timeSinceClicked <= doubleClickTimeLimit)
-                {
-                    //if wand not active play wand noise and switch to wand
-                    if (m_isWand)
-                    {
-                        //play orb noise
-
-                        Shield.SetActive(false);
-                        m_isWand = false;
-                        m_Wand.SetActive(false);
-                        m_Orb.SetActive(true);
-                        // Time.timeScale = 0.5f;
-
-                    }
-                    else if (!m_isWand)
-                    {
-                        //play wand noise
-                        // Time.timeScale = 1.0f;
-                        m_isWand = true;
-                        m_Wand.SetActive(true);
-                        m_Orb.SetActive(false);
-                    }
-                    //else if wand active play orb noise and switch to wand
-                    //double clicker
-                }
-        
-
-                lastClickTime = Time.time;
+                clickCount += 1;
             }
             else if (m_isWand && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
             {
                 triggerCount += 1;
             }
-            
+            else if (!m_isWand && OVRInput.Get(OVRInput.Touch.PrimaryTouchpad))
+            {
 
-            if (triggerCount == 1 && doubleTrigger)
+                rotateCamera.rotate = true;
+
+            }
+            if(clickCount==1 &&doubleClick)
+            {
+                firstClick = Time.time;
+                StartCoroutine(DoubleClickDetect());
+            }
+            else if (triggerCount == 1 && doubleTrigger)
             {
                 firstCickTime = Time.time;
                 StartCoroutine(DoubleTriggerDetect());
             }
-        }
-    }
-    bool TouchPadTouched
-    {
-        get
-        {
-            return OVRInput.Get(OVRInput.Touch.PrimaryTouchpad);
         }
     }
     private IEnumerator DoubleTriggerDetect()
@@ -198,15 +181,6 @@ public class OVRTrackedRemote : MonoBehaviour
 
             if (!active)
             {
-               /* if (firstShield == 0)
-                {
-                    ShieldActive = true;
-                    firstShield++;
-                }
-                if (firstShield == 1)
-                {
-                    ShieldActive = false;
-                }*/
                 Shield.SetActive(true);
                 active = true;
             }
@@ -225,18 +199,53 @@ public class OVRTrackedRemote : MonoBehaviour
         singleTrigger = false;
 
     }
-
-    /*Vector3 SwipeDir
+    private IEnumerator DoubleClickDetect()
     {
-        get
+        doubleClick = false;
+        while (Time.time < firstClick + timerBetweenClick)
         {
-            Vector2 touch = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
-            Vector3 forward1 = new Vector3(touch.x, 0.0f, touch.y).normalized;
-            forward1 = Vector3.ProjectOnPlane(forward1, Vector3.up);
-            return forward1.normalized;
+            if (clickCount == 2)
+            {
+               
+                singleClick = false;
+                break;
+            }
+            singleClick = true;
+            yield return new WaitForEndOfFrame();
+        }
+        if (!singleClick)
+        {
+     
+            if (m_isWand)
+            {
+                //play orb noise
+
+                Shield.SetActive(false);
+                m_isWand = false;
+                m_Wand.SetActive(false);
+                m_Orb.SetActive(true);
+                // Time.timeScale = 0.5f;
+
+            }
+            else if (!m_isWand)
+            {
+                //play wand noise
+                // Time.timeScale = 1.0f;
+                m_isWand = true;
+                m_Wand.SetActive(true);
+                m_Orb.SetActive(false);
+            }
+
 
         }
-    }*/
+  
+        clickCount = 0;
+        firstClick = 0f;
+        doubleClick = true;
+        singleClick = false;
+
+    }
+    
 
 
 
