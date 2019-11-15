@@ -8,7 +8,7 @@ public class collision : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.name == "wizard_Sword(Clone)" || collision.gameObject.name == "wizard_Wand(Clone)" || collision.gameObject.name == "wizard_Sword" || collision.gameObject.name == "wizard_Wand")
+        if (collision.gameObject.name == "wizard_Sword(Clone)" || collision.gameObject.name == "wizard_Sword")
         {
             GameObject objectCollided = collision.gameObject;
             CTRLWizard health = objectCollided.GetComponent<CTRLWizard>();
@@ -19,6 +19,16 @@ public class collision : MonoBehaviour
             }
     
         
+        }
+        else if (collision.gameObject.name == "wizard_Wand(Clone)" || collision.gameObject.name == "wizard_Wand")
+        {
+            GameObject objectCollided = collision.gameObject;
+            CTRLpatrol health = objectCollided.GetComponent<CTRLpatrol>();
+
+            if (health != null)
+            {
+                health.DamagePatrol(theDamage);
+            }
         }
     }
 }

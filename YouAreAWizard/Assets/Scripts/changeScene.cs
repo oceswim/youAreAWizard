@@ -4,26 +4,45 @@ using UnityEngine;
 
 public class changeScene : MonoBehaviour
 {
-
-    // Start is called before the first frame update 
+    private bool sceneload;
+    // Start is called before the first frame update
+    private void Start()
+    {
+        sceneload = false;
+    }
+    void Update()
+    {
+        if(sceneload)
+        {
+            sceneload = false;
+            GameManager.instance.InitGame();
+        }
+    }
     public void AttackLevel()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(3);
+        
+        UnityEngine.SceneManagement.SceneManager.LoadScene("AttackLevel");
+        sceneload = true;
+
     }
     public void WaveLevel()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+        sceneload = true;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("WaveLevel");
     }
     public void BossLevel()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(4);
+        sceneload = true;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("BossLevel");
+
     }
     public void PlayGame()
     {
         //if never played
         //if (firstRun == 0)
-       // {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        // {
+        sceneload = true;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
         //}
        // else
        // {
@@ -34,7 +53,7 @@ public class changeScene : MonoBehaviour
     }
     public void MainMenu()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
     public void QuitGame()
     {
@@ -43,6 +62,7 @@ public class changeScene : MonoBehaviour
     }
     public void StartAgain()
     {
+       
         //if dies can start at latest save
     }
 }

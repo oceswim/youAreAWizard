@@ -19,6 +19,8 @@ TagManager:
   - Room1
   - Room2
   - magicStone
+  - Undefined
+  - target
   layers:
   - Default
   - TransparentFX

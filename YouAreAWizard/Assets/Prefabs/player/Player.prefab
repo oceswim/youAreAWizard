@@ -25033,7 +25033,7 @@ MonoBehaviour:
   surfaceAngle: 5
   excludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16
   distance: 15
   dropHeight: 7
   controlHeight: 3
@@ -25068,7 +25068,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arcRaycaster: {fileID: 6651488959185029986}
   objectToMove: {fileID: 8342673066515640142}
-  height: 1.9
+  height: 2
   teleportedUpAxis: 0
 --- !u!120 &6662125715930631440
 LineRenderer:

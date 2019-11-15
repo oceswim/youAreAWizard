@@ -37,7 +37,6 @@ public class CTRLpatrol : MonoBehaviour
     {
         GameManager.instance.AddWandToList(this);
         thePlayer = GameObject.Find("Player");
-        target = GameObject.FindGameObjectWithTag("target").transform;
         effectToSpawn = vfx;
         isDefending = false;
         _animator = GetComponent<Animator>();
@@ -68,7 +67,7 @@ public class CTRLpatrol : MonoBehaviour
 
                 break;
         }
-        Debug.Log(health + " life");
+
 
 
 
@@ -109,8 +108,7 @@ public class CTRLpatrol : MonoBehaviour
 
                 if (isDead)
                 {
-                    //_animator.SetBool("isMoving", false);
-                    Die();
+                    agent.isStopped = true;
                 }
                 else
                 {
@@ -124,13 +122,9 @@ public class CTRLpatrol : MonoBehaviour
             else if (hasArrived)
             {
                 agent.isStopped = true;
-                if (isDead)
+                if (!isDead)
                 {
-
-                    Die();
-                }
-                else
-                {
+               
                     Debug.Log("attacking");
                     Attack();
                 }
@@ -180,16 +174,20 @@ public class CTRLpatrol : MonoBehaviour
 
         }
     }
-    private void Die()
+    public void Die()
     {
         if (dead < 5f)
         {
+            if (dead < 1)
+            {
+                _animator.SetTrigger("isDead");
+           
+            }
             dead += Time.deltaTime;
         }
         else
         {
-            death.Play();
-            Destroy(gameObject);
+            isDead = true;
         }
     }
     void SpawnVFX()
@@ -209,8 +207,7 @@ public class CTRLpatrol : MonoBehaviour
 
         if (health <= 0)
         {
-            _animator.SetTrigger("isDead");
-            isDead = true;
+            GameManager.instance.KillWizard(this);
         }
         else if (health > 0)
         {

@@ -12,15 +12,17 @@ public class GameManager : MonoBehaviour
 
     public bool movingOn = false;
     // private Text playerLife;                                 //Text to display current playerLife
-    public GameObject levelImage;                          //Image to block out level as levels are being set up, background for levelText.
+    //public GameObject levelImage;                          //Image to block out level as levels are being set up, background for levelText.
                                                             //private int life = 1;                                  //Current life of player, expressed in game
-    public List<CTRLWizard> knights;                            //List of all Enemy units, used to issue them move commands.
+    private List<CTRLWizard> knights;                            //List of all Enemy units, used to issue them move commands.
     private List<CTRLpatrol> wand;
-    public List<spawnMob> spawns;
+    private List<spawnMob> spawns;
     private GameObject nextStep;
-    public bool enemiesDead;                             //Boolean to check if enemies are dead.
-    public int whichSpawn=0;
-    private bool doingSetup = true;                         //Boolean to check if we're setting up board, prevent Player from moving during setup.
+    public bool knightsDead;                             //Boolean to check if enemies are dead.
+    public bool wandDead;
+    private int knightsAdded;
+    private int wandAdded;
+                       //Boolean to check if we're setting up board, prevent Player from moving during setup.
 
 
 
@@ -47,22 +49,26 @@ public class GameManager : MonoBehaviour
         knights = new List<CTRLWizard>();
         wand = new List<CTRLpatrol>();
         spawns = new List<spawnMob>();
-        nextStep = GameObject.Find("NextStep");
-        nextStep.SetActive(false);
-        enemiesDead = false;
+      
+        knightsDead = false;
+        wandDead = false;
         //Get a component reference to the attached BoardManager script
-        levelImage.SetActive(false); 
+        //levelImage.SetActive(false); 
         //Call the InitGame function to initialize the first level 
         InitGame();
     }
 
     //this is called only once, and the paramter tell it to be called only after the scene was loaded
     //(otherwise, our Scene Load callback would be called the very first load, and we don't want that)
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+   /* [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static public void CallbackInitialization()
     {
         //register the callback to be called everytime the scene is loaded
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        if (changeScene.sceneload)
+        {
+            changeScene.sceneload = false;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
     }
 
     //This is called each time a scene is loaded.
@@ -70,98 +76,119 @@ public class GameManager : MonoBehaviour
     {
         instance.InitGame();
     }
-
+    */
 
     //Initializes the game for each level.
-    void InitGame()
+    public void InitGame()
     {
         //While doingSetup is true the player can't move, prevent player from moving while title card is up.
-        doingSetup = true;
-      
+       
+
         //Get a reference to our image LevelImage by finding it by name.
 
 
         //Set levelImage to active blocking player's view of the game board during setup.
-        if (levelImage != null)
+        /*if (levelImage != null)
         {
            
             levelImage.SetActive(true);
-        }
+        }*/
 
         //Call the HideLevelImage function with a delay in seconds of levelStartDelay.
-        Invoke("HideLevelImage", levelStartDelay);
+        // Invoke("HideLevelImage", levelStartDelay);
 
         //Clear any Enemy objects in our List to prepare for next level.
+        nextStep = GameObject.Find("NextStep");
+        nextStep.SetActive(false);
         knights.Clear();
         wand.Clear();
         spawns.Clear();
+        knightsAdded = 0;
+        wandAdded = 0;
 
 
     }
 
 
-    //Hides black image used between levels
-    void HideLevelImage()
-    {
-        //Disable the levelImage gameObject.
-        levelImage.SetActive(false);
-
-        //Set doingSetup to false allowing player to move again.
-        doingSetup = false;
-    }
 
     //Update is called every frame.
     void Update()
     {
-        //Check that doingSetup is not currently true.
-        if (doingSetup)
-
-            //If any of these are true, return and do not start MoveEnemies.
-            return;
-        if(movingOn)//plus de knights and plus de spawns
-        {
-            if (knights.Count < 1)
-            {
-                movingOn = false;
-                enemiesDead = false;
-                if (whichSpawn > 0)
-                {
-
-                    Debug.Log("about to move on");
-                }
-                 if (whichSpawn > 0)
-                    {
-                        print("movingOn");
-                    }
-                    moveOn();
-                    
-                
-            }
-
-            
-        }
+       
         if(spawns.Count>0)
         {
-            if(enemiesDead)
+            Debug.Log("after wand is dead");
+            if(knightsAdded>0)
             {
-               enemiesDead = false;
-               int index = Random.Range(0,spawns.Count);
-               ReSpawn(index);//respawn active for corresponding spawn
+               
+                if (knightsDead)
+                {
+                    knightsDead = false;
+                   
+                    int index = Random.Range(0, spawns.Count);
+                    ReSpawn(index);//respawn active for corresponding spawn
+                }
+            }
+            else if(wandAdded>0)
+            {
+                Debug.Log("after wand added");
+                if (wandDead)
+                {
+                    Debug.Log("spawning after death");
+                    wandDead = false;
+                    int index = Random.Range(0, spawns.Count);
+                    ReSpawn(index);
+                }
+
             }
         }
-        
-
-    }
-
-    //Call this to add the passed in Enemy to the List of Enemy objects.
-    public void AddKnightsToList(CTRLWizard script)
-    {
-        //Add Enemy to List enemies.
-        if (whichSpawn > 0)
+        if (movingOn)//plus de knights and plus de spawns
         {
-            Debug.Log("adding");
+            if (knightsAdded > 0)
+            {
+                if (knights.Count < 1)
+                {
+
+                    movingOn = false;
+                    knightsDead = false;
+
+                    print("movingOn");
+
+                    moveOn();
+
+
+                }
+            }
+            else if (wandAdded > 0)
+            {
+                if (wand.Count < 1)
+                {
+
+                    movingOn = false;
+                    wandDead = false;
+
+                    print("movingOn");
+
+                    moveOn();
+
+
+                }
+            }
         }
+
+
+        }
+
+        //Call this to add the passed in Enemy to the List of Enemy objects.
+        public void AddKnightsToList(CTRLWizard script)
+    {
+      
         knights.Add(script);
+        if(knightsAdded==0)
+        {
+            Debug.Log("knights added");
+            knightsAdded = 1;
+        }
 
     }
     public void AddWandToList(CTRLpatrol script1)
@@ -169,17 +196,17 @@ public class GameManager : MonoBehaviour
         //Add Enemy to List enemies.
 
         wand.Add(script1);
+        if(wandAdded==0)
+        {
+            wandAdded = 1;
+        }
     }
     public void AddSpawnToList(spawnMob script2)
     { 
         //Add Enemy to List enemies.
 
         spawns.Add(script2);
-        if (whichSpawn > 0)
-        {
-            Debug.Log("spawns count: " + spawns.Count);
-        }
-  
+      
         script2.Spawn();
 
     }
@@ -197,7 +224,7 @@ public class GameManager : MonoBehaviour
         //levelText.text = "After " + level + " days, you starved.";
 
         //Enable black background image gameObject.
-        levelImage.SetActive(true);
+        //levelImage.SetActive(true);
 
         //Disable this GameManager.
         enabled = false;
@@ -206,10 +233,9 @@ public class GameManager : MonoBehaviour
     {
         if (nextStep != null)
         {
-            if (whichSpawn > 0)
-            {
-                print("OK");
-            }
+            Debug.Log("found next step");
+            knightsAdded=0;
+            wandAdded = 0;
             nextStep.SetActive(true);
         } 
         
@@ -220,23 +246,29 @@ public class GameManager : MonoBehaviour
         Destroy(theKnight.gameObject);
 
         knights.Remove(theKnight);
-        enemiesDead = true;
+        knightsDead = true;
+        Debug.Log("kill the knight"+ spawns.Count);
        // Debug.Log("Knight capacity" + knightsAmount);
+
+    }
+    public void KillWizard(CTRLpatrol theWizard)
+    {
+        theWizard.Die();
+        Destroy(theWizard.gameObject);
+
+        wand.Remove(theWizard);
+        wandDead = true;
+        // Debug.Log("Knight capacity" + knightsAmount);
 
     }
     public void removeSpawn(spawnMob theInstance)
     {
         spawns.Remove(theInstance);
         Destroy(theInstance.gameObject);
-        if (spawns.Count < 1)
+        if(spawns.Count<1)
         {
             movingOn = true;
         }
-        if (whichSpawn > 0)
-        {
-            Debug.Log("new spawn COUNT" + spawns.Count);
-        }
-      
     }
 
 }

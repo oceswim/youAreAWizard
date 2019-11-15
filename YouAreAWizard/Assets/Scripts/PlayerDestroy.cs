@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerDestroy : MonoBehaviour
 {
-	private int health;
-    public GameObject[] toActivate;
+    private int health;
     public AudioClip shock;
     private void Start()
     {
@@ -16,6 +15,7 @@ public class PlayerDestroy : MonoBehaviour
         else if (gameObject.tag == "magicStone")
         {
             health = 2;
+            //add point to player
         }
     }
     public void theDamage(int damageAmount)
@@ -25,15 +25,6 @@ public class PlayerDestroy : MonoBehaviour
 
 		if (health <= 0)
 		{
-            if(gameObject.tag=="magicStone")
-            {
-                foreach (GameObject s in toActivate)
-                {
-                    s.SetActive(false);//desactive magic barrier
-                }
-                      
-                    
-            }
 			Destroy(gameObject);
 		}
 		else if (health > 0)

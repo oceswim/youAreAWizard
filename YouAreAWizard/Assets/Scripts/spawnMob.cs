@@ -15,10 +15,7 @@ public class spawnMob : MonoBehaviour
   
 
         GameManager.instance.AddSpawnToList(this);
-        if (GameManager.instance.whichSpawn > 0)
-        {
-            Debug.Log("adding");
-        }
+      
         //spawnAmount = RoomManager.spawnAmount;
         
         //in game manager create one spawnamount random
