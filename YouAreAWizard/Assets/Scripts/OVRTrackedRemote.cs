@@ -48,6 +48,7 @@ public class OVRTrackedRemote : MonoBehaviour
     public OVRInput.Controller m_controller;
 
     public static bool m_isWand;
+
     private bool m_prevControllerConnected;
     private bool m_prevControllerConnectedCached;
 
@@ -73,18 +74,21 @@ public class OVRTrackedRemote : MonoBehaviour
     private int clickCount;
     private float timerBetweenClick, firstClick;
 
-
+    //test
+    public GameObject ObjectToRotate;
+    Vector3 objRotation;
+    public float objRotationSpeed = 60f;
+    private Vector2 trackpadX;
+    private int firstRot = 0;
+    //
     private bool  protection;
-
-
-
-
 
     void Start()
     {
         //ShieldActive = false;
         //teleportation = false;
         //position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
+
         m_isWand = true;
         firstCickTime = 0f;
         timerBetweentrigger = .3f;
@@ -99,7 +103,10 @@ public class OVRTrackedRemote : MonoBehaviour
         clickCount = 0;
         doubleClick = true;
         singleClick = false;
-   
+
+        objRotation = new Vector3(0f, 0f, 0f);
+
+
     }
 
     private void Awake()
@@ -134,12 +141,6 @@ public class OVRTrackedRemote : MonoBehaviour
             {
                 triggerCount += 1;
             }
-            else if (!m_isWand && OVRInput.Get(OVRInput.Touch.PrimaryTouchpad))
-            {
-
-                rotateCamera.rotate = true;
-
-            }
             if(clickCount==1 &&doubleClick)
             {
                 firstClick = Time.time;
@@ -149,6 +150,10 @@ public class OVRTrackedRemote : MonoBehaviour
             {
                 firstCickTime = Time.time;
                 StartCoroutine(DoubleTriggerDetect());
+            }
+            if(!m_isWand)
+            {
+                //teleport/rotate cam here
             }
         }
     }
@@ -178,7 +183,6 @@ public class OVRTrackedRemote : MonoBehaviour
         }
         else
         {
-
             if (!active)
             {
                 Shield.SetActive(true);
@@ -190,6 +194,7 @@ public class OVRTrackedRemote : MonoBehaviour
                 active = false;
             }
 
+            //double trigger switch apparel
 
         }
         single = 0;
@@ -199,6 +204,14 @@ public class OVRTrackedRemote : MonoBehaviour
         singleTrigger = false;
 
     }
+    bool TouchPadTouched
+    {
+        get
+        {
+            return OVRInput.Get(OVRInput.Touch.PrimaryTouchpad);
+        }
+    }
+
     private IEnumerator DoubleClickDetect()
     {
         doubleClick = false;
@@ -215,7 +228,6 @@ public class OVRTrackedRemote : MonoBehaviour
         }
         if (!singleClick)
         {
-     
             if (m_isWand)
             {
                 //play orb noise
@@ -234,8 +246,10 @@ public class OVRTrackedRemote : MonoBehaviour
                 m_isWand = true;
                 m_Wand.SetActive(true);
                 m_Orb.SetActive(false);
+
             }
 
+           
 
         }
   

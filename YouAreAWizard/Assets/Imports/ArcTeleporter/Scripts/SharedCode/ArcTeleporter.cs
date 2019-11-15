@@ -11,7 +11,7 @@ public class ArcTeleporter : MonoBehaviour {
 	public Transform objectToMove;
 
 	[Tooltip("Height of object being teleported. How far off the ground the object should land.")]
-	public float height = 1.5f;
+	public float height = 1.8f;
 	[Tooltip("When teleporting, should object be aligned with the world or destination")]
 	public UpDirection teleportedUpAxis = UpDirection.World;
 
@@ -56,11 +56,12 @@ public class ArcTeleporter : MonoBehaviour {
                 }
             }
 
-            /*if (OVRInput.Get (OVRInput.Touch.PrimaryTouchpad)) {
+           /* if (OVRInput.Get (OVRInput.Touch.PrimaryTouchpad))
+            {
             	forward = TouchpadDirection;
         }*/
 
-			objectToMove.rotation = Quaternion.LookRotation (forward, up);
+			//objectToMove.rotation = Quaternion.LookRotation (forward, up);
 		}
 
 		lastTriggerState = currentTriggerState;

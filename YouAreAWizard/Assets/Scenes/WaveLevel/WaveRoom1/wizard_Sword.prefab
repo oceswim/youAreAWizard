@@ -20249,7 +20249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   death: {fileID: 8695044102109796665, guid: b9f828572aff442e1bfbe114719dd262, type: 3}
-  thePlayer: {fileID: 4976035995461569801, guid: a15f71bdbc94d48b9bc14b128ce6437f,
+  thePlayer: {fileID: 8342673066515640144, guid: 0d5ad2a965cb64f8680c19295a1db896,
     type: 3}
   goals:
   - {fileID: 7569304028811693356, guid: b34f466ce2a7e4c5ab6dabb357106c6d, type: 3}

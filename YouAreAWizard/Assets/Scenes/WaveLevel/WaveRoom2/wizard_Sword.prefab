@@ -20186,13 +20186,12 @@ GameObject:
   - component: {fileID: 6827920698803091954}
   - component: {fileID: 6889964597857543458}
   - component: {fileID: 6830867511613290623}
-  - component: {fileID: 6830867511613290620}
   - component: {fileID: 6830867511613290621}
   - component: {fileID: 6830867511613290594}
   - component: {fileID: -8786404011900685261}
   m_Layer: 0
   m_Name: wizard_Sword
-  m_TagString: Lv3
+  m_TagString: Lv1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20249,15 +20248,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   death: {fileID: 8695044102109796665, guid: b9f828572aff442e1bfbe114719dd262, type: 3}
-  thePlayer: {fileID: 4976035995461569801, guid: a15f71bdbc94d48b9bc14b128ce6437f,
+  thePlayer: {fileID: 8342673066515640144, guid: 0d5ad2a965cb64f8680c19295a1db896,
     type: 3}
   goals:
-  - {fileID: 1154196779090722282, guid: 164979d47047c46f1b7071e445fb039e, type: 3}
-  - {fileID: 329359502541282369, guid: 7c664b34966f94e89ac11ff8495ee2dd, type: 3}
-  - {fileID: 329359502541282369, guid: 25272597235ce4d7da923aa6dd6d6efb, type: 3}
-  - {fileID: 1154196779090722282, guid: 8cf2ac3e93ea3439a847ec0fe2bdb8c9, type: 3}
-  - {fileID: 426243233895998052, guid: 6ca8936e795574e9d899a4364d6aa2d0, type: 3}
-  - {fileID: 426243233895998052, guid: ba226d401c986425a8a151a4ebee116d, type: 3}
   - {fileID: 1280384396176450861, guid: eb607c11937ec48158cd7690a4f0f457, type: 3}
   - {fileID: 1280384396176450861, guid: bfb0a4eb94c834e2cb33d5c591c37212, type: 3}
   - {fileID: 5045560749765660058, guid: 48aae9d0ac8dc48c486bed1be37a6268, type: 3}
@@ -20267,18 +20260,7 @@ MonoBehaviour:
   firePoint: {fileID: 9096522369434014488}
   vfx: {fileID: 3997630668601885635, guid: 9ef0dd9c17f714ed8966af4524300ca4, type: 3}
   attack: {fileID: 8300000, guid: 074ccb664b11e1341a5ac9b972ea3ab8, type: 3}
---- !u!114 &6830867511613290620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6830867511613290622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3391cdfddef74412ab962616c807c5ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  spawnAgain: 0
 --- !u!136 &6830867511613290621
 CapsuleCollider:
   m_ObjectHideFlags: 0

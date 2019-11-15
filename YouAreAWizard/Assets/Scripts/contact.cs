@@ -37,13 +37,24 @@ public class contact : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "wizard_Sword(Clone)" || collision.gameObject.name == "wizard_Wand(Clone)" || collision.gameObject.name == "wizard_Sword" || collision.gameObject.name == "wizard_Wand")
+        if (collision.gameObject.name == "wizard_Sword(Clone)" || collision.gameObject.name == "wizard_Sword")
         {
-            Impact health = collision.collider.GetComponent<Impact>();
+            CTRLWizard health = collision.collider.GetComponent<CTRLWizard>();
 
             if (health != null)
             {
-                health.Damage(theDamage);
+                health.DamageWizard(theDamage);
+            }
+            Destroy(gameObject);
+            speed = 0;
+        }
+        else if(collision.gameObject.name == "wizard_Wand" || collision.gameObject.name == "wizard_Wand(Clone)")
+        {
+            CTRLpatrol health = collision.collider.GetComponent<CTRLpatrol>();
+
+            if (health != null)
+            {
+                health.DamagePatrol(theDamage);
             }
             Destroy(gameObject);
             speed = 0;

@@ -4,8 +4,7 @@ using UnityEngine.AI;
 
 public class CTRLWizard : MonoBehaviour
 {
-
-    public ParticleSystem death;
+   // public ParticleSystem death;
 
 
     public GameObject thePlayer;
@@ -21,7 +20,7 @@ public class CTRLWizard : MonoBehaviour
 
     private bool hasArrived;
     public static bool isDead;
-    
+
 
     public static bool isAttacking;
     private float shot, dead;
@@ -29,17 +28,31 @@ public class CTRLWizard : MonoBehaviour
     private float _timeTillAttack;
 
     private NavMeshAgent agent;
+
+    private int health;
     // Use this for initialization
-    void Start()
+
+    protected void Start()
     {
-    
+        //Register this enemy with our instance of GameManager by adding it to a list of Enemy objects. 
+        //This allows the GameManager to issue movement commands.
+        GameManager.instance.AddKnightsToList(this);
+
+        //Get and store a reference to the attached Animator component.
+        _animator = GetComponent<Animator>();
+
+        //Find the Player GameObject using it's tag and store a reference to its transform component.
+        thePlayer = GameObject.FindGameObjectWithTag("Player");
+
+
 
         _timeTillAttack = Random.Range(0, 3);
-        thePlayer = GameObject.Find("Player");
+
         effectToSpawn = vfx;
-        _animator = GetComponent<Animator>();
-        shot = dead = single= 0;
+
+        shot = dead = single = 0;
         destPoint = Random.Range(0, goals.Length);
+        Debug.Log("dest"+destPoint);
         isDead = false;
         isAttacking = false;
         hasArrived = false;
@@ -49,29 +62,49 @@ public class CTRLWizard : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         agent.destination = goals[destPoint].position;
-        Debug.Log("destination" + agent.destination);
+
+
+        switch (transform.tag)
+        {
+            case "Lv1":
+                health = Random.Range(1, 3);
+
+                break;
+            case "Lv2":
+
+                health = Random.Range(2, 4);
+
+                break;
+            case "Lv3":
+
+                health = Random.Range(3, 5);
+
+                break;
+        }
+      
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        
+
         if (!hasArrived)
         {
-            if(isDead)
+            if (isDead)
             {
-            
-                Die();
+                agent.isStopped = true;
+              
             }
             else
             {
 
                 if (!agent.pathPending && agent.remainingDistance < 0.5f)
                 {
-          
+
                     hasArrived = true;
                     agent.isStopped = true;
-            
+
                 }
             }
 
@@ -79,11 +112,11 @@ public class CTRLWizard : MonoBehaviour
         else if (hasArrived)
         {
 
-           
-            if(isDead)
+
+            if (isDead)
             {
-               // spawnAgain = true;
-                Die();
+                agent.isStopped = true;
+                
             }
             else
             {
@@ -94,9 +127,9 @@ public class CTRLWizard : MonoBehaviour
 
     private void Attack()
     {
-     
+
         _animator.SetBool("isMoving", false);
-        
+
         transform.LookAt(thePlayer.transform);
         if (!isAttacking)
         {
@@ -110,13 +143,13 @@ public class CTRLWizard : MonoBehaviour
         if (_timeTillAttack <= 0)
         {
             _animator.SetBool("isAttacking", true);
-            
+
             //play attack sounds
             //attack script
             if (shot < 1.5f)
             {
                 shot += Time.deltaTime;
-                if(shot>.7 && single==0)
+                if (shot > .7 && single == 0)
                 {
                     single++;
 
@@ -125,7 +158,7 @@ public class CTRLWizard : MonoBehaviour
             }
             else
             {
-               
+
                 _animator.SetBool("isAttacking", false);
                 _timeTillAttack = 3.0f;
                 shot = 0;
@@ -137,28 +170,54 @@ public class CTRLWizard : MonoBehaviour
 
         }
     }
-    private void Die()
+    public void Die()
     {
-        if(dead <5f)
+          if (dead < 5f)
         {
+            if (dead < 1)
+            {
+                _animator.SetTrigger("isDead");
+                // death.Play();
+            }
             dead += Time.deltaTime;
         }
         else
         {
-            death.Play();
-            Destroy(gameObject);
+            
+            isDead = true;
+
         }
     }
     void SpawnVFX()
     {
-        
-        if(firePoint!=null)
+
+        if (firePoint != null)
         {
             AudioSource.PlayClipAtPoint(attack, transform.position);
             vfx = Instantiate(effectToSpawn, firePoint.transform.position, Quaternion.identity);
             vfx.transform.localRotation = transform.rotation;
         }
-  
+
+    }
+
+    public void DamageWizard(int damageAmount)
+    {
+
+        health -= damageAmount;
+
+        if (health <= 0)
+        {
+           
+            GameManager.instance.KillKnight(this);
+
+        }
+        else if (health > 0)
+        {
+            //ouch noise
+            _animator.SetTrigger("isDamaged");
+
+        }
     }
 
 }
+

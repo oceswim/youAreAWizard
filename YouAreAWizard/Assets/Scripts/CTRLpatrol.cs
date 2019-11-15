@@ -31,10 +31,13 @@ public class CTRLpatrol : MonoBehaviour
     private float shot, dead;
     private Animator _animator;
     private float _timeTillAttack = 3f;
+    private int health;
     // Use this for initialization
-    void Start()
+    protected void Start()
     {
+        GameManager.instance.AddWandToList(this);
         thePlayer = GameObject.Find("Player");
+        target = GameObject.FindGameObjectWithTag("target").transform;
         effectToSpawn = vfx;
         isDefending = false;
         _animator = GetComponent<Animator>();
@@ -47,6 +50,27 @@ public class CTRLpatrol : MonoBehaviour
         hasArrived = false;
 
         theTarget = target.position;
+
+        switch (transform.tag)
+        {
+            case "Lv1":
+                health = Random.Range(1,2);
+
+                break;
+            case "Lv2":
+
+                health = Random.Range(2, 3);
+
+                break;
+            case "Lv3":
+
+                health = Random.Range(3, 4);
+
+                break;
+        }
+        Debug.Log(health + " life");
+
+
 
     }
     void GotoNextPoint()
@@ -178,6 +202,22 @@ public class CTRLpatrol : MonoBehaviour
             vfx.transform.localRotation = transform.rotation;
         }
 
+    }
+    public void DamagePatrol(int damageAmount)
+    {
+        health -= damageAmount;
+
+        if (health <= 0)
+        {
+            _animator.SetTrigger("isDead");
+            isDead = true;
+        }
+        else if (health > 0)
+        {
+            //ouch noise
+            _animator.SetTrigger("isDamaged");
+
+        }
     }
 
 }

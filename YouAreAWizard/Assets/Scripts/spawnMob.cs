@@ -5,65 +5,49 @@ using UnityEngine;
 public class spawnMob : MonoBehaviour
 {
     public GameObject mob;
-    public GameObject[] spawns;
-    public GameObject[] jails;
-    public GameObject nextStep;
-    public int spawnAmount;
-    private int theSpawnAmount;
-    private int index;
-    public static bool next;
+    public int theSpawnAmount;
+    public bool canSpawn;
+    public bool next;
+    private bool spawned;
     // Start is called before the first frame update
     void Start()
     {
+        canSpawn = true;
+        spawned = false;
+        GameManager.instance.AddSpawnToList(this);
         next = false;
-        theSpawnAmount = Random.Range(2, spawnAmount);
+        //spawnAmount = RoomManager.spawnAmount;
+        theSpawnAmount =Random.Range(1, 3);
         //in game manager create one spawnamount random
         //qd spawn amount atteint, increment count of game manager
         //qd spawn amount des 2 atteint alors gamemanger set next action
-        index = Random.Range(0, (spawns.Length-1));
-        Debug.Log("spawnlist" + spawns.Length);
-        if (index>1)
-        {
-            Debug.Log("INDEX" + index);
-            mob.tag = "Lv3";
-        }
-        else if(index<2)
-        {
-            mob.tag = "Lv2";
-        }
-        spawn(spawns[index]);
+
     }
     private void Update()
     {
-        if(CTRLWizard.isDead && theSpawnAmount>0)
+        if (spawned)
         {
-            index = Random.Range(0, (spawns.Length - 1));
-            Debug.Log("INDEX" + index);
-            if (index > 1)
+            spawned = false;
+            theSpawnAmount--;
+            //Debug.Log("spw left: "+theSpawnAmount);
+            if (theSpawnAmount < 1)
             {
-                mob.tag = "Lv3";
-            }
-            else if (index < 2)
-            {
-                mob.tag = "Lv2";
-            }
-            spawn(spawns[index]);
+                canSpawn = false;
+                GameManager.instance.removeSpawn(this);
+                Debug.Log("STOP");
+                Destroy(this.gameObject);
+            } 
+               
         }
-        else if(theSpawnAmount<=0)
-        {
-            foreach (GameObject s in jails)
-            {
-                s.SetActive(true);
-            }
-            nextStep.SetActive(true);
-        }
-    }
-    void spawn(GameObject thespawn)
-    {
+        
+        
 
-        theSpawnAmount--;
-        Instantiate(mob, thespawn.transform.position, mob.transform.rotation);
-          
+    }
+
+    public void Spawn()
+    {
+        Instantiate(mob, transform.position, mob.transform.rotation);
+        spawned = true;
 
     }
 
