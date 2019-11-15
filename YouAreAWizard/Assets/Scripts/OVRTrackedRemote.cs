@@ -55,9 +55,6 @@ public class OVRTrackedRemote : MonoBehaviour
     private spawnRay mSpawnRay;
 
 
-    private readonly float doubleClickTimeLimit = 0.3f;
-
-
     private float lastClickTime;
     private int single;
     private float wait;
@@ -79,7 +76,7 @@ public class OVRTrackedRemote : MonoBehaviour
     Vector3 objRotation;
     public float objRotationSpeed = 60f;
     private Vector2 trackpadX;
-    private int firstRot = 0;
+
     //
     private bool  protection;
 

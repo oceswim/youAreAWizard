@@ -20186,7 +20186,6 @@ GameObject:
   - component: {fileID: 6827920698803091954}
   - component: {fileID: 6889964597857543458}
   - component: {fileID: 6830867511613290623}
-  - component: {fileID: 6830867511613290620}
   - component: {fileID: 6830867511613290621}
   - component: {fileID: 6830867511613290594}
   - component: {fileID: -8786404011900685261}
@@ -20248,37 +20247,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77bba33f99dad4387b3c9d062ba50a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  death: {fileID: 8695044102109796665, guid: b9f828572aff442e1bfbe114719dd262, type: 3}
   thePlayer: {fileID: 8342673066515640144, guid: 0d5ad2a965cb64f8680c19295a1db896,
     type: 3}
   goals:
-  - {fileID: 7569304028811693356, guid: b34f466ce2a7e4c5ab6dabb357106c6d, type: 3}
-  - {fileID: 5045560749765660058, guid: b2105aaaf3e4e46e8bab6a4b7366c3b5, type: 3}
-  - {fileID: 1280384396176450861, guid: 3cbe590d9867e48d5a51a6f3eb15f555, type: 3}
-  - {fileID: 426243233895998052, guid: 201fa42d36b09416898c427b6a884556, type: 3}
-  - {fileID: 329359502541282369, guid: 162980f1bed3541b98ef93162c8d018f, type: 3}
   - {fileID: 1154196779090722282, guid: 4838c9373c8264753a8de31832ae6655, type: 3}
-  - {fileID: 7569304028811693356, guid: a26f87c3be0024056ad9bfcafd71868f, type: 3}
-  - {fileID: 5045560749765660058, guid: 8441afb398e6b41228a71cf59f173528, type: 3}
-  - {fileID: 1280384396176450861, guid: ea26d60a7a08541cd817116ee4065694, type: 3}
-  - {fileID: 426243233895998052, guid: b7e042c9449a342eb99d2d58587bb27e, type: 3}
-  - {fileID: 1154196779090722282, guid: 0ba903f763b8b48aaa035a01820a192f, type: 3}
+  - {fileID: 329359502541282369, guid: 162980f1bed3541b98ef93162c8d018f, type: 3}
   - {fileID: 329359502541282369, guid: bcf26bea15c154dc48123fd431976dc6, type: 3}
+  - {fileID: 1154196779090722282, guid: 0ba903f763b8b48aaa035a01820a192f, type: 3}
+  - {fileID: 426243233895998052, guid: 201fa42d36b09416898c427b6a884556, type: 3}
+  - {fileID: 426243233895998052, guid: b7e042c9449a342eb99d2d58587bb27e, type: 3}
   firePoint: {fileID: 9096522369434014488}
   vfx: {fileID: 3997630668601885635, guid: 9ef0dd9c17f714ed8966af4524300ca4, type: 3}
   attack: {fileID: 8300000, guid: 074ccb664b11e1341a5ac9b972ea3ab8, type: 3}
---- !u!114 &6830867511613290620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6830867511613290622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3391cdfddef74412ab962616c807c5ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &6830867511613290621
 CapsuleCollider:
   m_ObjectHideFlags: 0
