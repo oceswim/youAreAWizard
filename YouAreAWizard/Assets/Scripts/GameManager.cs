@@ -6,6 +6,7 @@ using UnityEngine.UI;                   //Allows us to use UI.
 
 public class GameManager : MonoBehaviour
 {
+
     public float levelStartDelay = 2f;                      //Time to wait before starting level, in seconds.
                                                    //public int playerFoodPoints = 100;                      //Starting value for Player food points.
     public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
     public bool wandDead;
     private int knightsAdded;
     private int wandAdded;
-                       //Boolean to check if we're setting up board, prevent Player from moving during setup.
+    private bool sceneLoad;   
 
 
 
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
       
         knightsDead = false;
         wandDead = false;
+        sceneLoad = false;
         //Get a component reference to the attached BoardManager script
         //levelImage.SetActive(false); 
         //Call the InitGame function to initialize the first level 
@@ -60,53 +62,39 @@ public class GameManager : MonoBehaviour
 
     //this is called only once, and the paramter tell it to be called only after the scene was loaded
     //(otherwise, our Scene Load callback would be called the very first load, and we don't want that)
-   /* [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+   [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static public void CallbackInitialization()
     {
         //register the callback to be called everytime the scene is loaded
-        if (changeScene.sceneload)
-        {
-            changeScene.sceneload = false;
             SceneManager.sceneLoaded += OnSceneLoaded;
-        }
+      
     }
 
     //This is called each time a scene is loaded.
     static private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
+
         instance.InitGame();
     }
-    */
 
     //Initializes the game for each level.
     public void InitGame()
     {
-        //While doingSetup is true the player can't move, prevent player from moving while title card is up.
-       
-
-        //Get a reference to our image LevelImage by finding it by name.
-
-
-        //Set levelImage to active blocking player's view of the game board during setup.
-        /*if (levelImage != null)
-        {
-           
-            levelImage.SetActive(true);
-        }*/
-
-        //Call the HideLevelImage function with a delay in seconds of levelStartDelay.
-        // Invoke("HideLevelImage", levelStartDelay);
-
         //Clear any Enemy objects in our List to prepare for next level.
         nextStep = GameObject.Find("NextStep");
         nextStep.SetActive(false);
-        knights.Clear();
-        wand.Clear();
         spawns.Clear();
-        knightsAdded = 0;
-        wandAdded = 0;
-
-
+        if (knightsAdded > 0)
+        {   
+            knights.Clear();
+            knightsAdded = 0;
+        }
+        else if (wandAdded > 0)
+        {
+            
+            wand.Clear();
+            wandAdded = 0;
+        }
     }
 
 
@@ -114,10 +102,13 @@ public class GameManager : MonoBehaviour
     //Update is called every frame.
     void Update()
     {
-       
+       if(sceneLoad)
+        {
+            sceneLoad = false;
+            InitGame();
+        }
         if(spawns.Count>0)
         {
-            Debug.Log("after wand is dead");
             if(knightsAdded>0)
             {
                
@@ -131,10 +122,10 @@ public class GameManager : MonoBehaviour
             }
             else if(wandAdded>0)
             {
-                Debug.Log("after wand added");
+           
                 if (wandDead)
                 {
-                    Debug.Log("spawning after death");
+   
                     wandDead = false;
                     int index = Random.Range(0, spawns.Count);
                     ReSpawn(index);
@@ -151,9 +142,6 @@ public class GameManager : MonoBehaviour
 
                     movingOn = false;
                     knightsDead = false;
-
-                    print("movingOn");
-
                     moveOn();
 
 
@@ -166,9 +154,6 @@ public class GameManager : MonoBehaviour
 
                     movingOn = false;
                     wandDead = false;
-
-                    print("movingOn");
-
                     moveOn();
 
 
@@ -186,7 +171,6 @@ public class GameManager : MonoBehaviour
         knights.Add(script);
         if(knightsAdded==0)
         {
-            Debug.Log("knights added");
             knightsAdded = 1;
         }
 
@@ -233,7 +217,6 @@ public class GameManager : MonoBehaviour
     {
         if (nextStep != null)
         {
-            Debug.Log("found next step");
             knightsAdded=0;
             wandAdded = 0;
             nextStep.SetActive(true);
@@ -247,8 +230,6 @@ public class GameManager : MonoBehaviour
 
         knights.Remove(theKnight);
         knightsDead = true;
-        Debug.Log("kill the knight"+ spawns.Count);
-       // Debug.Log("Knight capacity" + knightsAmount);
 
     }
     public void KillWizard(CTRLpatrol theWizard)
@@ -269,6 +250,53 @@ public class GameManager : MonoBehaviour
         {
             movingOn = true;
         }
+    }
+    public void AttackLevel()
+    {
+        sceneLoad = true;
+        SceneManager.LoadScene("AttackLevel");
+     
+    }
+    public void WaveLevel()
+    {
+        sceneLoad = true;
+        SceneManager.LoadScene("WaveLevel");
+    }
+    public void BossLevel()
+    {
+       sceneLoad = true;
+       SceneManager.LoadScene("BossLevel");
+
+    }
+    public void PlayGame()
+    {
+        //if never played
+        //if (firstRun == 0)
+        // {
+       
+       SceneManager.LoadScene(1);
+        //}
+        // else
+        // {
+        //load to latest save
+        //  }
+
+
+    }
+    public void MainMenu()
+    {
+        sceneLoad = true;
+        SceneManager.LoadScene("MainMenu");
+    }
+    public void QuitGame()
+    {
+        //if click on settings
+        Application.Quit();
+    }
+    public void StartAgain()
+    {
+
+        //if dies can start at latest save
     }
 
 }
