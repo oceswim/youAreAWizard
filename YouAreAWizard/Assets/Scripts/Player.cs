@@ -4,27 +4,41 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
+    public GameObject savedMessage;
+    private bool displaySave = false;
+    private float timer = 2;
     public int playerHealth=10;
     private void Update()
     {
+        if(displaySave)
+        {
+            savedMessage.SetActive(true);
+            if (timer < .5f)
+            {
+                savedMessage.SetActive(false);
+                displaySave = false;
+                timer = 2;
+            }
+            else
+            {
+                timer -= Time.deltaTime;
+            }
+            
+        }
         if (playerHealth < 1)
         {
             //stop game and ask if want to quit or go back to latest saved place;
-        }
-        if(PlayerPrefs.HasKey("sceneLoaded"))
-        {
-            if(PlayerPrefs.GetInt("sceneLoaded")==1)
-            {
-                PlayerPrefs.SetInt("sceneLoaded", 1);
-                SavePlayer();
-            }
-        }
-
+        }     
+        
     }
     public void SavePlayer()
     {
+
         SaveSystem.SavePlayer(this);
+        displaySave = true;
+        
+
+        
     }
     public void LoadPlayer()
     {
@@ -48,6 +62,16 @@ public class Player : MonoBehaviour
     
         playerHealth = 10;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.tag == "checkPoint")
+        {
+            Debug.Log("ouch");
+            Destroy(other.gameObject);
+            SavePlayer();
+        }
+    }
     // Start is called before the first frame update
-   
+
 }

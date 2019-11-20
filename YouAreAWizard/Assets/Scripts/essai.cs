@@ -11,6 +11,10 @@ public class essai : MonoBehaviour
         CTRLpatrol.isDefending = true;
         Destroy(gameObject);
         other.gameObject.SetActive(false);
+
+     
+           
+        
     }
 
 }

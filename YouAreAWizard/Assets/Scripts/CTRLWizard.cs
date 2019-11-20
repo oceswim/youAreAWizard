@@ -10,7 +10,7 @@ public class CTRLWizard : MonoBehaviour
     public GameObject thePlayer;
     public Transform[] goals;
     private int destPoint;
-
+    public AudioClip roar, moan;
 
     public GameObject firePoint;
     public GameObject vfx;
@@ -93,20 +93,9 @@ public class CTRLWizard : MonoBehaviour
             if (isDead)
             {
                 agent.isStopped = true;
-              
+
+
             }
-            else
-            {
-
-                if (!agent.pathPending && agent.remainingDistance < 0.5f)
-                {
-
-                    hasArrived = true;
-                    agent.isStopped = true;
-
-                }
-            }
-
         }
         else if (hasArrived)
         {
@@ -115,7 +104,8 @@ public class CTRLWizard : MonoBehaviour
             if (isDead)
             {
                 agent.isStopped = true;
-                
+
+
             }
             else
             {
@@ -169,24 +159,7 @@ public class CTRLWizard : MonoBehaviour
 
         }
     }
-    public void Die()
-    {
-          if (dead < 5f)
-        {
-            if (dead < 1)
-            {
-                _animator.SetTrigger("isDead");
-                // death.Play();
-            }
-            dead += Time.deltaTime;
-        }
-        else
-        {
-            
-            isDead = true;
-
-        }
-    }
+    
     void SpawnVFX()
     {
 
@@ -206,13 +179,15 @@ public class CTRLWizard : MonoBehaviour
 
         if (health <= 0)
         {
-           
+            isDead = true;
+            AudioSource.PlayClipAtPoint(moan, thePlayer.transform.position, .5f);
             GameManager.instance.KillKnight(this);
 
         }
         else if (health > 0)
         {
             //ouch noise
+            AudioSource.PlayClipAtPoint(roar, thePlayer.transform.position, .3f);
             _animator.SetTrigger("isDamaged");
 
         }

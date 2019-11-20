@@ -4803,6 +4803,7 @@ MonoBehaviour:
   target: {fileID: 8342673066515640144, guid: 0d5ad2a965cb64f8680c19295a1db896, type: 3}
   hurt: {fileID: 8300000, guid: 00d31af1aa95a45d4ae71f77a37bf34d, type: 3}
   shock: {fileID: 8300000, guid: 8f3dc90b20c074ccda256e21402436e4, type: 3}
+  impactShield: {fileID: 8300000, guid: c8c1dfd9499984587a55048a23714332, type: 3}
 --- !u!136 &5501093908889217192
 CapsuleCollider:
   m_ObjectHideFlags: 0

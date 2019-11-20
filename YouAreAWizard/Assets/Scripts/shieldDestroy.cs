@@ -7,10 +7,10 @@ public class shieldDestroy : MonoBehaviour
     public AudioClip shield;
     public AudioClip brokenShield;
     private int health = 3;
-    private void Start()
+    void OnEnable()
     {
         AudioSource.PlayClipAtPoint(shield, transform.position);
-        //
+        
     }
     // Start is called before the first frame update
     private void OnCollisionEnter(Collision collsion)
@@ -22,6 +22,7 @@ public class shieldDestroy : MonoBehaviour
                 //broken shield sound
                 health = 3;
                 gameObject.SetActive(false);
+                AudioSource.PlayClipAtPoint(brokenShield, transform.position);
                 OVRTrackedRemote.active = false;
             }
             else

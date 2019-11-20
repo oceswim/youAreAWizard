@@ -16337,6 +16337,8 @@ MonoBehaviour:
   - {fileID: 8033692545621682047, guid: 37df9f9c948b4484b84dbdb95b966bd5, type: 3}
   - {fileID: 3759362380011088276, guid: f424e031aa6ad4458819c5e30e244b19, type: 3}
   target: {fileID: 6392782555567474775, guid: 91331fabfae20456fac3d3d5d35dce92, type: 3}
+  roar: {fileID: 8300000, guid: 0e2d02411bfc04c40845a674bf575ada, type: 3}
+  moan: {fileID: 8300000, guid: 20355a3087a074109ab462b28ddab8e1, type: 3}
   firePoint: {fileID: 5177995973147462728}
   vfx: {fileID: 3997630668601885635, guid: 9ef0dd9c17f714ed8966af4524300ca4, type: 3}
   attack: {fileID: 8300000, guid: 8f3dc90b20c074ccda256e21402436e4, type: 3}

@@ -13,6 +13,7 @@ public class CTRLpatrol : MonoBehaviour
     private NavMeshAgent agent;
     public Transform target;
 
+    public AudioClip roar, moan;
 
     private Vector3 theTarget;
     public GameObject firePoint;
@@ -109,6 +110,7 @@ public class CTRLpatrol : MonoBehaviour
                 if (isDead)
                 {
                     agent.isStopped = true;
+                   
                 }
                 else
                 {
@@ -128,6 +130,8 @@ public class CTRLpatrol : MonoBehaviour
                     Debug.Log("attacking");
                     Attack();
                 }
+              
+                
             }
             hasArrived |= Mathf.Abs(transform.position.magnitude - theTarget.magnitude) < .5;
 
@@ -174,22 +178,7 @@ public class CTRLpatrol : MonoBehaviour
 
         }
     }
-    public void Die()
-    {
-        if (dead < 5f)
-        {
-            if (dead < 1)
-            {
-                _animator.SetTrigger("isDead");
-           
-            }
-            dead += Time.deltaTime;
-        }
-        else
-        {
-            isDead = true;
-        }
-    }
+
     void SpawnVFX()
     {
 
@@ -207,11 +196,14 @@ public class CTRLpatrol : MonoBehaviour
 
         if (health <= 0)
         {
+            isDead = true;
+            AudioSource.PlayClipAtPoint(moan, thePlayer.transform.position, .5f);
             GameManager.instance.KillWizard(this);
         }
         else if (health > 0)
         {
             //ouch noise
+            AudioSource.PlayClipAtPoint(roar, thePlayer.transform.position, .3f);
             _animator.SetTrigger("isDamaged");
 
         }

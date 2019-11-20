@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 192736350510720941}
   - component: {fileID: 192736350510720938}
-  - component: {fileID: 2888937707794072251}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,17 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelStartDelay: 2
-  levelImage: {fileID: 6049732847747136245, guid: b0ebab37406a1402481d3e437083acce,
-    type: 3}
---- !u!114 &2888937707794072251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192736350510720939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d33b0b39bbee947bd816aae8b0ecf8d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  movingOn: 0
+  knightsDead: 0
+  wandDead: 0
+  GameIsPaused: 0

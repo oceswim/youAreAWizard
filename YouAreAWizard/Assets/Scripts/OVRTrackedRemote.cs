@@ -30,8 +30,9 @@ using UnityEngine.VR;
 /// </summary>
 public class OVRTrackedRemote : MonoBehaviour
 {
+    public GameObject theCanvas;
     public GameObject Shield;
-
+    
     /// <summary>
     /// The root GameObject that represents the GearVr Controller model.
     /// </summary>
@@ -55,9 +56,7 @@ public class OVRTrackedRemote : MonoBehaviour
     private spawnRay mSpawnRay;
 
 
-    private float lastClickTime;
     private int single;
-    private float wait;
 
     //private int firstShield = 0;
     //public static bool ShieldActive;
@@ -71,14 +70,7 @@ public class OVRTrackedRemote : MonoBehaviour
     private int clickCount;
     private float timerBetweenClick, firstClick;
 
-    //test
-    public GameObject ObjectToRotate;
-    Vector3 objRotation;
-    public float objRotationSpeed = 60f;
-    private Vector2 trackpadX;
 
-    //
-    private bool  protection;
 
     void Start()
     {
@@ -101,7 +93,6 @@ public class OVRTrackedRemote : MonoBehaviour
         doubleClick = true;
         singleClick = false;
 
-        objRotation = new Vector3(0f, 0f, 0f);
 
 
     }
@@ -138,6 +129,20 @@ public class OVRTrackedRemote : MonoBehaviour
             {
                 triggerCount += 1;
             }
+            else if(OVRInput.GetDown(OVRInput.Button.Back))
+            {
+               
+                if(GameManager.instance.GameIsPaused)
+                {
+                    theCanvas.SetActive(false);
+                    GameManager.instance.Resume();
+                }
+                else
+                {
+                    theCanvas.SetActive(true);
+                    GameManager.instance.Pause();
+                }
+            }
             if(clickCount==1 &&doubleClick)
             {
                 firstClick = Time.time;
@@ -148,10 +153,7 @@ public class OVRTrackedRemote : MonoBehaviour
                 firstCickTime = Time.time;
                 StartCoroutine(DoubleTriggerDetect());
             }
-            if(!m_isWand)
-            {
-                //teleport/rotate cam here
-            }
+            
         }
     }
     private IEnumerator DoubleTriggerDetect()
@@ -200,13 +202,6 @@ public class OVRTrackedRemote : MonoBehaviour
         doubleTrigger = true;
         singleTrigger = false;
 
-    }
-    bool TouchPadTouched
-    {
-        get
-        {
-            return OVRInput.Get(OVRInput.Touch.PrimaryTouchpad);
-        }
     }
 
     private IEnumerator DoubleClickDetect()

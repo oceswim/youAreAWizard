@@ -25,10 +25,25 @@ public class GameManager : MonoBehaviour
     private int wandAdded;
     private bool sceneLoad;
 
-    private GameObject menuToActivate;
+   
+    private GameObject firstMenu;
+    private GameObject normalMenu;
+    public bool GameIsPaused = false;
     //Awake is always called before any Start functions
     void Awake()
     {
+        /*
+         *
+         *SUPPRIME APRES
+         *
+         * 
+         */
+        PlayerPrefs.DeleteAll();
+        firstMenu = GameObject.Find("Canvas/TheMenu/menuFirstLoad");
+        normalMenu = GameObject.Find("Canvas/TheMenu/menuNormal");
+        firstMenu.SetActive(false);
+        normalMenu.SetActive(false);
+        Debug.Log(firstMenu.name+" "+normalMenu.name );
 
         //Check if instance already exists
         if (instance == null)
@@ -108,7 +123,6 @@ public class GameManager : MonoBehaviour
     {
         if (sceneLoad)
         {
-            PlayerPrefs.SetInt("sceneLoaded", 1);
             sceneLoad = false;
             InitGame();
         }
@@ -169,6 +183,17 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void Resume()
+    {
+        GameIsPaused = false;
+        Time.timeScale = 1f;
+    }
+    public void Pause()
+    {
+        GameIsPaused = true;
+        Time.timeScale = 0f;
+
+    }
     //Call this to add the passed in Enemy to the List of Enemy objects.
     public void AddKnightsToList(CTRLWizard script)
     {
@@ -230,18 +255,14 @@ public class GameManager : MonoBehaviour
     }
     public void KillKnight(CTRLWizard theKnight)
     {
-        theKnight.Die();
         Destroy(theKnight.gameObject);
-
-        knights.Remove(theKnight);
+        knights.Remove(theKnight);  
         knightsDead = true;
 
     }
     public void KillWizard(CTRLpatrol theWizard)
     {
-        theWizard.Die();
         Destroy(theWizard.gameObject);
-
         wand.Remove(theWizard);
         wandDead = true;
         // Debug.Log("Knight capacity" + knightsAmount);
@@ -267,6 +288,11 @@ public class GameManager : MonoBehaviour
     {
         sceneLoad = true;
         PlayerPrefs.SetInt("CurrentLevel", 1);
+        if (!PlayerPrefs.HasKey("firstLoad"))
+        {
+
+            PlayerPrefs.SetInt("firstLoad", 1);
+        }
         SceneManager.LoadScene("tutoLevel");
 
     }
@@ -275,11 +301,6 @@ public class GameManager : MonoBehaviour
         sceneLoad = true;
 
         PlayerPrefs.SetInt("CurrentLevel", 2);
-        if (!PlayerPrefs.HasKey("firstLoad"))
-        {
-
-            PlayerPrefs.SetInt("firstLoad", 1);
-        }
         SceneManager.LoadScene("WaveLevel");
     }
     public void BossLevel()
@@ -301,10 +322,10 @@ public class GameManager : MonoBehaviour
     }
     public void LoadScene(int index)
     {
+
         PlayerPrefs.SetInt("CurrentLevel", index);
         SceneManager.LoadScene(index);
-
-        //if dies can start at latest save
+        //if dies can start at latest save on saved scene
     }
     public void FirstLoad()
     {
@@ -316,13 +337,12 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("firstLoad"))
         {
-            menuToActivate = GameObject.Find("Canvas/TheMenu/menuNormal");
-            menuToActivate.SetActive(true);
+            normalMenu.SetActive(true);
         }
         else
         {
-            menuToActivate = GameObject.Find("Canvas/TheMenu/menuFirstLoad");
-            menuToActivate.SetActive(true);
+            
+            firstMenu.SetActive(true);
         }
     }
 }
