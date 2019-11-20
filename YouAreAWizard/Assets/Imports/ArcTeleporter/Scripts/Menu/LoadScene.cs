@@ -8,6 +8,10 @@ public class LoadScene : MonoBehaviour {
     void Start() {
         scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
     }
+    public void Tuto()
+    {
+        GameManager.instance.TutoLevel();
+    }
     public void Attack()
     {
         GameManager.instance.AttackLevel();

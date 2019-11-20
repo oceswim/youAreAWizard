@@ -8,9 +8,6 @@ public class Impact : MonoBehaviour
     private CTRLWizard wave;
     private CTRLpatrol patrol;
     private int health;
-
-   
-
     // Start is called before the first frame update
     void Start()
 	{

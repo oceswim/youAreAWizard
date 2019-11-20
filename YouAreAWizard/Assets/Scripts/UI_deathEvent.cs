@@ -8,9 +8,9 @@ public class UI_deathEvent : MonoBehaviour
     // Start is called before the first frame update
     private void Update()
     {
-        if (transform.name == "wizard_Sword")
+        if (transform.name == "goTodungeon")
         {
-            if (CTRLWizard.isDead)
+            if (knightTutoScript.isDead)
             {
                 toActivate.SetActive(true);
             }

@@ -59,13 +59,13 @@ public class contact : MonoBehaviour
             Destroy(gameObject);
             speed = 0;
         }
-        else if (collision.gameObject.name == "DungeonGate")
+        else if (collision.gameObject.name == "destroyGate")
         {
            
             if (single == 0)
             {
                 activate = true;
-                CTRLpatrol.isDefending = true;
+                patrolTutoScript.isDefending = true;
                 single++;
             }
 

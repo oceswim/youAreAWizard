@@ -5,7 +5,7 @@ using UnityEngine;
 public class projectileMove : MonoBehaviour
 {
     private int speed=20;
-   // private int theDamage = 1;
+    private int theDamage = 1;
     private float timeBullet = 0;
     public GameObject target;
     public AudioClip hurt;
@@ -39,9 +39,11 @@ public class projectileMove : MonoBehaviour
     {
        if (collision.transform.tag == "Player")
             {
-                
                 AudioSource.PlayClipAtPoint(hurt, collision.transform.position);
                 speed = 0;
+            //ennemy impacts playerHealth;
+            Player myPlayer = new Player();
+            myPlayer.UpdateHealth(theDamage);
                 Destroy(gameObject);
             }
             else if(collision.transform.tag== "PlayerAttack")
@@ -50,6 +52,7 @@ public class projectileMove : MonoBehaviour
             }
        else if(collision.transform.tag == "Shield")
         {
+            //shield impact noise
             Destroy(gameObject);
         }
 

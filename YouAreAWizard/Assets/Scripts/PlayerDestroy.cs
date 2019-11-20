@@ -8,7 +8,7 @@ public class PlayerDestroy : MonoBehaviour
     public AudioClip shock;
     private void Start()
     {
-        if (gameObject.name == "DungeonGate")
+        if (gameObject.name == "destroyGate")
         {
             health = 3;
         }
