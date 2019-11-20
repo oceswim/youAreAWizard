@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlayerDestroy : MonoBehaviour
 {
     private int health;
-    public AudioClip shock;
+    public AudioClip gateImpact,stoneImpact,gateDestroy,StoneDestroy;
+    private GameObject thePlayer;
     private void Start()
     {
+        thePlayer = GameObject.Find("Player");
         if (gameObject.name == "destroyGate")
         {
             health = 3;
@@ -25,13 +27,33 @@ public class PlayerDestroy : MonoBehaviour
 
 		if (health <= 0)
 		{
-			Destroy(gameObject);
-		}
+            if (gameObject.name == "destroyGate")
+            {
+                AudioSource.PlayClipAtPoint(gateDestroy, thePlayer.transform.position, 200f);
+
+            }
+            else if (gameObject.tag == "magicStone")
+            {
+                AudioSource.PlayClipAtPoint(StoneDestroy, thePlayer.transform.position, 200f);
+
+
+            }
+            Destroy(gameObject);
+        }
 		else if (health > 0)
 		{
-         
-          AudioSource.PlayClipAtPoint(shock, transform.position, 200f);
-            
+            if (gameObject.name == "destroyGate")
+            {
+                AudioSource.PlayClipAtPoint(gateImpact, thePlayer.transform.position, 200f);
+            }
+            else if (gameObject.tag == "magicStone")
+            {
+                AudioSource.PlayClipAtPoint(stoneImpact, thePlayer.transform.position, 200f);
+
+
+            }
+
+
         }
     }
 

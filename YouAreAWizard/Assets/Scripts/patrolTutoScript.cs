@@ -10,7 +10,8 @@ public class patrolTutoScript : MonoBehaviour
 
     public GameObject thePlayer;
     public Transform[] goals;
-    private int currentGoal;
+    public AudioClip roar,moan;
+
     private int destPoint;
     private NavMeshAgent agent;
     public Transform target;
@@ -87,6 +88,13 @@ public class patrolTutoScript : MonoBehaviour
                 if (isDead)
                 {
                     agent.isStopped = true;
+                    if (dead > 5)
+                    {
+                        AudioSource.PlayClipAtPoint(moan, thePlayer.transform.position,.5f);
+                        Destroy(gameObject);
+         
+                    }
+                    dead += Time.deltaTime;
                 }
                 else
                 {
@@ -103,8 +111,20 @@ public class patrolTutoScript : MonoBehaviour
                 if (!isDead)
                 {
 
-                    Debug.Log("attacking");
+               
                     Attack();
+                }
+                else
+                {
+                    if (dead > 5)
+                    {
+                        AudioSource.PlayClipAtPoint(moan, thePlayer.transform.position, .5f); ;
+
+
+                        Destroy(gameObject);
+                     
+                    }
+                    dead += Time.deltaTime;
                 }
             }
             hasArrived |= Mathf.Abs(transform.position.magnitude - theTarget.magnitude) < .5;
@@ -169,7 +189,13 @@ public class patrolTutoScript : MonoBehaviour
     {
         if(collision.transform.tag=="PlayerAttack")
         {
-            Destroy(gameObject);
+            AudioSource.PlayClipAtPoint(roar, thePlayer.transform.position, .3f);
+
+            Destroy(collision.gameObject);
+
+            _animator.SetTrigger("isDead");
+
+            isDead = true;
         }
     }
 

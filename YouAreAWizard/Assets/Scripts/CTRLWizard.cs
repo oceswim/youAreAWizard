@@ -64,18 +64,17 @@ public class CTRLWizard : MonoBehaviour
         agent.destination = goals[destPoint].position;
 
 
-        switch (transform.tag)
+        switch (PlayerPrefs.GetInt("difficulty"))
         {
-            case "Lv1":
+            case 1:
                 health = Random.Range(1, 3);
-
                 break;
-            case "Lv2":
+            case 2:
 
                 health = Random.Range(2, 4);
 
                 break;
-            case "Lv3":
+            case 3:
 
                 health = Random.Range(3, 5);
 

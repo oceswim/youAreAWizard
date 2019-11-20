@@ -21,6 +21,7 @@ TagManager:
   - magicStone
   - Undefined
   - target
+  - Terrain
   layers:
   - Default
   - TransparentFX

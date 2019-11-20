@@ -8,8 +8,7 @@ public class projectileMove : MonoBehaviour
     private int theDamage = 1;
     private float timeBullet = 0;
     public GameObject target;
-    public AudioClip hurt;
-    public AudioClip shock;
+    public AudioClip hurt,shock,impactShield;
 
     // Start is called before the first frame update
     private void Start()
@@ -52,7 +51,7 @@ public class projectileMove : MonoBehaviour
             }
        else if(collision.transform.tag == "Shield")
         {
-            //shield impact noise
+            AudioSource.PlayClipAtPoint(impactShield, collision.transform.position);
             Destroy(gameObject);
         }
 

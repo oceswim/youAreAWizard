@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 public class knightTutoScript : MonoBehaviour
 {
-  
+
     public GameObject thePlayer;
     public Transform goal;
     public GameObject toActivate;
-
+    public AudioClip roar,moan;
 
     public GameObject firePoint;
     public GameObject vfx;
@@ -31,7 +31,7 @@ public class knightTutoScript : MonoBehaviour
 
     protected void Start()
     {
-        
+
         _animator = GetComponent<Animator>();
 
         //Find the Player GameObject using it's tag and store a reference to its transform component.
@@ -57,27 +57,51 @@ public class knightTutoScript : MonoBehaviour
 
         if (!hasArrived)
         {
+
             if (!isDead)
             {
-
                 if (!agent.pathPending && agent.remainingDistance < 0.5f)
                 {
-
+                    Debug.Log("arrived");
                     hasArrived = true;
                     agent.isStopped = true;
 
                 }
             }
+            else
+            {
+                agent.isStopped = true;
+                if (dead > 5)
+                {
+                    AudioSource.PlayClipAtPoint(moan, thePlayer.transform.position,.5f);
+
+                    Destroy(gameObject);
+                    toActivate.SetActive(true);
+                }
+                dead += Time.deltaTime;
+            }
+
 
         }
         else if (hasArrived)
         {
-
-
+            agent.isStopped = true;
             if (!isDead)
-            {            
+            {
                 Attack();
             }
+            else
+            {
+                if (dead > 5)
+                {
+                    AudioSource.PlayClipAtPoint(moan, thePlayer.transform.position,.5f);
+
+                    Destroy(gameObject);
+                    toActivate.SetActive(true);
+                }
+                dead += Time.deltaTime;
+            }
+
         }
     }
 
@@ -126,7 +150,7 @@ public class knightTutoScript : MonoBehaviour
 
         }
     }
-    
+
     void SpawnVFX()
     {
 
@@ -141,11 +165,20 @@ public class knightTutoScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag=="PlayerAttack")
+        if (collision.transform.CompareTag("PlayerAttack"))
         {
-            toActivate.SetActive(true);
-            Destroy(gameObject);
-        }
-    }
+            AudioSource.PlayClipAtPoint(roar, thePlayer.transform.position, .3f);
 
+            Destroy(collision.gameObject);
+
+            _animator.SetTrigger("isDead");
+        
+            isDead = true;
+
+        }
+
+
+    }
 }
+
+

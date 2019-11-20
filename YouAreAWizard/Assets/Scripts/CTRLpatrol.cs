@@ -30,7 +30,7 @@ public class CTRLpatrol : MonoBehaviour
     private bool isAttacking;
     private float shot, dead;
     private Animator _animator;
-    private float _timeTillAttack = 3f;
+    private float _timeTillAttack = 2f;
     private int health;
     // Use this for initialization
     protected void Start()
@@ -50,18 +50,18 @@ public class CTRLpatrol : MonoBehaviour
 
         theTarget = target.position;
 
-        switch (transform.tag)
+        switch (PlayerPrefs.GetInt("difficulty"))
         {
-            case "Lv1":
+            case 1:
                 health = Random.Range(1,2);
 
                 break;
-            case "Lv2":
+            case 2:
 
                 health = Random.Range(2, 3);
 
                 break;
-            case "Lv3":
+            case 3:
 
                 health = Random.Range(3, 4);
 
