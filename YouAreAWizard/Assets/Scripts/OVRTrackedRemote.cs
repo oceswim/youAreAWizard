@@ -117,6 +117,7 @@ public class OVRTrackedRemote : MonoBehaviour
 
         if (!controllerConnected)
         {
+            GameObject.Find("Life").SetActive(false);
             return;
         }
         else

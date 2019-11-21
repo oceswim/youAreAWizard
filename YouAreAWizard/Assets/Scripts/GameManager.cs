@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/*
+ * Oceane Peretti - K1844498 - 3D Games programming Assignment 2
+ * I confirm that this project is a product of my own and not the one of someone else.
+ */
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
@@ -6,7 +10,7 @@ using UnityEngine.UI;                   //Allows us to use UI.
 
 public class GameManager : MonoBehaviour
 {
-
+    
     public float levelStartDelay = 2f;                      //Time to wait before starting level, in seconds.
                                                             //public int playerFoodPoints = 100;                      //Starting value for Player food points.
     public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
@@ -25,26 +29,21 @@ public class GameManager : MonoBehaviour
     private int wandAdded;
     private bool sceneLoad;
 
-   
-    private GameObject firstMenu;
-    private GameObject normalMenu;
     public bool GameIsPaused = false;
+
+    public static int theMenu = 0;
+    public static int theScene;
+    private int count = 0;
     //Awake is always called before any Start functions
     void Awake()
     {
-        /*
-         *
-         *SUPPRIME APRES
-         *
-         * 
-         */
-        PlayerPrefs.DeleteAll();
-        firstMenu = GameObject.Find("Canvas/TheMenu/menuFirstLoad");
-        normalMenu = GameObject.Find("Canvas/TheMenu/menuNormal");
-        firstMenu.SetActive(false);
-        normalMenu.SetActive(false);
-        Debug.Log(firstMenu.name+" "+normalMenu.name );
-
+       
+       if(!PlayerPrefs.HasKey("firstLoad"))
+        {
+            Debug.Log("new game");
+            Game.current = new Game();
+            PlayerPrefs.SetInt("firstLoad", 1);//allows to create a new game only at the very first load
+        }
         //Check if instance already exists
         if (instance == null)
 
@@ -114,6 +113,7 @@ public class GameManager : MonoBehaviour
             wand.Clear();
             wandAdded = 0;
         }
+
     }
 
 
@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
     {
         if (sceneLoad)
         {
+            count = 0;
             sceneLoad = false;
             InitGame();
         }
@@ -179,8 +180,51 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        if (Game.current.thePlayer.health < 1)
+        {
+            Pause();
+            Player.tryAgain.SetActive(true);
+            //stop game and ask if want to quit or go back to latest saved place;
+        }
+        if (SaveSystem.isSaving == 1)
+        {
+            SaveSystem.isSaving = 0;
+            Player.displaySave = true;
+        }
 
-
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "TutoLevel":
+                if (count == 0)
+                {
+                    count = 1;
+                    Game.current.thePlayer.level = 1;
+                    Game.current.thePlayer.health = 10;
+                    PlayerPrefs.SetInt("checkpoint", 1);
+                }
+                break;
+            case "WaveLevel":
+                if (count == 0)
+                {
+                    count = 1;
+                    PlayerPrefs.SetInt("checkpoint", 1);
+                }
+                break;
+            case "AttackLevel":
+                if (count == 0)
+                {
+                    count = 1;
+                    PlayerPrefs.SetInt("checkpoint", 1);
+                }
+                break;
+            case "BossLevel":
+                if (count == 0)
+                {
+                    count = 1;
+                    PlayerPrefs.SetInt("checkpoint", 1);
+                }
+                break;
+        }
     }
 
     public void Resume()
@@ -230,19 +274,6 @@ public class GameManager : MonoBehaviour
         spawns[index].Spawn();
 
     }
-
-    //GameOver is called when the player reaches 0 food points
-    public void GameOver()
-    {
-        //Set levelText to display number of levels passed and game over message
-        //levelText.text = "After " + level + " days, you starved.";
-
-        //Enable black background image gameObject.
-        //levelImage.SetActive(true);
-
-        //Disable this GameManager.
-        enabled = false;
-    }
     void moveOn()
     {
         if (nextStep != null)
@@ -256,7 +287,7 @@ public class GameManager : MonoBehaviour
     public void KillKnight(CTRLWizard theKnight)
     {
         Destroy(theKnight.gameObject);
-        knights.Remove(theKnight);  
+        knights.Remove(theKnight);
         knightsDead = true;
 
     }
@@ -280,7 +311,7 @@ public class GameManager : MonoBehaviour
     public void AttackLevel()
     {
         sceneLoad = true;
-        PlayerPrefs.SetInt("CurrentLevel", 3);
+        Game.current.thePlayer.level = 3;
         SceneManager.LoadScene("AttackLevel");
 
     }
@@ -288,25 +319,19 @@ public class GameManager : MonoBehaviour
     {
         sceneLoad = true;
         PlayerPrefs.SetInt("CurrentLevel", 1);
-        if (!PlayerPrefs.HasKey("firstLoad"))
-        {
-
-            PlayerPrefs.SetInt("firstLoad", 1);
-        }
         SceneManager.LoadScene("tutoLevel");
 
     }
     public void WaveLevel()
     {
         sceneLoad = true;
-
-        PlayerPrefs.SetInt("CurrentLevel", 2);
+        Game.current.thePlayer.level = 2;
         SceneManager.LoadScene("WaveLevel");
     }
     public void BossLevel()
     {
         sceneLoad = true;
-        PlayerPrefs.SetInt("CurrentLevel", 4);
+        Game.current.thePlayer.level = 4;
         SceneManager.LoadScene("BossLevel");
 
     }
@@ -320,30 +345,46 @@ public class GameManager : MonoBehaviour
         //if click on settings
         Application.Quit();
     }
-    public void LoadScene(int index)
-    {
-
-        PlayerPrefs.SetInt("CurrentLevel", index);
-        SceneManager.LoadScene(index);
-        //if dies can start at latest save on saved scene
-    }
     public void FirstLoad()
     {
-        PlayerPrefs.SetInt("firstLoad", 1);//first game launch go to tutorial
+        Debug.Log("FIRST LOAD");
+        theMenu = 1;//first game launch go to tutorial
         PlayerPrefs.SetInt("difficulty", 1);
+        
+    }
+    public void Continue()
+    {
+        SaveSystem.LoadPlayer();
+        SceneManager.LoadScene(Game.current.thePlayer.level);//once player loaded, load the scene corresponding to latest save
+    }
+    public void SaveAndQuit()
+    {
+        MainMenu();
+    }
+    public void TryAgain()
+    {
+        Game.current.thePlayer.health = 10;
+        SceneManager.LoadScene(Game.current.thePlayer.level);
+       
+    }
+    public void NewGame()
+    {
+
+        Game.current = new Game();
+       
+    }
+    public void Hurt(int theImpact)
+    {
+        Game.current.thePlayer.health -= theImpact;
     }
 
-    public void DetectFirstLoad()
+    public void loadTry()
     {
-        if (PlayerPrefs.HasKey("firstLoad"))
-        {
-            normalMenu.SetActive(true);
-        }
-        else
-        {
-            
-            firstMenu.SetActive(true);
-        }
+        SceneManager.LoadScene("trying");
+    }
+    public void loadOther()
+    {
+        SceneManager.LoadScene("essai");
     }
 }
 

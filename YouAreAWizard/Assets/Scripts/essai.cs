@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class essai : MonoBehaviour
 {
-    // Start is called before the first frame update
-    private void OnTriggerEnter(Collider other)
+    public void loadascene()
     {
-
-        CTRLpatrol.isDefending = true;
-        Destroy(gameObject);
-        other.gameObject.SetActive(false);
-
-     
-           
-        
+        GameManager.instance.loadTry();
+    }
+    public void loadother()
+    {
+        GameManager.instance.loadOther();
     }
 
 }

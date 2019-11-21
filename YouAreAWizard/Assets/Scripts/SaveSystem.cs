@@ -1,42 +1,43 @@
-﻿using System.IO;
+﻿/*
+ * Oceane Peretti - K1844498 - 3D Games programming Assignment 2
+ * I confirm that this project is a product of my own and not the one of someone else.
+ */
+using System.IO;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
-using System;
+using System.Collections.Generic;
 
 public static class SaveSystem
 {
-
-    public static void SavePlayer(Player player)
+    public static List<Game> saved = new List<Game>();
+    public static int isSaving;
+    public static void SavePlayer()
     {
+        isSaving = 1;
+        SaveSystem.saved.Add(Game.current);
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/player.saving";
-        FileStream stream = new FileStream(path, FileMode.Create);
-
-        PlayerData data = new PlayerData(player);//takes player info to be saved
-
-        formatter.Serialize(stream, data);//converts player data to binary file
-
-        stream.Close();//
+        string path = Application.persistentDataPath + "/player.gd";
+        FileStream file = File.Create(path);
+        formatter.Serialize(file, saved);//converts player data to binary file
+        file.Close();//
     }
-    public static PlayerData LoadPlayer()
+    public static void LoadPlayer()
     {
-        string path = Application.persistentDataPath + "/player.saving";
+        string path = Application.persistentDataPath + "/player.gd";
         if (File.Exists(path))
         {
 
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
-            PlayerData data = formatter.Deserialize(stream) as PlayerData;
-
+            saved = (List<Game>)formatter.Deserialize(stream);
             stream.Close();
-            return data;
 
         }
         else
         {
             Debug.LogError("Save file not found in" + path);
-            return null;
+            
         }
 
 

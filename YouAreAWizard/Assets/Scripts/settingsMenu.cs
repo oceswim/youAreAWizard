@@ -8,6 +8,7 @@ public class settingsMenu : MonoBehaviour
     // Start is called before the first frame update
  public void SetVolume(float volume)
 	{
+        Debug.Log(volume);
         audioMix.SetFloat("volume", volume);
 	}
     public void setDifficulty(int difficulty)

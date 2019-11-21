@@ -114,7 +114,7 @@ public class CTRLpatrol : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("moving");
+             
                     _animator.SetBool("isMoving", true);
                     agent.destination = theTarget;
 
@@ -127,7 +127,7 @@ public class CTRLpatrol : MonoBehaviour
                 if (!isDead)
                 {
                
-                    Debug.Log("attacking");
+                   
                     Attack();
                 }
               

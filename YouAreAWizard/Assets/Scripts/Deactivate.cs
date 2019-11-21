@@ -20,10 +20,7 @@ public class Deactivate : MonoBehaviour
             {
                 
                     s.SetActive(false);
-                
-                
             }
-            
             Destroy(gameObject);//destroy the teleport area
          
         }

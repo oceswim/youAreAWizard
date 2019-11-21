@@ -36,6 +36,7 @@ public class CTRLWizard : MonoBehaviour
     {
         //Register this enemy with our instance of GameManager by adding it to a list of Enemy objects. 
         //This allows the GameManager to issue movement commands.
+      
         GameManager.instance.AddKnightsToList(this);
 
         //Get and store a reference to the attached Animator component.
@@ -68,6 +69,7 @@ public class CTRLWizard : MonoBehaviour
         {
             case 1:
                 health = Random.Range(1, 3);
+        
                 break;
             case 2:
 
@@ -77,7 +79,7 @@ public class CTRLWizard : MonoBehaviour
             case 3:
 
                 health = Random.Range(3, 5);
-
+   
                 break;
         }
       
@@ -90,24 +92,27 @@ public class CTRLWizard : MonoBehaviour
 
         if (!hasArrived)
         {
-            if (isDead)
+            if (!isDead)
+            {
+                if (!agent.pathPending && agent.remainingDistance < 0.5f)
+                {
+                    Debug.Log("arrived");
+                    hasArrived = true;
+                    agent.isStopped = true;
+
+                }
+
+            }
+            else
             {
                 agent.isStopped = true;
-
-
             }
         }
         else if (hasArrived)
         {
 
-
-            if (isDead)
-            {
-                agent.isStopped = true;
-
-
-            }
-            else
+            agent.isStopped = true;
+            if (!isDead)
             {
                 Attack();
             }
@@ -179,7 +184,6 @@ public class CTRLWizard : MonoBehaviour
 
         if (health <= 0)
         {
-            isDead = true;
             AudioSource.PlayClipAtPoint(moan, thePlayer.transform.position, .5f);
             GameManager.instance.KillKnight(this);
 

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class projectileMove : MonoBehaviour
 {
-    private int speed=20;
-    private int theDamage = 1;
+    private int speed = 20;
     private float timeBullet = 0;
     public GameObject target;
     public AudioClip hurt,shock,impactShield;
@@ -36,28 +35,22 @@ public class projectileMove : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-       if (collision.transform.tag == "Player")
-            {
+        switch (collision.transform.tag)
+        {
+            case "Player":
                 AudioSource.PlayClipAtPoint(hurt, collision.transform.position);
                 speed = 0;
-            //ennemy impacts playerHealth;
-            Player myPlayer = new Player();
-            myPlayer.UpdateHealth(theDamage);
+                //ennemy impacts playerHealth;
                 Destroy(gameObject);
-            }
-            else if(collision.transform.tag== "PlayerAttack")
-            {
+                break;
+            case "PlayerAttack":
                 AudioSource.PlayClipAtPoint(shock, collision.transform.position);
-            }
-       else if(collision.transform.tag == "Shield")
-        {
-            AudioSource.PlayClipAtPoint(impactShield, collision.transform.position);
-            Destroy(gameObject);
+                break;
+            case "Shield":
+                AudioSource.PlayClipAtPoint(impactShield, collision.transform.position);
+                Destroy(gameObject);
+                break;
         }
-
-
-        
-        
     }
     private void OnTriggerEnter(Collider other)
     {
