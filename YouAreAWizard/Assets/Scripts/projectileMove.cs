@@ -41,6 +41,8 @@ public class projectileMove : MonoBehaviour
                 AudioSource.PlayClipAtPoint(hurt, collision.transform.position);
                 speed = 0;
                 //ennemy impacts playerHealth;
+                Game.current.thePlayer.health -= 1;
+                PlayerLife.changeLife = true;
                 Destroy(gameObject);
                 break;
             case "PlayerAttack":
@@ -54,7 +56,7 @@ public class projectileMove : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
+      
         Destroy(gameObject);
     }
 }

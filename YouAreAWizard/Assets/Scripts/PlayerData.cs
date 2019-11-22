@@ -12,6 +12,6 @@ public class PlayerData // here we store informations of our player
     {
         level = 2;
         health = 10;
-       
+        PlayerPrefs.SetInt("health", health);
     }
 }

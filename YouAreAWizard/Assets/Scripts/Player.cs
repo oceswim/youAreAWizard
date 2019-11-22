@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         tryAgain = GameObject.Find("Player/Canvas/Death");
-        Debug.Log(tryAgain.name);
+
     }
     private void Update()
     {
@@ -40,12 +40,5 @@ public class Player : MonoBehaviour
 
         
     }
-    // Start is called before the first frame update
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.transform.tag =="ennemySpell")
-        {
-            GameManager.instance.Hurt(1);
-        }
-    }
+   
 }

@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class essai : MonoBehaviour
 {
-    public void loadascene()
-    {
-        GameManager.instance.loadTry();
-    }
-    public void loadother()
-    {
-        GameManager.instance.loadOther();
-    }
 
+   
 }

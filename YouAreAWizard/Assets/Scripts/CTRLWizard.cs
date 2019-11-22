@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class CTRLWizard : MonoBehaviour
 {
-   // public ParticleSystem death;
+    // public ParticleSystem death;
 
 
     public GameObject thePlayer;
@@ -19,11 +19,11 @@ public class CTRLWizard : MonoBehaviour
     private int single;
 
     private bool hasArrived;
-    public static bool isDead;
+    public bool isDead;
 
 
     public static bool isAttacking;
-    private float shot, dead;
+    private float shot;
     private Animator _animator;
     private float _timeTillAttack;
 
@@ -36,7 +36,7 @@ public class CTRLWizard : MonoBehaviour
     {
         //Register this enemy with our instance of GameManager by adding it to a list of Enemy objects. 
         //This allows the GameManager to issue movement commands.
-      
+
         GameManager.instance.AddKnightsToList(this);
 
         //Get and store a reference to the attached Animator component.
@@ -51,9 +51,9 @@ public class CTRLWizard : MonoBehaviour
 
         effectToSpawn = vfx;
 
-        shot = dead = single = 0;
+        shot = single = 0;
         destPoint = Random.Range(0, goals.Length);
-        Debug.Log("dest"+destPoint);
+        Debug.Log("dest" + destPoint);
         isDead = false;
         isAttacking = false;
         hasArrived = false;
@@ -69,7 +69,7 @@ public class CTRLWizard : MonoBehaviour
         {
             case 1:
                 health = Random.Range(1, 3);
-        
+
                 break;
             case 2:
 
@@ -79,10 +79,10 @@ public class CTRLWizard : MonoBehaviour
             case 3:
 
                 health = Random.Range(3, 5);
-   
+
                 break;
         }
-      
+
     }
 
 
@@ -107,6 +107,7 @@ public class CTRLWizard : MonoBehaviour
             {
                 agent.isStopped = true;
             }
+
         }
         else if (hasArrived)
         {
@@ -164,7 +165,7 @@ public class CTRLWizard : MonoBehaviour
 
         }
     }
-    
+
     void SpawnVFX()
     {
 
@@ -184,7 +185,6 @@ public class CTRLWizard : MonoBehaviour
 
         if (health <= 0)
         {
-            AudioSource.PlayClipAtPoint(moan, thePlayer.transform.position, .5f);
             GameManager.instance.KillKnight(this);
 
         }
@@ -197,5 +197,10 @@ public class CTRLWizard : MonoBehaviour
         }
     }
 
+    public void Die()
+    {
+        _animator.SetTrigger("isDead");
+        AudioSource.PlayClipAtPoint(moan, thePlayer.transform.position, .5f);
+    }
 }
 

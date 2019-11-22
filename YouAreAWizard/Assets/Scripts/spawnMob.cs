@@ -28,7 +28,7 @@ public class spawnMob : MonoBehaviour
         if (theSpawnAmount==0)
         {
            
-          GameManager.instance.removeSpawn(this);
+          GameManager.instance.RemoveSpawn(this);
              
         } 
     }

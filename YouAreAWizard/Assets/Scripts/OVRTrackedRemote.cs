@@ -31,6 +31,7 @@ using UnityEngine.VR;
 public class OVRTrackedRemote : MonoBehaviour
 {
     public GameObject theCanvas;
+    public GameObject life;
     public GameObject Shield;
     
     /// <summary>
@@ -116,12 +117,13 @@ public class OVRTrackedRemote : MonoBehaviour
         }
 
         if (!controllerConnected)
-        {
-            GameObject.Find("Life").SetActive(false);
+        { 
+           
             return;
         }
         else
         {
+            life.SetActive(true);
             if (OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad))
             {
                 clickCount += 1;

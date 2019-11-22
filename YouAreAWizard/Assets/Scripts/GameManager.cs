@@ -30,15 +30,15 @@ public class GameManager : MonoBehaviour
     private bool sceneLoad;
 
     public bool GameIsPaused = false;
-
+    private int firstTime;
     public static int theMenu = 0;
     public static int theScene;
     private int count = 0;
     //Awake is always called before any Start functions
     void Awake()
     {
-       
-       if(!PlayerPrefs.HasKey("firstLoad"))
+        //PlayerPrefs.DeleteAll();
+        if (!PlayerPrefs.HasKey("firstLoad"))
         {
             Debug.Log("new game");
             Game.current = new Game();
@@ -199,14 +199,19 @@ public class GameManager : MonoBehaviour
                 {
                     count = 1;
                     Game.current.thePlayer.level = 1;
-                    Game.current.thePlayer.health = 10;
-                    PlayerPrefs.SetInt("checkpoint", 1);
+
                 }
                 break;
             case "WaveLevel":
                 if (count == 0)
                 {
                     count = 1;
+                    if(firstTime==1)
+                    {
+                        firstTime = 0;
+                        Game.current.thePlayer.health = 10;//resets health after end of tutorial
+                    }
+                    
                     PlayerPrefs.SetInt("checkpoint", 1);
                 }
                 break;
@@ -214,6 +219,7 @@ public class GameManager : MonoBehaviour
                 if (count == 0)
                 {
                     count = 1;
+                    PlayerLife.changeLife = true;
                     PlayerPrefs.SetInt("checkpoint", 1);
                 }
                 break;
@@ -221,6 +227,7 @@ public class GameManager : MonoBehaviour
                 if (count == 0)
                 {
                     count = 1;
+                    PlayerLife.changeLife = true;
                     PlayerPrefs.SetInt("checkpoint", 1);
                 }
                 break;
@@ -286,7 +293,8 @@ public class GameManager : MonoBehaviour
     }
     public void KillKnight(CTRLWizard theKnight)
     {
-        Destroy(theKnight.gameObject);
+        theKnight.isDead = true;
+        StartCoroutine(Die(theKnight));
         knights.Remove(theKnight);
         knightsDead = true;
 
@@ -299,7 +307,13 @@ public class GameManager : MonoBehaviour
         // Debug.Log("Knight capacity" + knightsAmount);
 
     }
-    public void removeSpawn(spawnMob theInstance)
+     IEnumerator Die(CTRLWizard theKilledKnight)
+    {
+        theKilledKnight.Die();
+        yield return new WaitForSeconds(5);
+        Destroy(theKilledKnight.gameObject);
+    }
+    public void RemoveSpawn(spawnMob theInstance)
     {
         spawns.Remove(theInstance);
         Destroy(theInstance.gameObject);
@@ -310,35 +324,39 @@ public class GameManager : MonoBehaviour
     }
     public void AttackLevel()
     {
+        
         sceneLoad = true;
         Game.current.thePlayer.level = 3;
-        SceneManager.LoadScene("AttackLevel");
+        PlayerPrefs.SetString("changeScene", "AttackLevel");
 
     }
     public void TutoLevel()
     {
         sceneLoad = true;
         PlayerPrefs.SetInt("CurrentLevel", 1);
-        SceneManager.LoadScene("tutoLevel");
+        PlayerPrefs.SetString("changeScene", "tutoLevel");
+        
 
     }
     public void WaveLevel()
     {
         sceneLoad = true;
         Game.current.thePlayer.level = 2;
-        SceneManager.LoadScene("WaveLevel");
+       //resets player's life after tutorial level
+        PlayerPrefs.SetString("changeScene", "WaveLevel");
     }
     public void BossLevel()
     {
         sceneLoad = true;
         Game.current.thePlayer.level = 4;
-        SceneManager.LoadScene("BossLevel");
+        PlayerPrefs.SetString("changeScene", "BossLevel");
+     
 
     }
     public void MainMenu()
     {
         sceneLoad = true;
-        SceneManager.LoadScene("MainMenu");
+        PlayerPrefs.SetString("changeScene", "MainMenu");
     }
     public void QuitGame()
     {
@@ -347,24 +365,46 @@ public class GameManager : MonoBehaviour
     }
     public void FirstLoad()
     {
-        Debug.Log("FIRST LOAD");
+       
         theMenu = 1;//first game launch go to tutorial
+        firstTime = 1;
         PlayerPrefs.SetInt("difficulty", 1);
         
     }
     public void Continue()
     {
         SaveSystem.LoadPlayer();
-        SceneManager.LoadScene(Game.current.thePlayer.level);//once player loaded, load the scene corresponding to latest save
+        switch(Game.current.thePlayer.level)
+        {
+            case 2:
+                WaveLevel();
+                break;
+            case 3:
+                AttackLevel();
+                break;
+            case 4:
+                BossLevel();
+                break;
+        }
+        //once player loaded, load the scene corresponding to latest save
     }
-    public void SaveAndQuit()
-    {
-        MainMenu();
-    }
+  
     public void TryAgain()
     {
         Game.current.thePlayer.health = 10;
-        SceneManager.LoadScene(Game.current.thePlayer.level);
+        switch (Game.current.thePlayer.level)
+        {
+            case 2:
+                WaveLevel();
+                break;
+            case 3:
+                AttackLevel();
+                break;
+            case 4:
+                BossLevel();
+                break;
+        }
+        
        
     }
     public void NewGame()
@@ -373,18 +413,6 @@ public class GameManager : MonoBehaviour
         Game.current = new Game();
        
     }
-    public void Hurt(int theImpact)
-    {
-        Game.current.thePlayer.health -= theImpact;
-    }
 
-    public void loadTry()
-    {
-        SceneManager.LoadScene("trying");
-    }
-    public void loadOther()
-    {
-        SceneManager.LoadScene("essai");
-    }
 }
 
