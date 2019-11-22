@@ -5,41 +5,43 @@ using UnityEngine.UI;
 
 public class PlayerLife : MonoBehaviour
 {
-    public Sprite[] lifeDisplay;
-    public Image theImage;
+    public static Sprite[] lifeDisplay;
+    public static Image theImage;
     public static bool changeLife;
+    public static int health=0;
 
-    void Update()
-    {
-        if (changeLife)
-        {
-            changeLife = false;
-            UpdateLifeBar();
-        }
+    
+    public static void UpdateLifeBar(int damage)
+    {   
+        health -= damage;
         
-    }
-    private void UpdateLifeBar()
-    {
-        if (Game.current.thePlayer.health > 7)
+        if (health > 7)
         {
+            Game.current.thePlayer.health = health;
             theImage.sprite = lifeDisplay[0];
         }
-        else if (Game.current.thePlayer.health == 7 || Game.current.thePlayer.health == 6)
+        else if (health == 7 || health == 6)
         {
+            Game.current.thePlayer.health = health;
             theImage.sprite = lifeDisplay[1];
         }
-        else if (Game.current.thePlayer.health == 5)
+        else if (health == 5)
         {
+            Game.current.thePlayer.health = health;
             theImage.sprite = lifeDisplay[2];
         }
-        else if (Game.current.thePlayer.health == 3 || Game.current.thePlayer.health == 2)
+        else if (health == 3 || health == 2)
         {
+            Game.current.thePlayer.health = health;
             theImage.sprite = lifeDisplay[3];
         }
-        else if (Game.current.thePlayer.health < 2)
+        else if (health < 2)
         {
+            Game.current.thePlayer.health = health;
             theImage.sprite = lifeDisplay[4];
         }
+  
+       
     }
  
 }

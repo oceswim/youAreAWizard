@@ -37,11 +37,12 @@ public class GameManager : MonoBehaviour
     //Awake is always called before any Start functions
     void Awake()
     {
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
         if (!PlayerPrefs.HasKey("firstLoad"))
         {
             Debug.Log("new game");
             Game.current = new Game();
+            PlayerLife.health = Game.current.thePlayer.health;
             PlayerPrefs.SetInt("firstLoad", 1);//allows to create a new game only at the very first load
         }
         //Check if instance already exists
@@ -182,6 +183,7 @@ public class GameManager : MonoBehaviour
         }
         if (Game.current.thePlayer.health < 1)
         {
+            Debug.Log(Game.current.thePlayer.health);
             Pause();
             Player.tryAgain.SetActive(true);
             //stop game and ask if want to quit or go back to latest saved place;
@@ -209,7 +211,7 @@ public class GameManager : MonoBehaviour
                     if(firstTime==1)
                     {
                         firstTime = 0;
-                        Game.current.thePlayer.health = 10;//resets health after end of tutorial
+                        //resets health after end of tutorial
                     }
                     
                     PlayerPrefs.SetInt("checkpoint", 1);
@@ -218,8 +220,8 @@ public class GameManager : MonoBehaviour
             case "AttackLevel":
                 if (count == 0)
                 {
+                    
                     count = 1;
-                    PlayerLife.changeLife = true;
                     PlayerPrefs.SetInt("checkpoint", 1);
                 }
                 break;
@@ -227,7 +229,6 @@ public class GameManager : MonoBehaviour
                 if (count == 0)
                 {
                     count = 1;
-                    PlayerLife.changeLife = true;
                     PlayerPrefs.SetInt("checkpoint", 1);
                 }
                 break;
@@ -392,6 +393,7 @@ public class GameManager : MonoBehaviour
     public void TryAgain()
     {
         Game.current.thePlayer.health = 10;
+        PlayerLife.health = 10;
         switch (Game.current.thePlayer.level)
         {
             case 2:

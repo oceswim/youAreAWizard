@@ -41,8 +41,7 @@ public class projectileMove : MonoBehaviour
                 AudioSource.PlayClipAtPoint(hurt, collision.transform.position);
                 speed = 0;
                 //ennemy impacts playerHealth;
-                Game.current.thePlayer.health -= 1;
-                PlayerLife.changeLife = true;
+                PlayerLife.UpdateLifeBar(1);
                 Destroy(gameObject);
                 break;
             case "PlayerAttack":

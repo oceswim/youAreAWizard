@@ -6,7 +6,6 @@ public class Player : MonoBehaviour
 {
     public GameObject savedMessage;
     public static GameObject tryAgain;
-
     public static bool displaySave = false;
     private float timer = 2;
     private void Start()
