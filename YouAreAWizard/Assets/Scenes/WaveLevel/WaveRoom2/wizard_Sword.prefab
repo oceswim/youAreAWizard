@@ -20247,7 +20247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77bba33f99dad4387b3c9d062ba50a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thePlayer: {fileID: 8342673066515640144, guid: 0d5ad2a965cb64f8680c19295a1db896,
+  thePlayer: {fileID: 6947198173634024186, guid: 61c62ca11859144bab3588f5158767ac,
     type: 3}
   goals:
   - {fileID: 1280384396176450861, guid: eb607c11937ec48158cd7690a4f0f457, type: 3}
@@ -20261,6 +20261,7 @@ MonoBehaviour:
   firePoint: {fileID: 9096522369434014488}
   vfx: {fileID: 3997630668601885635, guid: 9ef0dd9c17f714ed8966af4524300ca4, type: 3}
   attack: {fileID: 8300000, guid: 074ccb664b11e1341a5ac9b972ea3ab8, type: 3}
+  isDead: 0
 --- !u!136 &6830867511613290621
 CapsuleCollider:
   m_ObjectHideFlags: 0

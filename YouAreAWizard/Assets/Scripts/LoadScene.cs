@@ -21,5 +21,8 @@ public class LoadScene : MonoBehaviour {
     {
         GameManager.instance.BossLevel();
     }
-
+    public void resetting()
+    {
+        GameManager.instance.ResetHealth();
+    }
 }

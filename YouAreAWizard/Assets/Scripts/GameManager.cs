@@ -10,15 +10,11 @@ using UnityEngine.UI;                   //Allows us to use UI.
 
 public class GameManager : MonoBehaviour
 {
-    
-    public float levelStartDelay = 2f;                      //Time to wait before starting level, in seconds.
-                                                            //public int playerFoodPoints = 100;                      //Starting value for Player food points.
     public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
 
     public bool movingOn = false;
-    // private Text playerLife;                                 //Text to display current playerLife
-    //public GameObject levelImage;                          //Image to block out level as levels are being set up, background for levelText.
-    //private int life = 1;                                  //Current life of player, expressed in game
+                                                          
+                                
     private List<CTRLWizard> knights;                            //List of all Enemy units, used to issue them move commands.
     private List<CTRLpatrol> wand;
     private List<spawnMob> spawns;
@@ -27,22 +23,26 @@ public class GameManager : MonoBehaviour
     public bool wandDead;
     private int knightsAdded;
     private int wandAdded;
-    private bool sceneLoad;
+    public static bool sceneLoad;
 
     public bool GameIsPaused = false;
-    private int firstTime;
     public static int theMenu = 0;
     public static int theScene;
     private int count = 0;
+
+
+    public int playerHealth;
+    
     //Awake is always called before any Start functions
     void Awake()
     {
-        PlayerPrefs.DeleteAll();
-        if (!PlayerPrefs.HasKey("firstLoad"))
+        
+        if (Game.current==null)
         {
+            PlayerPrefs.DeleteAll();
             Debug.Log("new game");
             Game.current = new Game();
-            PlayerLife.health = Game.current.thePlayer.health;
+            playerHealth = Game.current.thePlayer.health;
             PlayerPrefs.SetInt("firstLoad", 1);//allows to create a new game only at the very first load
         }
         //Check if instance already exists
@@ -181,19 +181,8 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        if (Game.current.thePlayer.health < 1)
-        {
-            Debug.Log(Game.current.thePlayer.health);
-            Pause();
-            Player.tryAgain.SetActive(true);
-            //stop game and ask if want to quit or go back to latest saved place;
-        }
-        if (SaveSystem.isSaving == 1)
-        {
-            SaveSystem.isSaving = 0;
-            Player.displaySave = true;
-        }
-
+        
+     
         switch (SceneManager.GetActiveScene().name)
         {
             case "TutoLevel":
@@ -208,12 +197,6 @@ public class GameManager : MonoBehaviour
                 if (count == 0)
                 {
                     count = 1;
-                    if(firstTime==1)
-                    {
-                        firstTime = 0;
-                        //resets health after end of tutorial
-                    }
-                    
                     PlayerPrefs.SetInt("checkpoint", 1);
                 }
                 break;
@@ -232,6 +215,18 @@ public class GameManager : MonoBehaviour
                     PlayerPrefs.SetInt("checkpoint", 1);
                 }
                 break;
+        }
+        if (SaveSystem.isSaving == 1)
+        {
+            SaveSystem.isSaving = 0;
+            Player.displaySave = true;
+        }
+        if (Game.current.thePlayer.health < 1)
+        {
+            Pause();
+            ResetHealth();
+            Player.tryAgain.SetActive(true);
+            //stop game and ask if want to quit or go back to latest saved place;
         }
     }
 
@@ -302,7 +297,8 @@ public class GameManager : MonoBehaviour
     }
     public void KillWizard(CTRLpatrol theWizard)
     {
-        Destroy(theWizard.gameObject);
+        theWizard.isDead = true;
+        StartCoroutine(DieWizard(theWizard));
         wand.Remove(theWizard);
         wandDead = true;
         // Debug.Log("Knight capacity" + knightsAmount);
@@ -313,6 +309,12 @@ public class GameManager : MonoBehaviour
         theKilledKnight.Die();
         yield return new WaitForSeconds(5);
         Destroy(theKilledKnight.gameObject);
+    }
+    IEnumerator DieWizard(CTRLpatrol theKilledWizard)
+    {
+        theKilledWizard.Die();
+        yield return new WaitForSeconds(5);
+        Destroy(theKilledWizard.gameObject);
     }
     public void RemoveSpawn(spawnMob theInstance)
     {
@@ -327,6 +329,7 @@ public class GameManager : MonoBehaviour
     {
         
         sceneLoad = true;
+     
         Game.current.thePlayer.level = 3;
         PlayerPrefs.SetString("changeScene", "AttackLevel");
 
@@ -343,7 +346,6 @@ public class GameManager : MonoBehaviour
     {
         sceneLoad = true;
         Game.current.thePlayer.level = 2;
-       //resets player's life after tutorial level
         PlayerPrefs.SetString("changeScene", "WaveLevel");
     }
     public void BossLevel()
@@ -368,13 +370,14 @@ public class GameManager : MonoBehaviour
     {
        
         theMenu = 1;//first game launch go to tutorial
-        firstTime = 1;
+    
         PlayerPrefs.SetInt("difficulty", 1);
         
     }
     public void Continue()
     {
         SaveSystem.LoadPlayer();
+        //playerHealth = Game.current.thePlayer.health;
         switch(Game.current.thePlayer.level)
         {
             case 2:
@@ -389,11 +392,14 @@ public class GameManager : MonoBehaviour
         }
         //once player loaded, load the scene corresponding to latest save
     }
-  
+    public void ResetHealth()
+    {
+        playerHealth = 10;
+        Game.current.thePlayer.health = 10;
+    }
     public void TryAgain()
     {
-        Game.current.thePlayer.health = 10;
-        PlayerLife.health = 10;
+       
         switch (Game.current.thePlayer.level)
         {
             case 2:
@@ -413,7 +419,8 @@ public class GameManager : MonoBehaviour
     {
 
         Game.current = new Game();
-       
+        ResetHealth();
+        WaveLevel();
     }
 
 }

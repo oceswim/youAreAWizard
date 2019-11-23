@@ -31,7 +31,6 @@ using UnityEngine.VR;
 public class OVRTrackedRemote : MonoBehaviour
 {
     public GameObject theCanvas;
-    public GameObject life;
     public GameObject Shield;
     
     /// <summary>
@@ -71,8 +70,6 @@ public class OVRTrackedRemote : MonoBehaviour
     private int clickCount;
     private float timerBetweenClick, firstClick;
 
-
-
     void Start()
     {
         //ShieldActive = false;
@@ -111,19 +108,26 @@ public class OVRTrackedRemote : MonoBehaviour
         if ((controllerConnected != m_prevControllerConnected) || !m_prevControllerConnectedCached)
         {
             m_Wand.SetActive(controllerConnected);
-
+            if (OVRInput.IsControllerConnected(OVRInput.Controller.LTrackedRemote))
+            {
+                Player.theController = "lifeL";
+            }
+            else if (OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote))
+            {
+                Player.theController = "lifeR";
+            }
             m_prevControllerConnected = controllerConnected;
             m_prevControllerConnectedCached = true;
         }
 
         if (!controllerConnected)
-        { 
-           
+        {
+            
             return;
         }
         else
         {
-            life.SetActive(true);
+          
             if (OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad))
             {
                 clickCount += 1;

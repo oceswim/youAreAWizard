@@ -12,6 +12,7 @@ public class projectileMove : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+
        target = GameObject.Find("Player");
     }
     // Update is called once per frame
@@ -41,7 +42,7 @@ public class projectileMove : MonoBehaviour
                 AudioSource.PlayClipAtPoint(hurt, collision.transform.position);
                 speed = 0;
                 //ennemy impacts playerHealth;
-                PlayerLife.UpdateLifeBar(1);
+                Player.hurt = true;
                 Destroy(gameObject);
                 break;
             case "PlayerAttack":

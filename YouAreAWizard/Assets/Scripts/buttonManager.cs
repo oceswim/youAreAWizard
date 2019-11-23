@@ -46,6 +46,6 @@ public class buttonManager : MonoBehaviour
     void RestartGame()
     {
         GameManager.instance.NewGame();
-        GameManager.instance.WaveLevel();
+       
     }
 }

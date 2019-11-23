@@ -16,7 +16,6 @@ public class LoadLevel : MonoBehaviour
     {
         if(PlayerPrefs.HasKey("changeScene"))
         {
-            PlayerPrefs.SetInt("playerLife", Game.current.thePlayer.health);
             LoadtheLevel(PlayerPrefs.GetString("changeScene"));
             PlayerPrefs.DeleteKey("changeScene");
         }

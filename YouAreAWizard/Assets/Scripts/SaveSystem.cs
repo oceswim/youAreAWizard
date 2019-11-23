@@ -14,7 +14,7 @@ public static class SaveSystem
     public static void SavePlayer()
     {
         isSaving = 1;
-        SaveSystem.saved.Add(Game.current);
+        saved.Add(Game.current);
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/player.gd";
         FileStream file = File.Create(path);

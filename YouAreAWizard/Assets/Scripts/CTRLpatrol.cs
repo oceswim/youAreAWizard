@@ -21,7 +21,7 @@ public class CTRLpatrol : MonoBehaviour
     private GameObject effectToSpawn;
 
     private bool hasArrived;
-    public static bool isDead;
+    public bool isDead;
     public static bool isDefending;
     public AudioClip attack;
     private int single;
@@ -196,8 +196,7 @@ public class CTRLpatrol : MonoBehaviour
 
         if (health <= 0)
         {
-            isDead = true;
-            AudioSource.PlayClipAtPoint(moan, thePlayer.transform.position, .5f);
+            
             GameManager.instance.KillWizard(this);
         }
         else if (health > 0)
@@ -207,6 +206,11 @@ public class CTRLpatrol : MonoBehaviour
             _animator.SetTrigger("isDamaged");
 
         }
+    }
+    public void Die()
+    {
+        _animator.SetTrigger("isDead");
+        AudioSource.PlayClipAtPoint(moan, thePlayer.transform.position, .5f);
     }
 
 }
