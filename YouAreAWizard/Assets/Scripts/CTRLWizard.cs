@@ -21,10 +21,10 @@ public class CTRLWizard : MonoBehaviour
     private bool hasArrived;
     public bool isDead;
 
-
+    private Animator _animator;
     public static bool isAttacking;
     private float shot;
-    private Animator _animator;
+    
     private float _timeTillAttack;
 
     private NavMeshAgent agent;

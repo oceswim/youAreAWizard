@@ -100,6 +100,10 @@ public class contact : MonoBehaviour
             Destroy(gameObject);
             speed = 0;
         }
+        else if(collision.gameObject.tag == "finalBoss")
+        {
+
+        }
     }
 
    
