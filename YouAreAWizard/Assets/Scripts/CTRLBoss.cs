@@ -11,7 +11,7 @@ public class CTRLBoss : MonoBehaviour
     public Transform theAttackSpot;
     private Vector3 attackSpot;
 	public AudioClip aggressive, hurt, attack;
-    public AudioSource walkingHorse;
+    public AudioSource walkingHorse,runningHorse,dyingHorse,horseHit,horseScream;
     private float shot;
 	public GameObject firePoint;
 	public GameObject vfx;
@@ -20,9 +20,9 @@ public class CTRLBoss : MonoBehaviour
 	//private GameObject effectToSpawn;
 	
 	private NavMeshAgent agent;
-    private bool hasArrived, isWalking, isDead,isFleeing, playerSpotted;
-
-	private Animator _animator;
+    private bool hasArrived, isWalking, isDead,isFleeing;
+    public static bool playerSpotted,spellSpotted;
+    private Animator _animator;
     private float _timeTillAttack = 2f;
 
     /*
@@ -41,6 +41,7 @@ public class CTRLBoss : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
+        spellSpotted = false;
 		_animator = GetComponent<Animator>();
         _animator.SetInteger("toDo", 6);
         walkingHorse.Play();
@@ -98,40 +99,74 @@ public class CTRLBoss : MonoBehaviour
         }
         else // spots the player
         {
-            if (!isFleeing)//if not dodging a spell
+            if (isWalking)
             {
+                //horse stops and heads towards attack point
+                agent.isStopped = true;
+                StartCoroutine(horseSurprised());
+ 
+            }
+            else if (!isFleeing)//if not dodging a spell
+            {
+                Debug.Log("2");
                 if (!hasArrived)//go to attack spot
                 {
                     if (!isDead)
                     {
+                        
                         agent.destination = attackSpot;
 
                     }
                     else
                     {
+                       //horse has arrived, is about to attack
+                        _animator.SetInteger("toDo", 1);
                         agent.isStopped = true;
                     }
                 }
                 else if (hasArrived)//attacks player
                 {
+                   
                     agent.isStopped = true;
+
                     if(!isDead)
                     {
                         Attack();
                     }
 
                 }
-                hasArrived |= Mathf.Abs(transform.position.magnitude - attackSpot.magnitude) < .5;
+                if(Mathf.Abs(transform.position.magnitude - attackSpot.magnitude) < .5)
+                {
+                    hasArrived = true;
+                    walkingHorse.Pause();
+                }
 
             }
-            else
+            else if(isFleeing)
             {
-               //choose a fleeing target
+                //choose a fleeing target
+                //go to point away from ray
+                hasArrived = false;
+                walkingHorse.Play();
             }
         }
     }
+    IEnumerator horseSurprised()
+    {
+        Debug.Log("heyYou!");
+        walkingHorse.Pause();
+        _animator.SetInteger("toDo", 2);
+        horseScream.Play();
+        yield return new WaitForSeconds(2);
+        _animator.SetInteger("toDo", 6);
+        walkingHorse.Play();
+        agent.isStopped = false;
+        isWalking = false;
+
+    }
     private void Attack()
     {
+        Debug.Log("attacking");
         _animator.SetInteger("toDo", 1);//idles
         transform.LookAt(thePlayer.transform);
 
@@ -152,8 +187,9 @@ public class CTRLBoss : MonoBehaviour
             else
             {
                 _animator.SetInteger("toDo", 1);
-                _timeTillAttack = 2f;
+                _timeTillAttack = 3f;
                 shot = 0;
+                single = 0;
             }
         }
         
