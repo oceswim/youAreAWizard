@@ -422,6 +422,14 @@ public class GameManager : MonoBehaviour
         ResetHealth();
         WaveLevel();
     }
+    public void WonThisGame()
+    {
+        theMenu = 2;
+    }
+    public void setMenu(int index)
+    {
+        theMenu = index;
+    }
 
 }
 

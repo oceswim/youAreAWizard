@@ -11,12 +11,23 @@ public class buttonManager : MonoBehaviour
     public Button startOver;
     public GameObject firstLoadPanel; 
     public GameObject panelNormal;
+    public GameObject panelAfterWin;
+    public Button[] startNewAfterWin;
+  
+   
     private int choice;
     void Start()
     {
         menuButton.onClick.AddListener(TaskOnClick);
         continueButton.onClick.AddListener(KeepPlaying);
         startOver.onClick.AddListener(RestartGame);
+
+        foreach(Button t in startNewAfterWin)
+        {
+            t.onClick.AddListener(AfterWin);
+        }
+       
+
     }
  
     void TaskOnClick()
@@ -32,7 +43,9 @@ public class buttonManager : MonoBehaviour
                 case 1:
                     panelNormal.SetActive(true);
                     break;
-
+                case 2:
+                    panelAfterWin.SetActive(true);
+                    break;
             }
         
     }
@@ -45,7 +58,12 @@ public class buttonManager : MonoBehaviour
 
     void RestartGame()
     {
+
         GameManager.instance.NewGame();
-       
+    }
+    void AfterWin()
+    {
+        GameManager.instance.NewGame();
+        GameManager.instance.setMenu(1);
     }
 }

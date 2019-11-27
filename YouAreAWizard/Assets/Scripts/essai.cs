@@ -6,7 +6,15 @@ public class essai : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.transform.name);
+        if (collision.gameObject.name == "Skull")
+        {
+            CTRLBoss health = collision.collider.GetComponent<CTRLBoss>();
+            if (health != null)
+            {
+                health.DamageSkull(1);
+            }
+            gameObject.SetActive(false);
+        }
     }
 
 }

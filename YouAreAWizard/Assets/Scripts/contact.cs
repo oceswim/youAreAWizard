@@ -59,6 +59,17 @@ public class contact : MonoBehaviour
             Destroy(gameObject);
             speed = 0;
         }
+        else if(collision.gameObject.name=="Skull")
+        {
+            CTRLBoss health = collision.collider.GetComponent<CTRLBoss>();
+            if(health!=null)
+            {
+                health.DamageSkull(theDamage);
+            }
+            Destroy(gameObject);
+            speed = 0;
+        }
+       
         else if (collision.gameObject.name == "destroyGate")
         {
            

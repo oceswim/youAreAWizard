@@ -1,30 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Pathfinding;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class CTRLBoss : MonoBehaviour
 {
-	public GameObject thePlayer;
-	public Transform[] goals;
-    private int destPoint,single;
-    public Transform theAttackSpot;
-    private Vector3 attackSpot;
-	public AudioClip aggressive, hurt, attack;
-    public AudioSource walkingHorse,runningHorse,dyingHorse,horseHit,horseScream;
+    private int single,health;
+    /// <summary>Time in seconds to wait at each target</summary>
+    public float delay = 0;
+
+    /// <summary>Current target index</summary>
+    int index;
+
+    IAstarAI agent;
+    float switchTime = float.PositiveInfinity;
+    public GameObject thePlayer;
+    public Transform[] goals;
+    public Transform attackSpot;
+    public static bool hasArrived;
+    public AudioClip aggressive, hurt, attack;
+    public AudioSource walkingHorse, dyingHorse, horseHit, horseScream;
     private float shot;
-	public GameObject firePoint;
-	public GameObject vfx;
+    public GameObject firePoint;
+    public GameObject vfx;
     private GameObject effectToSpawn;
-	private int health;
-	//private GameObject effectToSpawn;
-	
-	private NavMeshAgent agent;
-    private bool hasArrived, isWalking, isDead,isFleeing;
-    public static bool playerSpotted,spellSpotted;
+
+    //private GameObject effectToSpawn;
+
+    private bool isWalking, isDead;
+    public static bool playerSpotted;
     private Animator _animator;
     private float _timeTillAttack = 2f;
-
+    private float timer = 0;
+    public GameObject youWon;
     /*
      *stand is transition
      * relax -> when sees player
@@ -36,119 +45,135 @@ public class CTRLBoss : MonoBehaviour
      */
 
 
-
-
-	// Start is called before the first frame update
-	void Start()
+    void Awake()
     {
-        spellSpotted = false;
-		_animator = GetComponent<Animator>();
+        agent = GetComponent<IAstarAI>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+       
+        _animator = GetComponent<Animator>();
         _animator.SetInteger("toDo", 6);
         walkingHorse.Play();
         isWalking = true;
-        agent = GetComponent<NavMeshAgent>();
-        GotoNextPoint();
         effectToSpawn = vfx;
-        attackSpot = theAttackSpot.position;
-        hasArrived = playerSpotted=false;
-        shot = single =0;
 
-		switch (PlayerPrefs.GetInt("difficulty"))
-		{
-			case 1:
-				health = Random.Range(4, 6);
+        playerSpotted = isDead = false;
+        shot = single = 0;
 
-				break;
-			case 2:
+        switch (PlayerPrefs.GetInt("difficulty"))
+        {
+            case 1:
+                Debug.Log("health");
+                health = Random.Range(4, 6);
 
-				health = Random.Range(6, 8);
+                break;
+            case 2:
+                Debug.Log("health");
+                health = Random.Range(6, 8);
 
-				break;
-			case 3:
+                break;
+            case 3:
+                Debug.Log("health");
+                health = Random.Range(8, 10);
 
-				health = Random.Range(8, 10);
-
-				break;
-		}
-	}
-    void GotoNextPoint()
+                break;
+        }
+        Debug.Log("health");
+        health = 2;
+        Debug.Log(health);
+    }
+    void GotoPoint()
     {
+        bool search = false;
+        if (agent.reachedEndOfPath && !agent.pathPending && float.IsPositiveInfinity(switchTime))
+        {
+            switchTime = Time.time + delay;
+        }
 
-        // Returns if no points have been set up
-        
-        if (goals.Length == 0)
-            return;
+        if (Time.time >= switchTime)
+        {
+            index = index + 1;
+            search = true;
+            switchTime = float.PositiveInfinity;
+        }
 
-        // Set the agent to go to the currently selected destination.
-        agent.destination = goals[destPoint].position;
+        index %= goals.Length;
+        agent.destination = goals[index].position;
 
-        // Choose the next point in the array as the destination,
-        // cycling to the start if necessary.
-        destPoint = (destPoint + 1) % goals.Length;
+        if (search) agent.SearchPath();
+
     }
     // Update is called once per frame
     void Update()
     {
-        if (!playerSpotted)
+
+
+        if (goals.Length == 0) return;
+
+        if (isDead)
         {
-            if (!agent.pathPending && agent.remainingDistance < 0.5f)
+            if (timer < 3)
             {
-               
-                GotoNextPoint();
+                Debug.Log("indeath");
+                timer += Time.deltaTime;
+
             }
+            else
+            {
+                Destroy(gameObject);
+                GameManager.instance.Pause();
+                youWon.SetActive(true);
+            }
+
         }
-        else // spots the player
+        else
         {
-            if (isWalking)
+            if (!playerSpotted)
             {
-                //horse stops and heads towards attack point
-                agent.isStopped = true;
-                StartCoroutine(horseSurprised());
- 
-            }
-            else if (!isFleeing)//if not dodging a spell
-            {
-                Debug.Log("2");
-                if (!hasArrived)//go to attack spot
-                {
-                    if (!isDead)
-                    {
-                        
-                        agent.destination = attackSpot;
 
-                    }
-                    else
-                    {
-                       //horse has arrived, is about to attack
-                        _animator.SetInteger("toDo", 1);
-                        agent.isStopped = true;
-                    }
-                }
-                else if (hasArrived)//attacks player
-                {
-                   
-                    agent.isStopped = true;
-
-                    if(!isDead)
-                    {
-                        Attack();
-                    }
-
-                }
-                if(Mathf.Abs(transform.position.magnitude - attackSpot.magnitude) < .5)
-                {
-                    hasArrived = true;
-                    walkingHorse.Pause();
-                }
+                GotoPoint();
 
             }
-            else if(isFleeing)
+            else
             {
-                //choose a fleeing target
-                //go to point away from ray
-                hasArrived = false;
-                walkingHorse.Play();
+                if (isWalking)
+                {
+                    //horse stops and heads towards attack point
+                    StartCoroutine(horseSurprised());
+                    GoToAttackPoint();
+                }
+                else//if not dodging a spell goes to attackpoint
+                {
+                 
+                    if (hasArrived)
+                    {
+
+                        walkingHorse.Pause();
+                        if (!isDead)
+                        {
+                           Attack();
+                           
+                            
+                        }
+                    }
+                    else if (!hasArrived)
+                    {
+                        if (agent.reachedEndOfPath && !agent.pathPending && float.IsPositiveInfinity(switchTime))
+                        {
+                            Debug.Log("arrived");
+                            single = 0;
+                            hasArrived = true;
+                        }
+                    }
+
+                }
+               
+
             }
+
         }
     }
     IEnumerator horseSurprised()
@@ -160,7 +185,6 @@ public class CTRLBoss : MonoBehaviour
         yield return new WaitForSeconds(2);
         _animator.SetInteger("toDo", 6);
         walkingHorse.Play();
-        agent.isStopped = false;
         isWalking = false;
 
     }
@@ -171,17 +195,17 @@ public class CTRLBoss : MonoBehaviour
         transform.LookAt(thePlayer.transform);
 
         _timeTillAttack -= Time.deltaTime;
-        if(_timeTillAttack<=0)
+        if (_timeTillAttack <= 0)
         {
             _animator.SetInteger("toDo", 3);
-            if(shot<1.5f)
+            if (shot < 1.5f)
             {
                 shot += Time.deltaTime;
-                if(shot >.7 && single ==0)
+                if (shot > .7 && single == 0)
                 {
                     single++;
                     SpawnVFX();
-                        
+
                 }
             }
             else
@@ -192,8 +216,16 @@ public class CTRLBoss : MonoBehaviour
                 single = 0;
             }
         }
-        
+
     }
+    
+    private void PauseSkull()
+    {
+        Debug.Log("PAUSE");
+        walkingHorse.Pause();
+        agent.isStopped = true;
+    }
+
     void SpawnVFX()
     {
 
@@ -205,11 +237,83 @@ public class CTRLBoss : MonoBehaviour
         }
 
     }
-    private void OnCollisionEnter(Collision collision)
+    public void DamageSkull(int theDamage)
     {
-        if(collision.transform.tag.Equals("PlayerAttack"))
+
+        health -= theDamage;
+
+        if (health <= 0)
         {
-            _animator.SetInteger("toDo", 4);
+            PauseSkull();
+            isDead = true;
+            _animator.SetTrigger("isDead");
+            dyingHorse.Play();
         }
+        else if (health > 0)
+        {
+            //ouch noise
+            Debug.Log("ouch");
+            horseHit.Play();
+            _animator.SetTrigger("isHit");
+
+        }
+    }
+
+    void GoToAttackPoint()
+    {
+        bool search = false;
+
+
+        if (Time.time >= switchTime)
+        {
+            search = true;
+            switchTime = float.PositiveInfinity;
+        }
+        if (single == 1)
+        {
+            single++;
+            agent.isStopped = false;
+        }
+        agent.destination = attackSpot.position;
+
+        if (search) agent.SearchPath();
+
+    }
+    void goToNewTarget()
+    {
+        bool search = false;
+        float diff1 = Mathf.Abs(goals[0].position.magnitude - transform.position.magnitude);
+        int theIndex = 0;
+        foreach (Transform t in goals)
+        {
+            float diff = Mathf.Abs(t.position.magnitude - transform.position.magnitude);
+            if (diff < diff1)
+            {
+                theIndex++;
+            }
+        }
+
+        if (agent.reachedEndOfPath && !agent.pathPending && float.IsPositiveInfinity(switchTime))
+        {
+            Debug.Log("i'm done fleeing");
+            single = 0;
+            hasArrived = true;
+        }
+
+        if (Time.time >= switchTime)
+        {
+            search = true;
+            switchTime = float.PositiveInfinity;
+        }
+        if (single == 2)
+        {
+            single++;
+            agent.isStopped = false;
+        }
+        agent.destination = goals[theIndex].position;
+        Debug.Log("going to" + agent.destination);
+
+        if (search) agent.SearchPath();
+
     }
 }
