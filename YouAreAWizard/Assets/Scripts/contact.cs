@@ -48,7 +48,7 @@ public class contact : MonoBehaviour
             Destroy(gameObject);
             speed = 0;
         }
-        else if(collision.gameObject.name == "wizard_Wand" || collision.gameObject.name == "wizard_Wand(Clone)")
+        else if(collision.gameObject.name == "wizard_Wand" || collision.gameObject.name == "wizard_Wand(Clone)"|| collision.gameObject.name == "wizard_Wand1(Clone)" || collision.gameObject.name == "wizard_Wand2(Clone)")
         {
             CTRLpatrol health = collision.collider.GetComponent<CTRLpatrol>();
 

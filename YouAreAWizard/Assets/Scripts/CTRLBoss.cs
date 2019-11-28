@@ -20,20 +20,18 @@ public class CTRLBoss : MonoBehaviour
     public Transform attackSpot;
     public static bool hasArrived;
     public AudioClip aggressive, hurt, attack;
-    public AudioSource walkingHorse, dyingHorse, horseHit, horseScream;
+    public AudioSource walkingHorse, dyingHorse, horseHit, horseScream,fight,theme;
     private float shot;
-    public GameObject firePoint;
-    public GameObject vfx;
+    public GameObject firePoint,vfx,shieldWalk,youWon,winTheme;
     private GameObject effectToSpawn;
 
     //private GameObject effectToSpawn;
 
     private bool isWalking, isDead;
-    public static bool playerSpotted;
+    public static bool playerSpotted,healthUp;
     private Animator _animator;
     private float _timeTillAttack = 2f;
     private float timer = 0;
-    public GameObject youWon;
     /*
      *stand is transition
      * relax -> when sees player
@@ -53,7 +51,7 @@ public class CTRLBoss : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        healthUp = false;
         _animator = GetComponent<Animator>();
         _animator.SetInteger("toDo", 6);
         walkingHorse.Play();
@@ -81,9 +79,7 @@ public class CTRLBoss : MonoBehaviour
 
                 break;
         }
-        Debug.Log("health");
-        health = 2;
-        Debug.Log(health);
+
     }
     void GotoPoint()
     {
@@ -109,7 +105,7 @@ public class CTRLBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
 
         if (goals.Length == 0) return;
 
@@ -119,13 +115,14 @@ public class CTRLBoss : MonoBehaviour
             {
                 Debug.Log("indeath");
                 timer += Time.deltaTime;
-
+               
+                
             }
             else
             {
-                Destroy(gameObject);
-                GameManager.instance.Pause();
                 youWon.SetActive(true);
+                Destroy(gameObject);
+               
             }
 
         }
@@ -139,6 +136,11 @@ public class CTRLBoss : MonoBehaviour
             }
             else
             {
+                if (healthUp)
+                {
+                    healthUp = false;
+                    health += 1;
+                }
                 if (isWalking)
                 {
                     //horse stops and heads towards attack point
@@ -150,7 +152,7 @@ public class CTRLBoss : MonoBehaviour
                  
                     if (hasArrived)
                     {
-
+                        shieldWalk.SetActive(false);
                         walkingHorse.Pause();
                         if (!isDead)
                         {
@@ -248,6 +250,9 @@ public class CTRLBoss : MonoBehaviour
             isDead = true;
             _animator.SetTrigger("isDead");
             dyingHorse.Play();
+            fight.Pause();
+            theme.Pause();
+            winTheme.SetActive(true);
         }
         else if (health > 0)
         {
@@ -316,4 +321,5 @@ public class CTRLBoss : MonoBehaviour
         if (search) agent.SearchPath();
 
     }
+   
 }

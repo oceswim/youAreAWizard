@@ -47,6 +47,8 @@ public class projectileMove : MonoBehaviour
                 break;
             case "PlayerAttack":
                 AudioSource.PlayClipAtPoint(shock, collision.transform.position);
+                Destroy(gameObject);
+                Destroy(collision.gameObject);
                 break;
             case "Shield":
                 AudioSource.PlayClipAtPoint(impactShield, collision.transform.position);

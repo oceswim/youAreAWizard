@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public static int theScene;
     private int count = 0;
 
-
+    private float tempo = 0;
     public int playerHealth;
     
     //Awake is always called before any Start functions
@@ -226,6 +226,7 @@ public class GameManager : MonoBehaviour
             Pause();
             ResetHealth();
             Player.tryAgain.SetActive(true);
+            Player.DeathTheme();
             //stop game and ask if want to quit or go back to latest saved place;
         }
     }
@@ -425,6 +426,7 @@ public class GameManager : MonoBehaviour
     public void WonThisGame()
     {
         theMenu = 2;
+        MainMenu();
     }
     public void setMenu(int index)
     {

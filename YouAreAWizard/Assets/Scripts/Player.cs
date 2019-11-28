@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class Player : MonoBehaviour
 {
+
     public GameObject savedMessage;
     public static GameObject tryAgain;
     public static bool displaySave = false;
@@ -16,15 +17,18 @@ public class Player : MonoBehaviour
     public GameObject lifeL,lifeR;
     private TMP_Text life;
     private bool found;
+    private static AudioSource death;
     //private GameObject theCanvas;
     //private Image theImage;
     
     private void Start()
     {
-        
+   
         hurt =found=reset =false;
         playerHealth = GameManager.instance.playerHealth;//takes health value from gamemanager
         tryAgain = GameObject.Find("Player/Canvas/Death");
+        death = tryAgain.GetComponent<AudioSource>();
+        Debug.Log(death.name);
         Debug.Log(playerHealth);
     }
     private void Update()
@@ -93,6 +97,7 @@ public class Player : MonoBehaviour
             playerHealth -= 1;
             Game.current.thePlayer.health = playerHealth;
             GameManager.instance.playerHealth = playerHealth;
+        Debug.Log(playerHealth + Game.current.thePlayer.health + GameManager.instance.playerHealth);
             UpdateLifeBar(playerHealth);
         
     }
@@ -107,6 +112,14 @@ public class Player : MonoBehaviour
         {
             life.text = "";
         }
+    }
+    public static void DeathTheme()
+    {
+        death.Play();
+    }
+    public void StopTheme()
+    {
+        death.Stop();
     }
 
 

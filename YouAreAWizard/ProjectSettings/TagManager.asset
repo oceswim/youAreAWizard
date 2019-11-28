@@ -23,6 +23,7 @@ TagManager:
   - target
   - Terrain
   - checkPoint
+  - orb
   layers:
   - Default
   - TransparentFX
