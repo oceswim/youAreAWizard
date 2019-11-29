@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public static GameObject tryAgain;
     public static bool displaySave = false;
     private float timer = 2;
+    private int single = 0;
     public int playerHealth;
     //public Sprite[] lifeDisplay;
     public static string theController;
@@ -90,13 +91,14 @@ public class Player : MonoBehaviour
                 {
                     healthIncrement.SetActive(false);
                     regenerate = false;
-                   
+                    single = 0;
                     timer = 2;
                 }
                 else
                 {
-                    if(timer<=2 && timer>1.9f)
+                    if(single==0)
                     {
+                        single++;
                         increaseHealth();
                     }
                     timer -= Time.deltaTime;
