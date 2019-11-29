@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="dc73e892-cb72-4494-a631-7320d252d3d3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/Imports/Lava_Flowing_Shader/Materials/mtl_lava_diffuse.mat" beforeDir="false" afterPath="$PROJECT_DIR$/YouAreAWizard/Assets/Imports/Lava_Flowing_Shader/Materials/mtl_lava_diffuse.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/Plugins/Android/Assets/oculussig_R58M90JKF6H" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/Plugins/Android/Assets/oculussig_R58M90JKF6H.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/Scenes/AttackLevel.unity" beforeDir="false" afterPath="$PROJECT_DIR$/YouAreAWizard/Assets/Scenes/AttackLevel.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/YouAreAWizard/Assets/Scenes/MainMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/Scenes/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/YouAreAWizard/Assets/Scenes/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/Scenes/WaveLevel.unity" beforeDir="false" afterPath="$PROJECT_DIR$/YouAreAWizard/Assets/Scenes/WaveLevel.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/Scenes/bossLevel.unity" beforeDir="false" afterPath="$PROJECT_DIR$/YouAreAWizard/Assets/Scenes/bossLevel.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/Scenes/tutoLevel.unity" beforeDir="false" afterPath="$PROJECT_DIR$/YouAreAWizard/Assets/Scenes/tutoLevel.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YouAreAWizard/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/Scripts/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YouAreAWizard/Assets/Scripts/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/Scripts/PlayerDestroy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YouAreAWizard/Assets/Scripts/PlayerDestroy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Bangers SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/YouAreAWizard/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Bangers SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/Assets/terrainLayers/terrainData/New Terrain.asset" beforeDir="false" afterPath="$PROJECT_DIR$/YouAreAWizard/Assets/terrainLayers/terrainData/New Terrain.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouAreAWizard/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/YouAreAWizard/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/../../keyStore" />
+    <option name="KEY_ALIAS" value="key0" />
+    <option name="BUILD_TARGET_KEY" value="apk" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/youAreAWizard.iml" />
+        <option value="$PROJECT_DIR$/.idea/modules.xml" />
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+        <option value="$PROJECT_DIR$/.idea/codeStyles/Project.xml" />
+        <option value="$PROJECT_DIR$/.idea/misc.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="40" />
+    <option name="y" value="23" />
+    <option name="width" value="1400" />
+    <option name="height" value="784" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="youAreAWizard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="youAreAWizard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="youAreAWizard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="youAreAWizard" type="462c0819:PsiDirectoryNode" />
+              <item name="YouAreAWizard" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="AndroidProguardConfigPaths" value="$USER_HOME$/Library/Android/sdk/tools/proguard/proguard-android.txt" />
+    <property name="AndroidRunProguardForReleaseBuild" value="true" />
+    <property name="ExportedApkPath" value="$USER_HOME$/Desktop/YouAreAWizard" />
+    <property name="ExportedModule" value="youAreAWizard" />
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dc73e892-cb72-4494-a631-7320d252d3d3" name="Default Changelist" comment="" />
+      <created>1575029824025</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1575029824025</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="40" y="23" width="1400" height="784" extended-state="0" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.33505154" />
+      <window_info id="Structure" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="Build Variants" side_tool="true" />
+      <window_info id="Resources Explorer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="Android Profiler" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Logcat" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" sideWeight="0.50073636" side_tool="true" visible="true" weight="0.32803467" />
+      <window_info anchor="bottom" id="Messages" sideWeight="0.4992636" visible="true" weight="0.32803467" />
+      <window_info anchor="right" id="Device File Explorer" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Palette&#9;" />
+    </layout>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

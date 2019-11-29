@@ -35,7 +35,7 @@ public class PlayerDestroy : MonoBehaviour
             else if (gameObject.tag == "magicStone")
             {
                 AudioSource.PlayClipAtPoint(StoneDestroy, thePlayer.transform.position, 200f);
-
+                Player.regenerate= true;
 
             }
             Destroy(gameObject);

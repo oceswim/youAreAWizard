@@ -29,8 +29,6 @@ public class GameManager : MonoBehaviour
     public static int theMenu = 0;
     public static int theScene;
     private int count = 0;
-
-    private float tempo = 0;
     public int playerHealth;
     
     //Awake is always called before any Start functions

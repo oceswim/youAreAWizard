@@ -13,9 +13,10 @@ public class Player : MonoBehaviour
     public int playerHealth;
     //public Sprite[] lifeDisplay;
     public static string theController;
-    public static bool hurt,reset;
-    public GameObject lifeL,lifeR;
+    public static bool hurt,reset,regenerate;
+    public GameObject lifeL,lifeR, healthIncreasedL, healthIncreasedR;
     private TMP_Text life;
+    private GameObject healthIncrement;
     private bool found;
     private static AudioSource death;
     //private GameObject theCanvas;
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
    
-        hurt =found=reset =false;
+        hurt =found=reset =regenerate=false;
         playerHealth = GameManager.instance.playerHealth;//takes health value from gamemanager
         tryAgain = GameObject.Find("Player/Canvas/Death");
         death = tryAgain.GetComponent<AudioSource>();
@@ -39,11 +40,13 @@ public class Player : MonoBehaviour
             {
                 case "lifeL":
                     lifeL.SetActive(true);
+                    healthIncrement = healthIncreasedL;
                     life = lifeL.GetComponentInChildren<TMP_Text>();
                     life.text = playerHealth.ToString();
                     break;
                 case "lifeR":
                     lifeR.SetActive(true);
+                    healthIncrement = healthIncreasedR;
                     life = lifeR.GetComponentInChildren<TMP_Text>();
                     life.text = playerHealth.ToString();
                     break;
@@ -80,6 +83,27 @@ public class Player : MonoBehaviour
                 decreaseHealth();
                 hurt = false;
             }
+            if(regenerate)
+            {
+                
+                if (timer < .5f)
+                {
+                    healthIncrement.SetActive(false);
+                    regenerate = false;
+                   
+                    timer = 2;
+                }
+                else
+                {
+                    if(timer<=2 && timer>1.9f)
+                    {
+                        increaseHealth();
+                    }
+                    timer -= Time.deltaTime;
+                }
+                
+               
+            }
         }
         
     }
@@ -100,6 +124,15 @@ public class Player : MonoBehaviour
         Debug.Log(playerHealth + Game.current.thePlayer.health + GameManager.instance.playerHealth);
             UpdateLifeBar(playerHealth);
         
+    }
+    private void increaseHealth()
+    {
+        playerHealth += 1;
+        healthIncrement.SetActive(true);
+        Game.current.thePlayer.health = playerHealth;
+        GameManager.instance.playerHealth = playerHealth;
+        Debug.Log(playerHealth + Game.current.thePlayer.health + GameManager.instance.playerHealth);
+        UpdateLifeBar(playerHealth);
     }
     public void UpdateLifeBar(int health)
     {
