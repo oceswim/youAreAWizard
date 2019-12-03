@@ -1,16 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*
+ * Oceane Peretti - K1844498 - 3D Games programming Assignment 2
+ * I confirm that this project is a product of my own and not the one of someone else.
+ */
+using System.Collections;
 using Pathfinding;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class CTRLBoss : MonoBehaviour
 {
     private int single,health;
-    /// <summary>Time in seconds to wait at each target</summary>
     public float delay = 0;
 
-    /// <summary>Current target index</summary>
     int index;
 
     IAstarAI agent;
@@ -25,22 +25,12 @@ public class CTRLBoss : MonoBehaviour
     public GameObject firePoint,vfx,shieldWalk,youWon,winTheme;
     private GameObject effectToSpawn;
 
-    //private GameObject effectToSpawn;
-
     private bool isWalking, isDead;
     public static bool playerSpotted,healthUp;
     private Animator _animator;
     private float _timeTillAttack = 2f;
     private float timer = 0;
-    /*
-     *stand is transition
-     * relax -> when sees player
-     * attack with delay between
-     * hit when hit
-     * die when die
-     * walk around to follow player 
-     *
-     */
+  
 
 
     void Awake()
@@ -48,7 +38,6 @@ public class CTRLBoss : MonoBehaviour
         agent = GetComponent<IAstarAI>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         healthUp = false;
@@ -280,43 +269,6 @@ public class CTRLBoss : MonoBehaviour
             agent.isStopped = false;
         }
         agent.destination = attackSpot.position;
-
-        if (search) agent.SearchPath();
-
-    }
-    void goToNewTarget()
-    {
-        bool search = false;
-        float diff1 = Mathf.Abs(goals[0].position.magnitude - transform.position.magnitude);
-        int theIndex = 0;
-        foreach (Transform t in goals)
-        {
-            float diff = Mathf.Abs(t.position.magnitude - transform.position.magnitude);
-            if (diff < diff1)
-            {
-                theIndex++;
-            }
-        }
-
-        if (agent.reachedEndOfPath && !agent.pathPending && float.IsPositiveInfinity(switchTime))
-        {
-            Debug.Log("i'm done fleeing");
-            single = 0;
-            hasArrived = true;
-        }
-
-        if (Time.time >= switchTime)
-        {
-            search = true;
-            switchTime = float.PositiveInfinity;
-        }
-        if (single == 2)
-        {
-            single++;
-            agent.isStopped = false;
-        }
-        agent.destination = goals[theIndex].position;
-        Debug.Log("going to" + agent.destination);
 
         if (search) agent.SearchPath();
 

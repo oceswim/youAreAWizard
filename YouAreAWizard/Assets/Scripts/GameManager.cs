@@ -10,16 +10,15 @@ using UnityEngine.UI;                   //Allows us to use UI.
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
-
+    public static GameManager instance = null;              
     public bool movingOn = false;
                                                           
                                 
-    private List<CTRLWizard> knights;                            //List of all Enemy units, used to issue them move commands.
+    private List<CTRLWizard> knights; //List of all Enemy units, used to issue them move commands.
     private List<CTRLpatrol> wand;
     private List<spawnMob> spawns;
     private GameObject nextStep;
-    public bool knightsDead;                             //Boolean to check if enemies are dead.
+    public bool knightsDead;  //Boolean to check if enemies are dead.
     public bool wandDead;
     private int knightsAdded;
     private int wandAdded;
@@ -31,7 +30,6 @@ public class GameManager : MonoBehaviour
     private int count = 0;
     public int playerHealth;
     
-    //Awake is always called before any Start functions
     void Awake()
     {
         
@@ -66,9 +64,7 @@ public class GameManager : MonoBehaviour
         knightsDead = false;
         wandDead = false;
         sceneLoad = false;
-        //Get a component reference to the attached BoardManager script
-        //levelImage.SetActive(false); 
-        //Call the InitGame function to initialize the first level
+
 
         InitGame();
 

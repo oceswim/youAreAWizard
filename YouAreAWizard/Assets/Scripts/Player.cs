@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*
+ * Oceane Peretti - K1844498 - 3D Games programming Assignment 2
+ * I confirm that this project is a product of my own and not the one of someone else.
+ */
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 public class Player : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class Player : MonoBehaviour
     private float timer = 2;
     private int single = 0;
     public int playerHealth;
-    //public Sprite[] lifeDisplay;
     public static string theController;
     public static bool hurt,reset,regenerate;
     public GameObject lifeL,lifeR, healthIncreasedL, healthIncreasedR;
@@ -20,8 +20,7 @@ public class Player : MonoBehaviour
     private GameObject healthIncrement;
     private bool found;
     private static AudioSource death;
-    //private GameObject theCanvas;
-    //private Image theImage;
+
     
     private void Start()
     {

@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*
+ * Oceane Peretti - K1844498 - 3D Games programming Assignment 2
+ * I confirm that this project is a product of my own and not the one of someone else.
+ */
 using UnityEngine;
-using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 
 public class buttonManager : MonoBehaviour

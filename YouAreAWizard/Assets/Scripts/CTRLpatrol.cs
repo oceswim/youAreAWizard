@@ -1,5 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿/*
+ * Oceane Peretti - K1844498 - 3D Games programming Assignment 2
+ * I confirm that this project is a product of my own and not the one of someone else.
+ */
+using UnityEngine;
 using UnityEngine.AI;
 
 public class CTRLpatrol : MonoBehaviour
@@ -33,7 +36,7 @@ public class CTRLpatrol : MonoBehaviour
     private Animator _animator;
     private float _timeTillAttack = 2f;
     private int health;
-    // Use this for initialization
+
     protected void Start()
     {
         GameManager.instance.AddWandToList(this);
@@ -155,8 +158,7 @@ public class CTRLpatrol : MonoBehaviour
         if (_timeTillAttack <= 0)
         {
             _animator.SetBool("isAttacking", true);
-            //play attack sounds
-            //attack script
+   
             if (shot < 1.5f)
             {
                 shot += Time.deltaTime;
@@ -201,7 +203,6 @@ public class CTRLpatrol : MonoBehaviour
         }
         else if (health > 0)
         {
-            //ouch noise
             AudioSource.PlayClipAtPoint(roar, thePlayer.transform.position, .3f);
             _animator.SetTrigger("isDamaged");
 

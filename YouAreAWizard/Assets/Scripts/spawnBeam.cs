@@ -1,5 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*
+ * Oceane Peretti - K1844498 - 3D Games programming Assignment 2
+ * I confirm that this project is a product of my own and not the one of someone else.
+ */
 using UnityEngine;
 
 public class spawnBeam : MonoBehaviour
@@ -7,13 +9,11 @@ public class spawnBeam : MonoBehaviour
     public GameObject firePoint;
     public GameObject vfx;
     private GameObject effectToSpawn;
-    // Start is called before the first frame update
     void Start()
     {
         effectToSpawn = vfx;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (gameObject.tag != "Player")
@@ -23,10 +23,6 @@ public class spawnBeam : MonoBehaviour
                 SpawnVFX();
                 vfx.SetActive(false);
             }
-        }
-        else
-        {
-            //player beam
         }
     }
     void SpawnVFX()

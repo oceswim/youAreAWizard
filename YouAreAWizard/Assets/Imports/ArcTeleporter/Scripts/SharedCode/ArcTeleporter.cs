@@ -40,7 +40,6 @@ public class ArcTeleporter : MonoBehaviour {
         // If the trigger was released this frame
         if (lastTriggerState && !currentTriggerState)
         {
-            Vector3 forward = objectToMove.forward;
             Vector3 up = Vector3.up;
 
             // If there is a valid raycast
@@ -55,13 +54,6 @@ public class ArcTeleporter : MonoBehaviour {
                     objectToMove.position = arcRaycaster.HitPoint + up * height;
                 }
             }
-
-           /* if (OVRInput.Get (OVRInput.Touch.PrimaryTouchpad))
-            {
-            	forward = TouchpadDirection;
-        }*/
-
-			//objectToMove.rotation = Quaternion.LookRotation (forward, up);
 		}
 
 		lastTriggerState = currentTriggerState;
@@ -109,16 +101,6 @@ public class ArcTeleporter : MonoBehaviour {
 			Matrix4x4 world = local * localToWorld;
 
 			return world;
-		}
-	}
-
-	Vector3 TouchpadDirection {
-		get {
-			Vector2 touch = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
-			Vector3 forward = new Vector3 (touch.x, 0.0f, touch.y).normalized;
-			forward = ControllerToWorldMatrix.MultiplyVector (forward);
-			forward = Vector3.ProjectOnPlane (forward, Vector3.up);
-			return forward.normalized;
 		}
 	}
 }

@@ -1,5 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿/*
+ * Oceane Peretti - K1844498 - 3D Games programming Assignment 2
+ * I confirm that this project is a product of my own and not the one of someone else.
+ */
+using UnityEngine;
 
 public class spellSpotter : MonoBehaviour
 {
@@ -211,10 +214,6 @@ public class spellSpotter : MonoBehaviour
             }
         }
 
-
-
-
-
         Debug.DrawRay(position11 + (transform.forward * 4), -transform.right * .5f, Color.yellow);
         Debug.DrawRay(position11 + (transform.forward * 4), transform.right * .5f, Color.yellow);
         Debug.DrawRay(position22 + (transform.forward * 4), -transform.right * .5f, Color.red);
@@ -253,8 +252,6 @@ public class spellSpotter : MonoBehaviour
             shield.Play();
             vfx.Play();
             CTRLBoss.healthUp = true;//increases the life of Skull if spell destroyed.
-
-            
         }
         else
         {

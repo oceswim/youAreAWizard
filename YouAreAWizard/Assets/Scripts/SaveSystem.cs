@@ -19,7 +19,7 @@ public static class SaveSystem
         string path = Application.persistentDataPath + "/player.gd";
         FileStream file = File.Create(path);
         formatter.Serialize(file, saved);//converts player data to binary file
-        file.Close();//
+        file.Close();
     }
     public static void LoadPlayer()
     {

@@ -1,10 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿/*
+ * Oceane Peretti - K1844498 - 3D Games programming Assignment 2
+ * I confirm that this project is a product of my own and not the one of someone else.
+ */
+using UnityEngine;
 using UnityEngine.AI;
 
 public class CTRLWizard : MonoBehaviour
 {
-    // public ParticleSystem death;
 
 
     public GameObject thePlayer;

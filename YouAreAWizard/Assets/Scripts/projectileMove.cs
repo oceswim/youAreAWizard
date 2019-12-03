@@ -1,5 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*
+ * Oceane Peretti - K1844498 - 3D Games programming Assignment 2
+ * I confirm that this project is a product of my own and not the one of someone else.
+ */
 using UnityEngine;
 
 public class projectileMove : MonoBehaviour
@@ -9,13 +11,11 @@ public class projectileMove : MonoBehaviour
     public GameObject target;
     public AudioClip hurt,shock,impactShield;
 
-    // Start is called before the first frame update
     private void Start()
     {
 
        target = GameObject.Find("Player");
     }
-    // Update is called once per frame
     void Update()
     {
         if(speed != 0)

@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*
+ * Oceane Peretti - K1844498 - 3D Games programming Assignment 2
+ * I confirm that this project is a product of my own and not the one of someone else.
+ */
+
 using UnityEngine;
 
 public class contact : MonoBehaviour
@@ -11,8 +14,7 @@ public class contact : MonoBehaviour
     public AudioClip shock;
     private int single = 0;
     public static bool activate;
-    // Start is called before the first frame update
-    // Update is called once per frame
+
     private void Start()
     {
         activate = false;

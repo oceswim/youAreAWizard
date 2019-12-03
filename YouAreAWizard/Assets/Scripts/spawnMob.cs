@@ -1,5 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*
+ * Oceane Peretti - K1844498 - 3D Games programming Assignment 2
+ * I confirm that this project is a product of my own and not the one of someone else.
+ */
 using UnityEngine;
 
 public class spawnMob : MonoBehaviour
@@ -7,20 +9,12 @@ public class spawnMob : MonoBehaviour
     public GameObject mob;
     public int theSpawnAmount;
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
   
 
         GameManager.instance.AddSpawnToList(this);
-      
-        //spawnAmount = RoomManager.spawnAmount;
-        
-        //in game manager create one spawnamount random
-        //qd spawn amount atteint, increment count of game manager
-        //qd spawn amount des 2 atteint alors gamemanger set next action
+
 
     }
     private void Update()
@@ -40,6 +34,6 @@ public class spawnMob : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+
 
 }

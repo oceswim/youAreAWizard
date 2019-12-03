@@ -1,5 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*
+ * Oceane Peretti - K1844498 - 3D Games programming Assignment 2
+ * I confirm that this project is a product of my own and not the one of someone else.
+ */
 using UnityEngine;
 
 public class Deactivate : MonoBehaviour
@@ -7,7 +9,6 @@ public class Deactivate : MonoBehaviour
     public GameObject[] toDeactivate;
     public GameObject[] toActivate;
     private int single;
-    // Start is called before the first frame update
     private void Start()
     {
         single = 0;
@@ -25,7 +26,7 @@ public class Deactivate : MonoBehaviour
                 
               s.SetActive(false);
             }
-            Destroy(gameObject);//destroy the teleport area
+            Destroy(gameObject);//destroy the object to deactivate 
          
         }
     }
