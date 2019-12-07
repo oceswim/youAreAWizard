@@ -42,6 +42,14 @@ public class GameManager : MonoBehaviour
             playerHealth = Game.current.thePlayer.health;
             PlayerPrefs.SetInt("firstLoad", 1);//allows to create a new game only at the very first load
         }
+        else
+        {
+            SaveSystem.LoadPlayer();
+            Game.current = new Game();
+            playerHealth = SaveSystem.health;
+            Game.current.thePlayer.health = playerHealth;
+            Game.current.thePlayer.level = SaveSystem.level;
+        }
         //Check if instance already exists
         if (instance == null)
 

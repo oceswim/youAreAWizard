@@ -10,7 +10,7 @@ using System.Collections.Generic;
 public static class SaveSystem
 {
     public static List<Game> saved = new List<Game>();
-    public static int isSaving;
+    public static int isSaving,level, health;
     public static void SavePlayer()
     {
         isSaving = 1;
@@ -18,7 +18,13 @@ public static class SaveSystem
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/playerInfo.gd";
         FileStream file = File.Create(path);
-        formatter.Serialize(file, saved);//converts player data to binary file
+        PlayerData data = new PlayerData()
+        {
+            level = Game.current.thePlayer.level,
+            health = Game.current.thePlayer.health
+            
+        };
+        formatter.Serialize(file, data);//converts player data to binary file
         file.Close();
     }
     public static void LoadPlayer()
@@ -30,9 +36,12 @@ public static class SaveSystem
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
-            saved = (List<Game>)formatter.Deserialize(stream);
+            PlayerData data = (PlayerData)formatter.Deserialize(stream);
             stream.Close();
-
+            
+            level = data.level;
+            health = data.health;
+    
         }
         else
         {
