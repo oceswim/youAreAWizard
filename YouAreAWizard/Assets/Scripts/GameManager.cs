@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
 using UnityEngine.UI;                   //Allows us to use UI.
-using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,7 +33,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         
-        if (!File.Exists(Application.persistentDataPath + "/playerInfo.gd"))
+        if (Game.current==null)
         {
             PlayerPrefs.DeleteAll();
             Debug.Log("new game");
@@ -42,14 +41,7 @@ public class GameManager : MonoBehaviour
             playerHealth = Game.current.thePlayer.health;
             PlayerPrefs.SetInt("firstLoad", 1);//allows to create a new game only at the very first load
         }
-        else
-        {
-            SaveSystem.LoadPlayer();
-            Game.current = new Game();
-            playerHealth = SaveSystem.health;
-            Game.current.thePlayer.health = playerHealth;
-            Game.current.thePlayer.level = SaveSystem.level;
-        }
+        
         //Check if instance already exists
         if (instance == null)
 
@@ -95,12 +87,7 @@ public class GameManager : MonoBehaviour
 
         instance.InitGame();
     }
-    void OnApplicationQuit()
-    {
-        SaveSystem.SavePlayer();
 
-        Debug.Log("Application ending after " + Time.time + " seconds");
-    }
     //Initializes the game for each level.
     public void InitGame()
     {
@@ -341,7 +328,6 @@ public class GameManager : MonoBehaviour
      
         Game.current.thePlayer.level = 3;
         PlayerPrefs.SetString("changeScene", "AttackLevel");
-        PlayerPrefs.SetInt("level",3);
 
     }
     public void TutoLevel()
@@ -349,7 +335,7 @@ public class GameManager : MonoBehaviour
         sceneLoad = true;
         PlayerPrefs.SetInt("CurrentLevel", 1);
         PlayerPrefs.SetString("changeScene", "tutoLevel");
-        PlayerPrefs.SetInt("level", 1);
+        
 
     }
     public void WaveLevel()
@@ -357,21 +343,19 @@ public class GameManager : MonoBehaviour
         sceneLoad = true;
         Game.current.thePlayer.level = 2;
         PlayerPrefs.SetString("changeScene", "WaveLevel");
-        PlayerPrefs.SetInt("level", 2);
     }
     public void BossLevel()
     {
         sceneLoad = true;
         Game.current.thePlayer.level = 4;
         PlayerPrefs.SetString("changeScene", "BossLevel");
-        PlayerPrefs.SetInt("level", 4);
+     
 
     }
     public void MainMenu()
     {
         sceneLoad = true;
         PlayerPrefs.SetString("changeScene", "MainMenu");
-        PlayerPrefs.SetInt("level", 0);
     }
     public void QuitGame()
     {

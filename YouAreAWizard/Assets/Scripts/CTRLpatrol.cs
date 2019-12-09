@@ -129,8 +129,6 @@ public class CTRLpatrol : MonoBehaviour
                 agent.isStopped = true;
                 if (!isDead)
                 {
-               
-                   
                     Attack();
                 }
               
@@ -165,6 +163,7 @@ public class CTRLpatrol : MonoBehaviour
                 if (shot > .7 && single == 0)
                 {
                     single++;
+                    Debug.Log("ATTACK");
                     SpawnVFX();
                 }
             }
@@ -173,6 +172,7 @@ public class CTRLpatrol : MonoBehaviour
                 _animator.SetBool("isAttacking", false);
                 _timeTillAttack = 3.0f;
                 shot = 0;
+                single = 0;
                 isAttacking = false;
             }
 
