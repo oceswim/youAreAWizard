@@ -14,7 +14,8 @@ public static class SaveSystem
     public static void SavePlayer()
     {
         isSaving = 1;
-        saved.Add(Game.current);
+        Game.current.thePlayer.health = GameManager.instance.playerHealth;
+        Game.current.thePlayer.level = PlayerPrefs.GetInt("level");
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/playerInfo.gd";
         FileStream file = File.Create(path);
